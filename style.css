@@ -348,6 +348,7 @@ body {
     background: var(--light-bg);
     border-radius: 4px;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .course-item:hover {
@@ -358,6 +359,15 @@ body {
 
 .course-item h4 {
     margin-top: 0;
+}
+
+.course-title-link {
+    color: var(--secondary);
+    text-decoration: none;
+}
+
+.course-title-link:hover {
+    text-decoration: underline;
 }
 
 .course-info {
