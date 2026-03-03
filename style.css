@@ -5,17 +5,20 @@
 }
 
 :root {
-    --primary-color: #2c3e50;
-    --secondary-color: #3498db;
+    --primary-color: #1a3a52;
+    --secondary-color: #2c5aa0;
     --accent-color: #e74c3c;
+    --success-color: #27ae60;
     --light-bg: #ecf0f1;
     --text-color: #2c3e50;
+    --light-text: #7f8c8d;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--text-color);
     line-height: 1.6;
+    background-color: #f8f9fa;
 }
 
 .container {
@@ -32,7 +35,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 .navbar .container {
@@ -50,23 +53,25 @@ body {
     display: flex;
     list-style: none;
     gap: 2rem;
+    flex-wrap: wrap;
 }
 
 .nav-links a {
     color: white;
     text-decoration: none;
     transition: color 0.3s ease;
+    font-size: 0.95rem;
 }
 
 .nav-links a:hover {
-    color: var(--secondary-color);
+    color: #ffd700;
 }
 
 /* Hero Section */
 .hero {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     color: white;
-    padding: 6rem 0;
+    padding: 5rem 0;
     text-align: center;
 }
 
@@ -76,85 +81,286 @@ body {
 }
 
 .hero p {
-    font-size: 1.3rem;
-    opacity: 0.9;
+    font-size: 1.2rem;
+    opacity: 0.95;
 }
 
-/* About Section */
-.about {
+/* Courses Section */
+.courses {
     padding: 4rem 0;
     background-color: white;
 }
 
-.about h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    color: var(--primary-color);
-}
-
-.about p {
-    max-width: 700px;
-    margin: 0 auto;
-    font-size: 1.1rem;
-    text-align: center;
-}
-
-/* Projects Section */
-.projects {
-    padding: 4rem 0;
-    background-color: var(--light-bg);
-}
-
-.projects h2 {
+.courses h2 {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 3rem;
     color: var(--primary-color);
 }
 
-.project-grid {
+.course-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
 }
 
-.project-card {
+.course-card {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border-color: var(--secondary-color);
+}
+
+.course-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.course-card h3 {
+    color: var(--secondary-color);
+    font-size: 1.3rem;
+}
+
+.semester {
+    background-color: var(--light-bg);
+    color: var(--primary-color);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.course-details {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.course-details p {
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+    color: var(--light-text);
+}
+
+.btn-small {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.btn-small:hover {
+    background-color: var(--accent-color);
+}
+
+/* Announcements Section */
+.announcements {
+    padding: 4rem 0;
+    background-color: var(--light-bg);
+}
+
+.announcements h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--primary-color);
+}
+
+.announcement-list {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.announcement-item {
+    background: white;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--secondary-color);
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.announcement-date {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.announcement-item h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.announcement-item p {
+    color: var(--light-text);
+    line-height: 1.8;
+}
+
+/* Resources Section */
+.resources {
+    padding: 4rem 0;
+    background-color: white;
+}
+
+.resources h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--primary-color);
+}
+
+.resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.resource-card {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.resource-card:hover {
+    transform: translateY(-5px);
+}
+
+.resource-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.resource-card p {
+    color: var(--text-color);
+}
+
+/* Office Hours Section */
+.office-hours {
+    padding: 4rem 0;
+    background-color: var(--light-bg);
+}
+
+.office-hours h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--primary-color);
+}
+
+.office-hours-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.hours-box {
     background: white;
     padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-.project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0,0,0,0.15);
-}
-
-.project-card h3 {
+.hours-box h3 {
     color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+}
+
+.hours-box ul {
+    list-style: none;
     margin-bottom: 1rem;
+}
+
+.hours-box li {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #e0e0e0;
+    color: var(--text-color);
+}
+
+.hours-box li:last-child {
+    border-bottom: none;
+}
+
+.location {
+    margin-top: 1rem;
+    color: var(--secondary-color);
+    font-weight: 600;
 }
 
 /* Contact Section */
 .contact {
     padding: 4rem 0;
     background-color: white;
-    text-align: center;
 }
 
 .contact h2 {
+    text-align: center;
     font-size: 2.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
     color: var(--primary-color);
 }
 
-.contact-links {
+.contact-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.contact-box {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.contact-box h3 {
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.contact-box p {
+    color: var(--light-text);
+    margin-bottom: 0.5rem;
+}
+
+.contact-box a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.contact-box a:hover {
+    text-decoration: underline;
+}
+
+.social-links {
     display: flex;
-    justify-content: center;
     gap: 1rem;
-    margin-top: 2rem;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
@@ -185,7 +391,7 @@ footer {
 @media (max-width: 768px) {
     .nav-links {
         gap: 1rem;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
 
     .hero h2 {
@@ -196,13 +402,33 @@ footer {
         font-size: 1rem;
     }
 
-    .projects h2,
-    .about h2,
+    .courses h2,
+    .announcements h2,
+    .resources h2,
+    .office-hours h2,
     .contact h2 {
         font-size: 2rem;
     }
 
-    .project-grid {
+    .course-grid,
+    .resource-grid,
+    .office-hours-content,
+    .contact-content {
         grid-template-columns: 1fr;
+    }
+
+    .announcement-item {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-links {
+        gap: 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    .logo {
+        font-size: 1.3rem;
     }
 }
