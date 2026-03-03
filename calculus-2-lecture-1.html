@@ -1,313 +1,952 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculus II - Lecture 1</title>
-    <link rel="stylesheet" href="style.css">
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']],
-                macros: {
-                    R: '{\\mathbb{R}}',
-                    vect: ['{\\mathbf{#1}}', 1],
-                    norm: ['{\\left\\lVert #1 \\right\\rVert}', 1],
-                    abs: ['{\\left\\lvert #1 \\right\\rvert}', 1],
-                    dd: '{\\,\\mathrm{d}}'
-                }
-            },
-            svg: { fontCache: 'global' }
-        };
-    </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Vectors in Euclidean Space Lecture Notes for Multivariable Calculus</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+
+    body {
+      max-width: 1280px;
+      display: grid;
+      grid-template-columns: 300px minmax(0, 1fr);
+      gap: 2rem;
+      align-items: start;
+      padding: 24px 24px 56px;
+    }
+
+    header {
+      grid-column: 1 / -1;
+      text-align: left;
+      margin-bottom: 0.5rem;
+    }
+
+    #TOC {
+      position: sticky;
+      top: 18px;
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 0.9rem;
+      background: #fafafa;
+      margin-top: 0;
+    }
+
+    #TOC ~ * {
+      grid-column: 2;
+    }
+
+    @media (max-width: 1000px) {
+      body {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 16px;
+      }
+
+      #TOC {
+        position: static;
+        max-height: none;
+      }
+
+      #TOC ~ * {
+        grid-column: 1;
+      }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <h1 class="logo">Fudong</h1>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Me</a></li>
-                <li><a href="publications.html">Publications</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="teaching.html" class="active">Teaching</a></li>
-                <li><a href="notes.html">Notes</a></li>
-            </ul>
-        </div>
-    </nav>
+<header id="title-block-header">
+<h1 class="title">Vectors in Euclidean Space<br />
+Lecture Notes for Multivariable Calculus</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#lecture-scope-and-goals-5-min">Lecture Scope and Goals (5 min)</a>
+<ul>
+<li><a href="#suggested-time-allocation">Suggested Time Allocation</a></li>
+</ul></li>
+<li><a href="#euclidean-space-and-the-meaning-of-a-vector-12-min">Euclidean Space and the Meaning of a Vector (12 min)</a>
+<ul>
+<li><a href="#two-complementary-viewpoints">Two Complementary Viewpoints</a></li>
+<li><a href="#free-vectors-and-position-vectors">Free Vectors and Position Vectors</a></li>
+<li><a href="#vectors-in-dimension-2">Vectors in Dimension 2</a></li>
+<li><a href="#vectors-in-dimension-3">Vectors in Dimension 3</a></li>
+</ul></li>
+<li><a href="#coordinates-components-and-standard-basis-8-min">Coordinates, Components, and Standard Basis (8 min)</a>
+<ul>
+<li><a href="#geometric-meaning-of-components">Geometric Meaning of Components</a></li>
+</ul></li>
+<li><a href="#vector-addition-scalar-multiplication-and-linear-combinations-15-min">Vector Addition, Scalar Multiplication, and Linear Combinations (15 min)</a>
+<ul>
+<li><a href="#addition">Addition</a></li>
+<li><a href="#scalar-multiplication">Scalar Multiplication</a></li>
+<li><a href="#linear-combinations">Linear Combinations</a></li>
+<li><a href="#geometric-interpretation-in-mathbbr2">Geometric Interpretation in <span class="math inline">\(\mathbb{R}^2\)</span></a></li>
+<li><a href="#geometric-interpretation-in-mathbbr3">Geometric Interpretation in <span class="math inline">\(\mathbb{R}^3\)</span></a></li>
+</ul></li>
+<li><a href="#magnitude-distance-and-direction-8-min">Magnitude, Distance, and Direction (8 min)</a>
+<ul>
+<li><a href="#length-of-a-vector">Length of a Vector</a></li>
+<li><a href="#distance-between-points">Distance Between Points</a></li>
+<li><a href="#unit-vectors">Unit Vectors</a></li>
+</ul></li>
+<li><a href="#dot-product-angle-and-projection-18-min">Dot Product, Angle, and Projection (18 min)</a>
+<ul>
+<li><a href="#algebraic-role">Algebraic Role</a></li>
+<li><a href="#geometric-formula">Geometric Formula</a></li>
+<li><a href="#orthogonality">Orthogonality</a></li>
+<li><a href="#projection">Projection</a></li>
+<li><a href="#interpretation-as-action">Interpretation as Action</a></li>
+</ul></li>
+<li><a href="#cross-product-in-mathbbr3-15-min">Cross Product in <span class="math inline">\(\mathbb{R}^3\)</span> (15 min)</a>
+<ul>
+<li><a href="#geometric-meaning">Geometric Meaning</a></li>
+<li><a href="#area-interpretation">Area Interpretation</a></li>
+<li><a href="#example">Example</a></li>
+</ul></li>
+<li><a href="#determinants-in-dimension-2-and-3-15-min">Determinants in Dimension 2 and 3 (15 min)</a>
+<ul>
+<li><a href="#determinant-of-a-2times-2-matrix">Determinant of a <span class="math inline">\(2\times 2\)</span> Matrix</a></li>
+<li><a href="#geometric-meaning-in-mathbbr2">Geometric Meaning in <span class="math inline">\(\mathbb{R}^2\)</span></a></li>
+<li><a href="#determinant-of-a-3times-3-matrix">Determinant of a <span class="math inline">\(3\times 3\)</span> Matrix</a></li>
+<li><a href="#geometric-meaning-in-mathbbr3">Geometric Meaning in <span class="math inline">\(\mathbb{R}^3\)</span></a></li>
+<li><a href="#scalar-triple-product">Scalar Triple Product</a></li>
+<li><a href="#why-determinants-matter-in-calculus">Why Determinants Matter in Calculus</a></li>
+</ul></li>
+<li><a href="#changing-coordinates-with-matrices-and-computing-areavolume-10-min">Changing Coordinates with Matrices and Computing Area/Volume (10 min)</a>
+<ul>
+<li><a href="#a-new-coordinate-system-from-new-basis-vectors">A New Coordinate System from New Basis Vectors</a></li>
+<li><a href="#area-in-the-new-coordinate-system">Area in the New Coordinate System</a></li>
+<li><a href="#example-in-mathbbr2">Example in <span class="math inline">\(\mathbb{R}^2\)</span></a></li>
+<li><a href="#the-same-idea-in-mathbbr3">The Same Idea in <span class="math inline">\(\mathbb{R}^3\)</span></a></li>
+<li><a href="#why-this-is-the-geometric-meaning-of-determinant">Why This Is the Geometric Meaning of Determinant</a></li>
+<li><a href="#connection-to-change-of-variables-in-calculus">Connection to Change of Variables in Calculus</a></li>
+</ul></li>
+<li><a href="#lines-planes-and-geometry-from-vectors-8-min">Lines, Planes, and Geometry from Vectors (8 min)</a>
+<ul>
+<li><a href="#equation-of-a-line">Equation of a Line</a></li>
+<li><a href="#equation-of-a-plane-in-mathbbr3">Equation of a Plane in <span class="math inline">\(\mathbb{R}^3\)</span></a></li>
+<li><a href="#cross-product-and-planes">Cross Product and Planes</a></li>
+</ul></li>
+<li><a href="#matrices-as-actions-on-vectors-15-min">Matrices as Actions on Vectors (15 min)</a>
+<ul>
+<li><a href="#matrix-vector-multiplication">Matrix-Vector Multiplication</a></li>
+<li><a href="#column-interpretation">Column Interpretation</a></li>
+<li><a href="#action-in-mathbbr2">Action in <span class="math inline">\(\mathbb{R}^2\)</span></a></li>
+<li><a href="#action-in-mathbbr3">Action in <span class="math inline">\(\mathbb{R}^3\)</span></a></li>
+<li><a href="#meaning-of-matrix-addition">Meaning of Matrix Addition</a></li>
+<li><a href="#meaning-of-scalar-multiplication-of-matrices">Meaning of Scalar Multiplication of Matrices</a></li>
+<li><a href="#meaning-of-matrix-multiplication">Meaning of Matrix Multiplication</a></li>
+<li><a href="#why-order-matters">Why Order Matters</a></li>
+<li><a href="#determinant-as-areavolume-scaling">Determinant as Area/Volume Scaling</a></li>
+<li><a href="#invertibility">Invertibility</a></li>
+</ul></li>
+<li><a href="#connection-to-multivariable-calculus-4-min">Connection to Multivariable Calculus (4 min)</a>
+<ul>
+<li><a href="#gradients">Gradients</a></li>
+<li><a href="#directional-derivatives">Directional Derivatives</a></li>
+<li><a href="#derivative-matrix">Derivative Matrix</a></li>
+</ul></li>
+<li><a href="#worked-examples-6-min">Worked Examples (6 min)</a>
+<ul>
+<li><a href="#example-1-addition-as-combined-motion-in-mathbbr2">Example 1: Addition as Combined Motion in <span class="math inline">\(\mathbb{R}^2\)</span></a></li>
+<li><a href="#example-2-projection-in-mathbbr2">Example 2: Projection in <span class="math inline">\(\mathbb{R}^2\)</span></a></li>
+<li><a href="#example-3-area-from-a-determinant-in-mathbbr2">Example 3: Area from a Determinant in <span class="math inline">\(\mathbb{R}^2\)</span></a></li>
+<li><a href="#example-4-volume-from-a-determinant-in-mathbbr3">Example 4: Volume from a Determinant in <span class="math inline">\(\mathbb{R}^3\)</span></a></li>
+<li><a href="#example-5-matrix-as-a-transformation">Example 5: Matrix as a Transformation</a></li>
+</ul></li>
+<li><a href="#student-problems-computational-practice-7-min">Student Problems: Computational Practice (7 min)</a></li>
+<li><a href="#student-problems-construction-and-thinking-5-min">Student Problems: Construction and Thinking (5 min)</a></li>
+<li><a href="#short-concept-checks-for-class-3-min">Short Concept Checks for Class (3 min)</a></li>
+<li><a href="#summary-3-min">Summary (3 min)</a></li>
+</ul>
+</nav>
+<h1 id="lecture-scope-and-goals-5-min">Lecture Scope and Goals (5 min)</h1>
+<p>This lecture is designed as a <span class="math inline">\(2\)</span>-hour <span class="math inline">\(30\)</span>-minute introduction to vectors in Euclidean space for students beginning multivariable calculus. The central goals are:</p>
+<ul>
+<li><p>understand vectors as quantities with magnitude and direction,</p></li>
+<li><p>move fluently between geometric pictures and coordinate formulas,</p></li>
+<li><p>learn the algebra of vectors in <span class="math inline">\(\mathbb{R}^2\)</span> and <span class="math inline">\(\mathbb{R}^3\)</span>,</p></li>
+<li><p>connect dot product, cross product, determinants, and matrices to geometry,</p></li>
+<li><p>prepare for gradients, tangent planes, linear approximations, and Jacobians.</p></li>
+</ul>
+<h2 class="unnumbered" id="suggested-time-allocation">Suggested Time Allocation</h2>
+<div class="tcolorbox">
+<ul>
+<li><p><span class="math inline">\(25\)</span> min: vectors in <span class="math inline">\(\mathbb{R}^2\)</span> and <span class="math inline">\(\mathbb{R}^3\)</span>, magnitude, direction, components,</p></li>
+<li><p><span class="math inline">\(25\)</span> min: vector addition, scalar multiplication, linear combinations,</p></li>
+<li><p><span class="math inline">\(25\)</span> min: dot product, angle, projection,</p></li>
+<li><p><span class="math inline">\(20\)</span> min: cross product in <span class="math inline">\(\mathbb{R}^3\)</span>,</p></li>
+<li><p><span class="math inline">\(15\)</span> min: determinants in dimensions <span class="math inline">\(2\)</span> and <span class="math inline">\(3\)</span> and geometric meaning,</p></li>
+<li><p><span class="math inline">\(10\)</span> min: coordinate changes and area/volume in new coordinates,</p></li>
+<li><p><span class="math inline">\(15\)</span> min: matrices as actions on vectors,</p></li>
+<li><p><span class="math inline">\(10\)</span> min: integrated examples,</p></li>
+<li><p>remaining time: discussion, student problem-solving, and review.</p></li>
+</ul>
+</div>
+<div class="tcolorbox">
+<p>In this lecture, we will focus on the core ideas of <strong>vectors</strong>, <strong>Euclidean space</strong>, <strong>vector addition</strong>, <strong>scalar multiplication</strong>, <strong>linear combinations</strong>, <strong>dot product</strong>, <strong>cross product</strong>, <strong>determinants</strong>, <strong>coordinate changes</strong>, and <strong>matrices as linear transformations</strong>. These ideas lead directly to the language of <strong>gradients</strong>, <strong>directional derivatives</strong>, <strong>Jacobians</strong>, and geometric thinking in multivariable calculus.</p>
+</div>
+<h1 id="euclidean-space-and-the-meaning-of-a-vector-12-min">Euclidean Space and the Meaning of a Vector (12 min)</h1>
+<p>The Euclidean space <span class="math inline">\(\mathbb{R}^n\)</span> is the set of all ordered <span class="math inline">\(n\)</span>-tuples <span class="math display">\[(x_1,x_2,\dots,x_n), \qquad x_i \in \mathbb{R}.\]</span> For this lecture, the most important cases are: <span class="math display">\[\mathbb{R}^2 = \{(x,y)\}, \qquad \mathbb{R}^3 = \{(x,y,z)\}.\]</span></p>
+<h2 id="two-complementary-viewpoints">Two Complementary Viewpoints</h2>
+<p>An element of <span class="math inline">\(\mathbb{R}^n\)</span> can be interpreted in two ways:</p>
+<ul>
+<li><p>as a <strong>point</strong>, specifying a location,</p></li>
+<li><p>as a <strong>vector</strong>, specifying a displacement from the origin.</p></li>
+</ul>
+<p>For example, the coordinate pair <span class="math inline">\((3,2)\)</span> can mean:</p>
+<ul>
+<li><p>the point located <span class="math inline">\(3\)</span> units right and <span class="math inline">\(2\)</span> units up, or</p></li>
+<li><p>the vector that moves any point by <span class="math inline">\(3\)</span> units in the <span class="math inline">\(x\)</span>-direction and <span class="math inline">\(2\)</span> units in the <span class="math inline">\(y\)</span>-direction.</p></li>
+</ul>
+<h2 id="free-vectors-and-position-vectors">Free Vectors and Position Vectors</h2>
+<p>A vector is often drawn as an arrow. Its essential information is:</p>
+<ul>
+<li><p>its length,</p></li>
+<li><p>its direction.</p></li>
+</ul>
+<p>The exact starting location does not matter if we only care about displacement. Such an object is a <strong>free vector</strong>. When the tail is placed at the origin, it is called a <strong>position vector</strong>.</p>
+<h2 id="vectors-in-dimension-2">Vectors in Dimension 2</h2>
+<p>In <span class="math inline">\(\mathbb{R}^2\)</span>, a vector <span class="math display">\[\mathbf{v} = (a,b)\]</span> represents a motion:</p>
+<ul>
+<li><p>move <span class="math inline">\(a\)</span> units horizontally,</p></li>
+<li><p>move <span class="math inline">\(b\)</span> units vertically.</p></li>
+</ul>
+<p>This immediately connects vectors with velocity, force, and displacement in planar motion.</p>
+<h2 id="vectors-in-dimension-3">Vectors in Dimension 3</h2>
+<p>In <span class="math inline">\(\mathbb{R}^3\)</span>, a vector <span class="math display">\[\mathbf{v} = (a,b,c)\]</span> represents a spatial motion:</p>
+<ul>
+<li><p><span class="math inline">\(a\)</span> units in the <span class="math inline">\(x\)</span>-direction,</p></li>
+<li><p><span class="math inline">\(b\)</span> units in the <span class="math inline">\(y\)</span>-direction,</p></li>
+<li><p><span class="math inline">\(c\)</span> units in the <span class="math inline">\(z\)</span>-direction.</p></li>
+</ul>
+<p>This is the natural language for surfaces, tangent planes, fluid flow, and vector fields.</p>
+<h1 id="coordinates-components-and-standard-basis-8-min">Coordinates, Components, and Standard Basis (8 min)</h1>
+<p>The standard basis vectors are <span class="math display">\[\mathbf{e}_1=(1,0,\dots,0), \quad \mathbf{e}_2=(0,1,0,\dots,0), \quad \dots, \quad \mathbf{e}_n=(0,\dots,0,1).\]</span> Every vector <span class="math inline">\(\mathbf{x}=(x_1,\dots,x_n)\)</span> can be written as <span class="math display">\[\mathbf{x} = x_1\mathbf{e}_1 + x_2\mathbf{e}_2 + \dots + x_n\mathbf{e}_n.\]</span></p>
+<h2 id="geometric-meaning-of-components">Geometric Meaning of Components</h2>
+<p>The numbers <span class="math inline">\(x_1,\dots,x_n\)</span> are not arbitrary labels. They tell us how much of the vector lies in each coordinate direction.</p>
+<p>For example, in <span class="math inline">\(\mathbb{R}^2\)</span>: <span class="math display">\[(4,-1) = 4\mathbf{e}_1 - \mathbf{e}_2.\]</span> This says: move <span class="math inline">\(4\)</span> units right, then <span class="math inline">\(1\)</span> unit down.</p>
+<p>In <span class="math inline">\(\mathbb{R}^3\)</span>: <span class="math display">\[(2,-3,5) = 2\mathbf{e}_1 - 3\mathbf{e}_2 + 5\mathbf{e}_3.\]</span> This is a decomposition into three independent directional actions.</p>
+<h1 id="vector-addition-scalar-multiplication-and-linear-combinations-15-min">Vector Addition, Scalar Multiplication, and Linear Combinations (15 min)</h1>
+<p>Let <span class="math display">\[\mathbf{u}=(u_1,\dots,u_n), \qquad \mathbf{v}=(v_1,\dots,v_n).\]</span></p>
+<h2 id="addition">Addition</h2>
+<p>Vector addition is defined componentwise: <span class="math display">\[\mathbf{u}+\mathbf{v}=(u_1+v_1,\dots,u_n+v_n).\]</span> Geometrically, addition combines displacements. If <span class="math inline">\(\mathbf{u}\)</span> moves you first and <span class="math inline">\(\mathbf{v}\)</span> moves you second, the total effect is <span class="math inline">\(\mathbf{u}+\mathbf{v}\)</span>.</p>
+<h2 id="scalar-multiplication">Scalar Multiplication</h2>
+<p>For <span class="math inline">\(c \in \mathbb{R}\)</span>, <span class="math display">\[c\mathbf{u}=(cu_1,\dots,cu_n).\]</span> Geometrically:</p>
+<ul>
+<li><p>if <span class="math inline">\(c&gt;1\)</span>, the vector is stretched,</p></li>
+<li><p>if <span class="math inline">\(0&lt;c&lt;1\)</span>, it is compressed,</p></li>
+<li><p>if <span class="math inline">\(c&lt;0\)</span>, its direction reverses and its length scales by <span class="math inline">\(\left\lvert c \right\rvert\)</span>.</p></li>
+</ul>
+<h2 id="linear-combinations">Linear Combinations</h2>
+<p>An expression of the form <span class="math display">\[a_1\mathbf{v}_1 + a_2\mathbf{v}_2 + \dots + a_k\mathbf{v}_k\]</span> is a linear combination.</p>
+<p>This is one of the most important ideas in multivariable calculus and linear algebra:</p>
+<ul>
+<li><p>in <span class="math inline">\(\mathbb{R}^2\)</span>, linear combinations of two nonparallel vectors can reach the entire plane,</p></li>
+<li><p>in <span class="math inline">\(\mathbb{R}^3\)</span>, linear combinations of three suitably independent vectors can reach the entire space.</p></li>
+</ul>
+<h2 id="geometric-interpretation-in-mathbbr2">Geometric Interpretation in <span class="math inline">\(\mathbb{R}^2\)</span></h2>
+<p>If <span class="math display">\[\mathbf{v}_1=(1,0), \qquad \mathbf{v}_2=(0,1),\]</span> then <span class="math display">\[(x,y)=x\mathbf{v}_1+y\mathbf{v}_2.\]</span> This means all points in the plane can be built by combining horizontal and vertical moves.</p>
+<h2 id="geometric-interpretation-in-mathbbr3">Geometric Interpretation in <span class="math inline">\(\mathbb{R}^3\)</span></h2>
+<p>If <span class="math display">\[\mathbf{v}_1=(1,0,0), \qquad \mathbf{v}_2=(0,1,0), \qquad \mathbf{v}_3=(0,0,1),\]</span> then <span class="math display">\[(x,y,z)=x\mathbf{v}_1+y\mathbf{v}_2+z\mathbf{v}_3.\]</span> This is the coordinate model of ordinary space.</p>
+<h1 id="magnitude-distance-and-direction-8-min">Magnitude, Distance, and Direction (8 min)</h1>
+<h2 id="length-of-a-vector">Length of a Vector</h2>
+<p>The norm of <span class="math inline">\(\mathbf{v}=(v_1,\dots,v_n)\)</span> is <span class="math display">\[\left\lVert \mathbf{v} \right\rVert = \sqrt{v_1^2+\dots+v_n^2}.\]</span> This is the Euclidean length of the vector.</p>
+<p>Examples: <span class="math display">\[\left\lVert (3,4) \right\rVert=5, \qquad \left\lVert (2,-1,2) \right\rVert=3.\]</span></p>
+<h2 id="distance-between-points">Distance Between Points</h2>
+<p>For points <span class="math inline">\(P=(x_1,\dots,x_n)\)</span> and <span class="math inline">\(Q=(y_1,\dots,y_n)\)</span>, <span class="math display">\[d(P,Q)=\left\lVert Q-P \right\rVert.\]</span> So distance is just the length of the displacement vector from <span class="math inline">\(P\)</span> to <span class="math inline">\(Q\)</span>.</p>
+<h2 id="unit-vectors">Unit Vectors</h2>
+<p>If <span class="math inline">\(\mathbf{v}\neq \mathbf{0}\)</span>, then <span class="math display">\[\frac{\mathbf{v}}{\left\lVert \mathbf{v} \right\rVert}\]</span> is the unit vector in the direction of <span class="math inline">\(\mathbf{v}\)</span>.</p>
+<p>Unit vectors separate <strong>direction</strong> from <strong>magnitude</strong>. This is essential in directional derivatives.</p>
+<h1 id="dot-product-angle-and-projection-18-min">Dot Product, Angle, and Projection (18 min)</h1>
+<p>For <span class="math display">\[\mathbf{u}=(u_1,\dots,u_n), \qquad \mathbf{v}=(v_1,\dots,v_n),\]</span> the dot product is <span class="math display">\[\mathbf{u}\cdot\mathbf{v}=u_1v_1+\dots+u_nv_n.\]</span></p>
+<h2 id="algebraic-role">Algebraic Role</h2>
+<p>The dot product combines coordinate information into a single scalar. It measures directional agreement:</p>
+<ul>
+<li><p>large positive value: vectors point in similar directions,</p></li>
+<li><p>zero: vectors are perpendicular,</p></li>
+<li><p>negative value: vectors point in opposite general directions.</p></li>
+</ul>
+<h2 id="geometric-formula">Geometric Formula</h2>
+<p>For nonzero vectors, <span class="math display">\[\mathbf{u}\cdot\mathbf{v}=\left\lVert \mathbf{u} \right\rVert\left\lVert \mathbf{v} \right\rVert\cos\theta,\]</span> where <span class="math inline">\(\theta\)</span> is the angle between the vectors. Therefore, <span class="math display">\[\cos\theta = \frac{\mathbf{u}\cdot\mathbf{v}}{\left\lVert \mathbf{u} \right\rVert\left\lVert \mathbf{v} \right\rVert}.\]</span></p>
+<h2 id="orthogonality">Orthogonality</h2>
+<p>Two vectors are orthogonal if <span class="math display">\[\mathbf{u}\cdot\mathbf{v}=0.\]</span> In multivariable calculus, this appears in:</p>
+<ul>
+<li><p>normal vectors to curves and surfaces,</p></li>
+<li><p>gradients perpendicular to level sets,</p></li>
+<li><p>optimization constraints.</p></li>
+</ul>
+<div class="tcolorbox">
+<p>Consider the problem <span class="math display">\[\min_{\mathbf{w}\in\mathbb{R}^2} f(\mathbf{w}) = w_1^2+w_2^2
+\quad \text{subject to} \quad
+w_1+2w_2=1.\]</span> We are looking for the vector of smallest length that still satisfies the linear constraint.</p>
+<p>This is a geometric optimization problem:</p>
+<ul>
+<li><p>the objective <span class="math inline">\(f(\mathbf{w})=\left\lVert \mathbf{w} \right\rVert^2\)</span> measures model size,</p></li>
+<li><p>the constraint <span class="math inline">\(w_1+2w_2=1\)</span> is a line,</p></li>
+<li><p>the minimum occurs where the smallest circle centered at the origin touches that line.</p></li>
+</ul>
+<p>The constraint can be written as <span class="math display">\[\mathbf{a}\cdot \mathbf{w}=1,
+\qquad
+\text{where }
+\mathbf{a}=(1,2).\]</span> The line <span class="math inline">\(\mathbf{a}\cdot \mathbf{w}=1\)</span> has normal vector <span class="math inline">\(\mathbf{a}\)</span>, so at the optimal point the vector <span class="math inline">\(\mathbf{w}\)</span> must be parallel to <span class="math inline">\(\mathbf{a}\)</span>: <span class="math display">\[\mathbf{w}=\lambda (1,2).\]</span> Substitute into the constraint: <span class="math display">\[(1,2)\cdot \lambda(1,2)=\lambda(1+4)=5\lambda=1,\]</span> so <span class="math display">\[\lambda=\frac{1}{5},
+\qquad
+\mathbf{w}^*=\left(\frac15,\frac25\right).\]</span> This is the minimum-norm solution.</p>
+<section id="why-this-matters-in-machine-learning." class="tcolorbox">
+<h4>Why this matters in machine learning.</h4>
+<p>This same geometry appears constantly in AI and data science:</p>
+<ul>
+<li><p>in <strong>regularization</strong>, we prefer smaller parameter vectors because they are more stable and often generalize better,</p></li>
+<li><p>in <strong>linear models</strong>, we may require a prediction constraint while choosing the smallest weights that satisfy it,</p></li>
+<li><p>in <strong>support vector methods</strong>, geometric separation and constrained optimization are built from the same dot-product and normal-vector ideas,</p></li>
+<li><p>in modern <strong>machine learning systems</strong>, constrained optimization is used whenever we balance fit, resource limits, or safety constraints.</p></li>
+</ul>
+</section>
+<p>The key geometric principle is:</p>
+<div class="center">
+<p><strong>At a constrained optimum, the objective and the constraint meet tangentially, so their normals align.</strong></p>
+</div>
+<p>This is the intuition behind Lagrange multipliers.</p>
+</div>
+<h2 id="projection">Projection</h2>
+<p>The projection of <span class="math inline">\(\mathbf{u}\)</span> onto a nonzero vector <span class="math inline">\(\mathbf{v}\)</span> is <span class="math display">\[\operatorname{proj}_{\mathbf{v}}\mathbf{u}
+=
+\frac{\mathbf{u}\cdot\mathbf{v}}{\mathbf{v}\cdot\mathbf{v}}\,\mathbf{v}.\]</span> This gives the part of <span class="math inline">\(\mathbf{u}\)</span> acting in the direction of <span class="math inline">\(\mathbf{v}\)</span>.</p>
+<h2 id="interpretation-as-action">Interpretation as Action</h2>
+<p>Suppose <span class="math inline">\(\mathbf{v}\)</span> describes a direction of motion. Then <span class="math inline">\(\operatorname{proj}_{\mathbf{v}}\mathbf{u}\)</span> is the effective component of the motion <span class="math inline">\(\mathbf{u}\)</span> that actually contributes along the direction <span class="math inline">\(\mathbf{v}\)</span>.</p>
+<h1 id="cross-product-in-mathbbr3-15-min">Cross Product in <span class="math inline">\(\mathbb{R}^3\)</span> (15 min)</h1>
+<p>The cross product is defined only in <span class="math inline">\(\mathbb{R}^3\)</span>. For <span class="math display">\[\mathbf{u}=(u_1,u_2,u_3), \qquad \mathbf{v}=(v_1,v_2,v_3),\]</span> their cross product is <span class="math display">\[\mathbf{u}\times\mathbf{v}
+=
+\begin{pmatrix}
+u_2v_3-u_3v_2 \\
+u_3v_1-u_1v_3 \\
+u_1v_2-u_2v_1
+\end{pmatrix}.\]</span></p>
+<h2 id="geometric-meaning">Geometric Meaning</h2>
+<p>The vector <span class="math inline">\(\mathbf{u}\times\mathbf{v}\)</span>:</p>
+<ul>
+<li><p>is perpendicular to both <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span>,</p></li>
+<li><p>has magnitude <span class="math display">\[\left\lVert \mathbf{u}\times\mathbf{v} \right\rVert=\left\lVert \mathbf{u} \right\rVert\left\lVert \mathbf{v} \right\rVert\sin\theta,\]</span></p></li>
+<li><p>points in the direction determined by the right-hand rule.</p></li>
+</ul>
+<div class="center">
 
-    <section class="content">
-        <div class="container">
-            <h2>Lecture 1: Vectors in Euclidean Space</h2>
+</div>
+<h2 id="area-interpretation">Area Interpretation</h2>
+<p>The quantity <span class="math display">\[\left\lVert \mathbf{u}\times\mathbf{v} \right\rVert\]</span> equals the area of the parallelogram spanned by <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span>.</p>
+<p>Thus:</p>
+<ul>
+<li><p>dot product measures alignment,</p></li>
+<li><p>cross product measures oriented perpendicularity and area.</p></li>
+</ul>
+<div class="tcolorbox">
+<p><strong>In <span class="math inline">\(\mathbb{R}^2\)</span>:</strong> Let <span class="math display">\[\mathbf{a}=(2,1), \qquad \mathbf{b}=(1,3).\]</span> The area of the parallelogram spanned by these two vectors is computed by the determinant: <span class="math display">\[\text{Area}
+=
+\left|
+\det
+\begin{pmatrix}
+2 &amp; 1 \\
+1 &amp; 3
+\end{pmatrix}
+\right|
+=
+\left| 2\cdot 3 - 1\cdot 1 \right|
+=
+5.\]</span></p>
+<p><strong>In <span class="math inline">\(\mathbb{R}^3\)</span>:</strong> Let <span class="math display">\[\mathbf{u}=(2,1,0), \qquad \mathbf{v}=(1,3,1).\]</span> Now the same geometric object is still a parallelogram, but it lies in a plane inside three-dimensional space. Its area is computed by the magnitude of the cross product: <span class="math display">\[\mathbf{u}\times\mathbf{v}
+=
+\begin{pmatrix}
+1\cdot 1 - 0\cdot 3 \\
+0\cdot 1 - 2\cdot 1 \\
+2\cdot 3 - 1\cdot 1
+\end{pmatrix}
+=
+(1,-2,5).\]</span> So <span class="math display">\[\text{Area}
+=
+\left\lVert \mathbf{u}\times\mathbf{v} \right\rVert
+=
+\sqrt{1^2+(-2)^2+5^2}
+=
+\sqrt{30}.\]</span></p>
+<p><strong>What is the difference?</strong></p>
+<ul>
+<li><p>In <strong>2D</strong>, the area is obtained from a <strong>scalar determinant</strong>. There is only one plane, so no extra normal-direction information is needed.</p></li>
+<li><p>In <strong>3D</strong>, two vectors still span a <strong>2D parallelogram</strong>, but it can sit in many different planes. The cross product first produces a <strong>normal vector</strong>, and then its magnitude gives the area.</p></li>
+<li><p>So the geometric meaning is the same in both cases: we measure the area of the parallelogram generated by two vectors. The difference is that in <span class="math inline">\(\mathbb{R}^3\)</span> the formula also records the perpendicular direction of that plane.</p></li>
+</ul>
+</div>
+<h2 id="example">Example</h2>
+<p>Let <span class="math display">\[\mathbf{u}=(1,2,0), \qquad \mathbf{v}=(3,1,4).\]</span> Then <span class="math display">\[\mathbf{u}\times\mathbf{v}
+=
+\begin{pmatrix}
+2\cdot 4 - 0\cdot 1 \\
+0\cdot 3 - 1\cdot 4 \\
+1\cdot 1 - 2\cdot 3
+\end{pmatrix}
+=
+(8,-4,-5).\]</span> This vector is orthogonal to both <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span>.</p>
+<h1 id="determinants-in-dimension-2-and-3-15-min">Determinants in Dimension 2 and 3 (15 min)</h1>
+<p>Determinants encode signed area, signed volume, orientation, and invertibility.</p>
+<h2 id="determinant-of-a-2times-2-matrix">Determinant of a <span class="math inline">\(2\times 2\)</span> Matrix</h2>
+<p>For <span class="math display">\[A=
+\begin{pmatrix}
+a &amp; b \\
+c &amp; d
+\end{pmatrix},\]</span> the determinant is <span class="math display">\[\det(A)=ad-bc.\]</span></p>
+<h2 id="geometric-meaning-in-mathbbr2">Geometric Meaning in <span class="math inline">\(\mathbb{R}^2\)</span></h2>
+<p>If the columns of <span class="math inline">\(A\)</span> are vectors <span class="math display">\[\mathbf{v}_1=\begin{pmatrix} a \\ c \end{pmatrix},
+\qquad
+\mathbf{v}_2=\begin{pmatrix} b \\ d \end{pmatrix},\]</span> then <span class="math display">\[\left\lvert \det(A) \right\rvert\]</span> is the area of the parallelogram spanned by <span class="math inline">\(\mathbf{v}_1\)</span> and <span class="math inline">\(\mathbf{v}_2\)</span>.</p>
+<p>The sign of <span class="math inline">\(\det(A)\)</span> records orientation:</p>
+<ul>
+<li><p>positive: orientation preserved,</p></li>
+<li><p>negative: orientation reversed.</p></li>
+</ul>
+<h2 id="determinant-of-a-3times-3-matrix">Determinant of a <span class="math inline">\(3\times 3\)</span> Matrix</h2>
+<p>For <span class="math display">\[A=
+\begin{pmatrix}
+a_{11} &amp; a_{12} &amp; a_{13} \\
+a_{21} &amp; a_{22} &amp; a_{23} \\
+a_{31} &amp; a_{32} &amp; a_{33}
+\end{pmatrix},\]</span> the determinant can be computed by cofactor expansion. Along the first row: <span class="math display">\[\det(A)
+=
+a_{11}
+\begin{vmatrix}
+a_{22} &amp; a_{23} \\
+a_{32} &amp; a_{33}
+\end{vmatrix}
+-a_{12}
+\begin{vmatrix}
+a_{21} &amp; a_{23} \\
+a_{31} &amp; a_{33}
+\end{vmatrix}
++a_{13}
+\begin{vmatrix}
+a_{21} &amp; a_{22} \\
+a_{31} &amp; a_{32}
+\end{vmatrix}.\]</span></p>
+<h2 id="geometric-meaning-in-mathbbr3">Geometric Meaning in <span class="math inline">\(\mathbb{R}^3\)</span></h2>
+<p>If the columns of <span class="math inline">\(A\)</span> are <span class="math inline">\(\mathbf{v}_1,\mathbf{v}_2,\mathbf{v}_3 \in \mathbb{R}^3\)</span>, then <span class="math display">\[\left\lvert \det(A) \right\rvert\]</span> is the volume of the parallelepiped spanned by those three vectors.</p>
+<p>Again, the sign records orientation.</p>
+<h2 id="scalar-triple-product">Scalar Triple Product</h2>
+<p>For vectors <span class="math inline">\(\mathbf{u},\mathbf{v},\mathbf{w}\in\mathbb{R}^3\)</span>, <span class="math display">\[\mathbf{u}\cdot(\mathbf{v}\times\mathbf{w})
+=
+\det
+\begin{pmatrix}
+u_1 &amp; v_1 &amp; w_1 \\
+u_2 &amp; v_2 &amp; w_2 \\
+u_3 &amp; v_3 &amp; w_3
+\end{pmatrix}.\]</span> Its absolute value is the volume of the parallelepiped formed by <span class="math inline">\(\mathbf{u},\mathbf{v},\mathbf{w}\)</span>.</p>
+<h2 id="why-determinants-matter-in-calculus">Why Determinants Matter in Calculus</h2>
+<p>Determinants appear throughout multivariable calculus:</p>
+<ul>
+<li><p>Jacobian determinants for change of variables,</p></li>
+<li><p>area and volume scaling under linear maps,</p></li>
+<li><p>testing whether a linear system has a unique solution,</p></li>
+<li><p>orientation of coordinate transformations.</p></li>
+</ul>
+<h1 id="changing-coordinates-with-matrices-and-computing-areavolume-10-min">Changing Coordinates with Matrices and Computing Area/Volume (10 min)</h1>
+<p>This section makes the geometric meaning of the determinant explicit.</p>
+<h2 id="a-new-coordinate-system-from-new-basis-vectors">A New Coordinate System from New Basis Vectors</h2>
+<p>In the standard coordinate system of <span class="math inline">\(\mathbb{R}^2\)</span>, we use the basis <span class="math display">\[\mathbf{e}_1=(1,0), \qquad \mathbf{e}_2=(0,1).\]</span> Suppose instead we choose two new basis vectors <span class="math display">\[\mathbf{v}_1=\begin{pmatrix} a \\ c \end{pmatrix},
+\qquad
+\mathbf{v}_2=\begin{pmatrix} b \\ d \end{pmatrix}.\]</span> Then every vector written in the new coordinates as <span class="math display">\[\begin{pmatrix}
+u \\
+v
+\end{pmatrix}_{\text{new}}\]</span> corresponds to the standard-coordinate vector <span class="math display">\[u\mathbf{v}_1+v\mathbf{v}_2.\]</span> If we place the new basis vectors as the columns of a matrix, <span class="math display">\[A=
+\begin{pmatrix}
+a &amp; b \\
+c &amp; d
+\end{pmatrix},\]</span> then the conversion from new coordinates to standard coordinates is <span class="math display">\[\mathbf{x}_{\text{standard}} = A \mathbf{x}_{\text{new}}.\]</span></p>
+<h2 id="area-in-the-new-coordinate-system">Area in the New Coordinate System</h2>
+<p>In the new coordinates, the unit square is the set of points <span class="math display">\[0 \le u \le 1, \qquad 0 \le v \le 1.\]</span> Under the matrix <span class="math inline">\(A\)</span>, that unit square becomes the parallelogram spanned by <span class="math inline">\(\mathbf{v}_1\)</span> and <span class="math inline">\(\mathbf{v}_2\)</span> in standard coordinates.</p>
+<div class="center">
 
-            <div class="courses-list">
-                <article class="course-item">
-                    <h4>Lecture Scope and Goals (5 min)</h4>
-                    <p>This lecture is designed as a 2-hour 30-minute introduction to vectors in Euclidean space for students beginning multivariable calculus.</p>
-                    <p>The central goals are to understand vectors as quantities with magnitude and direction, move fluently between geometric pictures and coordinate formulas, learn vector algebra in $\R^2$ and $\R^3$, connect dot product/cross product/determinants/matrices to geometry, and prepare for gradients, tangent planes, linear approximations, and Jacobians.</p>
-                    <p><strong>Suggested time allocation:</strong> 25 min (vectors and coordinates), 25 min (addition/scalar multiplication/linear combinations), 25 min (dot product and projection), 20 min (cross product), 15 min (determinants), 10 min (coordinate change), 15 min (matrices as actions), 10 min (integrated examples), then discussion/problem-solving/review.</p>
-                </article>
-            </div>
+</div>
+<p>On the left, the shaded region is the unit square in the <span class="math inline">\((u,v)\)</span>-coordinates. On the right, after applying <span class="math inline">\(A\)</span>, the same coordinate square is represented in standard <span class="math inline">\((x,y)\)</span>-space as a parallelogram spanned by the new basis vectors.</p>
+<p>Its area is <span class="math display">\[\left\lvert \det(A) \right\rvert.\]</span> Therefore:</p>
+<ul>
+<li><p>one unit of area in the new coordinate system becomes <span class="math inline">\(\left\lvert \det(A) \right\rvert\)</span> units of area in the standard system,</p></li>
+<li><p>equivalently, the determinant tells us exactly how area scales when coordinates are changed by a matrix.</p></li>
+</ul>
+<h2 id="example-in-mathbbr2">Example in <span class="math inline">\(\mathbb{R}^2\)</span></h2>
+<p>Let <span class="math display">\[\mathbf{v}_1=\begin{pmatrix} 2 \\ 1 \end{pmatrix},
+\qquad
+\mathbf{v}_2=\begin{pmatrix} 1 \\ 3 \end{pmatrix},
+\qquad
+A=
+\begin{pmatrix}
+2 &amp; 1 \\
+1 &amp; 3
+\end{pmatrix}.\]</span> Then <span class="math display">\[\det(A)=5.\]</span> So:</p>
+<ul>
+<li><p>the unit square in the new coordinates becomes a parallelogram of area <span class="math inline">\(5\)</span>,</p></li>
+<li><p>any region with area <span class="math inline">\(S\)</span> in the new coordinates has area <span class="math inline">\(5S\)</span> in the standard coordinates.</p></li>
+</ul>
+<h2 id="the-same-idea-in-mathbbr3">The Same Idea in <span class="math inline">\(\mathbb{R}^3\)</span></h2>
+<p>Choose a new basis in <span class="math inline">\(\mathbb{R}^3\)</span>: <span class="math display">\[\mathbf{v}_1,\mathbf{v}_2,\mathbf{v}_3.\]</span> Put these vectors into the columns of <span class="math display">\[A=
+\begin{pmatrix}
+\vline &amp; \vline &amp; \vline \\
+\mathbf{v}_1 &amp; \mathbf{v}_2 &amp; \mathbf{v}_3 \\
+\vline &amp; \vline &amp; \vline
+\end{pmatrix}.\]</span> Then <span class="math display">\[\mathbf{x}_{\text{standard}} = A \mathbf{x}_{\text{new}}.\]</span> The unit cube in the new coordinates becomes the parallelepiped spanned by <span class="math inline">\(\mathbf{v}_1,\mathbf{v}_2,\mathbf{v}_3\)</span>.</p>
+<p>Its volume is <span class="math display">\[\left\lvert \det(A) \right\rvert.\]</span> So the determinant is the volume scaling factor for the coordinate change.</p>
+<h2 id="why-this-is-the-geometric-meaning-of-determinant">Why This Is the Geometric Meaning of Determinant</h2>
+<p>The determinant is not just a formula. It answers a geometric question:</p>
+<div class="center">
+<p><strong>When we use a matrix to change coordinates, how much do unit area or unit volume change?</strong></p>
+</div>
+<p>The answer is:</p>
+<ul>
+<li><p>in <span class="math inline">\(\mathbb{R}^2\)</span>, area scales by <span class="math inline">\(\left\lvert \det(A) \right\rvert\)</span>,</p></li>
+<li><p>in <span class="math inline">\(\mathbb{R}^3\)</span>, volume scales by <span class="math inline">\(\left\lvert \det(A) \right\rvert\)</span>.</p></li>
+</ul>
+<p>If <span class="math inline">\(\det(A)&lt;0\)</span>, orientation is reversed during the coordinate change.</p>
+<h2 id="connection-to-change-of-variables-in-calculus">Connection to Change of Variables in Calculus</h2>
+<p>This is exactly the idea behind Jacobians. If a region is described in new coordinates, then when we measure area or volume in the original coordinates, we multiply by the local scaling factor: <span class="math display">\[\left\lvert \det(J) \right\rvert.\]</span> For linear changes of coordinates, the Jacobian matrix is constant and equals the matrix <span class="math inline">\(A\)</span> itself.</p>
+<h1 id="lines-planes-and-geometry-from-vectors-8-min">Lines, Planes, and Geometry from Vectors (8 min)</h1>
+<h2 id="equation-of-a-line">Equation of a Line</h2>
+<p>A line through a point <span class="math inline">\(\mathbf{r}_0\)</span> with direction <span class="math inline">\(\mathbf{d}\)</span> is <span class="math display">\[\mathbf{r}(t)=\mathbf{r}_0+t\mathbf{d}, \qquad t\in\mathbb{R}.\]</span> This says:</p>
+<ul>
+<li><p>start at <span class="math inline">\(\mathbf{r}_0\)</span>,</p></li>
+<li><p>move repeatedly along the direction <span class="math inline">\(\mathbf{d}\)</span>.</p></li>
+</ul>
+<p>So a line can be viewed as the <strong>trace of motion of a particle</strong>: at time <span class="math inline">\(t\)</span>, the particle is at position <span class="math inline">\(\mathbf{r}(t)\)</span>.</p>
+<div class="tcolorbox">
+<p>For each line below:</p>
+<ul>
+<li><p>identify a direction vector,</p></li>
+<li><p>identify one point on the line,</p></li>
+<li><p>rewrite the line in the unified vector-parametric form <span class="math display">\[\mathbf{r}(t)=\mathbf{r}_0+t\mathbf{d}.\]</span></p></li>
+</ul>
+<p><strong>(a) A line in the plane:</strong> <span class="math display">\[2x-y=3.\]</span></p>
+<p><strong>Solution.</strong> One point on the line is <span class="math inline">\((2,1)\)</span>, since <span class="math inline">\(2(2)-1=3\)</span>.</p>
+<p>To find a direction vector, use the fact that the normal vector of the line is <span class="math display">\[\mathbf{n}=(2,-1).\]</span> A direction vector must be perpendicular to <span class="math inline">\(\mathbf{n}\)</span>, so one convenient choice is <span class="math display">\[\mathbf{d}=(1,2),\]</span> because <span class="math display">\[(2,-1)\cdot (1,2)=2-2=0.\]</span> Hence the line can be written as <span class="math display">\[\mathbf{r}(t)=
+\begin{pmatrix}
+2 \\
+1
+\end{pmatrix}
++t
+\begin{pmatrix}
+1 \\
+2
+\end{pmatrix},
+\qquad t\in\mathbb{R}.\]</span> In coordinates: <span class="math display">\[x=2+t,\qquad y=1+2t.\]</span></p>
+<p><strong>(b) A line in <span class="math inline">\(\mathbb{R}^3\)</span> given in symmetric form:</strong> <span class="math display">\[\frac{x-1}{2}=\frac{y+3}{-1}=\frac{z}{4}.\]</span></p>
+<p><strong>Solution.</strong> Set the common value equal to <span class="math inline">\(t\)</span>. Then <span class="math display">\[\frac{x-1}{2}=\frac{y+3}{-1}=\frac{z}{4}=t.\]</span> This gives <span class="math display">\[x=1+2t,\qquad y=-3-t,\qquad z=4t.\]</span> So one point on the line is <span class="math display">\[(1,-3,0),\]</span> and a direction vector is <span class="math display">\[(2,-1,4).\]</span> Therefore the unified vector-parametric form is <span class="math display">\[\mathbf{r}(t)=
+\begin{pmatrix}
+1 \\
+-3 \\
+0
+\end{pmatrix}
++t
+\begin{pmatrix}
+2 \\
+-1 \\
+4
+\end{pmatrix},
+\qquad t\in\mathbb{R}.\]</span></p>
+<p><strong>Key idea.</strong> Different algebraic descriptions may look different, but geometrically they describe the same object: a particle starting at some point and moving forever in a fixed direction.</p>
+</div>
+<h2 id="equation-of-a-plane-in-mathbbr3">Equation of a Plane in <span class="math inline">\(\mathbb{R}^3\)</span></h2>
+<p>A plane through a point <span class="math inline">\(\mathbf{r}_0\)</span> with normal vector <span class="math inline">\(\mathbf{n}\)</span> satisfies <span class="math display">\[\mathbf{n}\cdot(\mathbf{r}-\mathbf{r}_0)=0.\]</span> The normal vector controls the orientation of the plane.</p>
+<h2 id="cross-product-and-planes">Cross Product and Planes</h2>
+<p>If two nonparallel vectors <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> lie in a plane, then <span class="math display">\[\mathbf{u}\times\mathbf{v}\]</span> is a normal vector to that plane. This is one of the most common practical uses of the cross product.</p>
+<h1 id="matrices-as-actions-on-vectors-15-min">Matrices as Actions on Vectors (15 min)</h1>
+<p>Students often first see matrices as rectangular arrays of numbers. For multivariable calculus, the more useful viewpoint is:</p>
+<div class="center">
+<p><strong>A matrix represents a rule that sends vectors to vectors.</strong></p>
+</div>
+<h2 id="matrix-vector-multiplication">Matrix-Vector Multiplication</h2>
+<p>If <span class="math display">\[A=
+\begin{pmatrix}
+a_{11} &amp; a_{12} \\
+a_{21} &amp; a_{22}
+\end{pmatrix},
+\qquad
+\mathbf{x}=
+\begin{pmatrix}
+x \\
+y
+\end{pmatrix},\]</span> then <span class="math display">\[A\mathbf{x}
+=
+\begin{pmatrix}
+a_{11}x+a_{12}y \\
+a_{21}x+a_{22}y
+\end{pmatrix}.\]</span></p>
+<p>This means the output coordinates are built from linear combinations of the input coordinates.</p>
+<h2 id="column-interpretation">Column Interpretation</h2>
+<p>Write <span class="math display">\[A=
+\begin{pmatrix}
+\vline &amp; \vline \\
+\mathbf{c}_1 &amp; \mathbf{c}_2 \\
+\vline &amp; \vline
+\end{pmatrix}.\]</span> Then <span class="math display">\[A
+\begin{pmatrix}
+x \\
+y
+\end{pmatrix}
+=
+x\mathbf{c}_1+y\mathbf{c}_2.\]</span> This is the cleanest geometric interpretation:</p>
+<ul>
+<li><p>the first column is where <span class="math inline">\(\mathbf{e}_1\)</span> goes,</p></li>
+<li><p>the second column is where <span class="math inline">\(\mathbf{e}_2\)</span> goes.</p></li>
+</ul>
+<p>So a matrix is completely determined by what it does to the basis vectors.</p>
+<h2 id="action-in-mathbbr2">Action in <span class="math inline">\(\mathbb{R}^2\)</span></h2>
+<p>If <span class="math display">\[A=
+\begin{pmatrix}
+2 &amp; 0 \\
+0 &amp; 3
+\end{pmatrix},\]</span> then <span class="math display">\[A(x,y)=(2x,3y).\]</span> This stretches space by a factor of <span class="math inline">\(2\)</span> in the <span class="math inline">\(x\)</span>-direction and by a factor of <span class="math inline">\(3\)</span> in the <span class="math inline">\(y\)</span>-direction.</p>
+<p>If <span class="math display">\[R=
+\begin{pmatrix}
+0 &amp; -1 \\
+1 &amp; 0
+\end{pmatrix},\]</span> then <span class="math display">\[R(x,y)=(-y,x),\]</span> which rotates vectors by <span class="math inline">\(90^\circ\)</span> counterclockwise.</p>
+<h2 id="action-in-mathbbr3">Action in <span class="math inline">\(\mathbb{R}^3\)</span></h2>
+<p>If <span class="math display">\[A=
+\begin{pmatrix}
+1 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 2
+\end{pmatrix},\]</span> then <span class="math display">\[A(x,y,z)=(x,y,2z).\]</span> This leaves the horizontal coordinates fixed and stretches in the vertical direction.</p>
+<h2 id="meaning-of-matrix-addition">Meaning of Matrix Addition</h2>
+<p>If <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are matrices of the same size, then <span class="math display">\[(A+B)\mathbf{x}=A\mathbf{x}+B\mathbf{x}.\]</span> So matrix addition means:</p>
+<ul>
+<li><p>apply two linear actions to the same vector,</p></li>
+<li><p>then add the resulting vectors.</p></li>
+</ul>
+<p>It combines two linear effects into one.</p>
+<h2 id="meaning-of-scalar-multiplication-of-matrices">Meaning of Scalar Multiplication of Matrices</h2>
+<p>For a scalar <span class="math inline">\(c\)</span>, <span class="math display">\[(cA)\mathbf{x}=c(A\mathbf{x}).\]</span> This rescales the output of the transformation.</p>
+<h2 id="meaning-of-matrix-multiplication">Meaning of Matrix Multiplication</h2>
+<p>If <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> have compatible sizes, then <span class="math display">\[(AB)\mathbf{x}=A(B\mathbf{x}).\]</span> This is the most important structural fact:</p>
+<ul>
+<li><p>first apply <span class="math inline">\(B\)</span>,</p></li>
+<li><p>then apply <span class="math inline">\(A\)</span>.</p></li>
+</ul>
+<p>So matrix multiplication represents <strong>composition of actions</strong>.</p>
+<h2 id="why-order-matters">Why Order Matters</h2>
+<p>Usually, <span class="math display">\[AB \neq BA.\]</span> Geometrically, doing one action and then another often differs from reversing the order. For example, stretching then rotating is generally not the same as rotating then stretching.</p>
+<div class="tcolorbox">
+<p>Let <span class="math display">\[A=
+\begin{pmatrix}
+2 &amp; 0 \\
+0 &amp; 1
+\end{pmatrix},
+\qquad
+B=
+\begin{pmatrix}
+0 &amp; -1 \\
+1 &amp; 0
+\end{pmatrix},
+\qquad
+\mathbf{x}=
+\begin{pmatrix}
+1 \\
+1
+\end{pmatrix}.\]</span> Here, <span class="math inline">\(A\)</span> stretches horizontally, while <span class="math inline">\(B\)</span> rotates vectors by <span class="math inline">\(90^\circ\)</span> counterclockwise.</p>
+<p>Now compute both orders: <span class="math display">\[A\mathbf{x}=
+\begin{pmatrix}
+2 \\
+1
+\end{pmatrix},
+\qquad
+B\mathbf{x}=
+\begin{pmatrix}
+-1 \\
+1
+\end{pmatrix}.\]</span> So <span class="math display">\[BA\mathbf{x}=B(A\mathbf{x})=
+\begin{pmatrix}
+-1 \\
+2
+\end{pmatrix},
+\qquad
+AB\mathbf{x}=A(B\mathbf{x})=
+\begin{pmatrix}
+-2 \\
+1
+\end{pmatrix}.\]</span> Since <span class="math display">\[BA\mathbf{x}\neq AB\mathbf{x},\]</span> the order of the two actions matters.</p>
+<div class="center">
 
-            <h3>Euclidean Space and the Meaning of a Vector (12 min)</h3>
-            <div class="notes-list">
-                <article class="note-item">
-                    $$\R^n=\{(x_1,x_2,\dots,x_n)\mid x_i\in\R\},\qquad \R^2=\{(x,y)\},\qquad \R^3=\{(x,y,z)\}$$
-                    <p>Two complementary viewpoints: an element of $\R^n$ can be interpreted as a <strong>point</strong> (location) or a <strong>vector</strong> (displacement from the origin).</p>
-                    <p>For example, $(3,2)$ can represent a location, or a movement of 3 units in the $x$-direction and 2 units in the $y$-direction.</p>
-                    <p>A free vector is characterized by length and direction, independent of tail position. A position vector is a vector with tail at the origin.</p>
-                    <p>In $\R^2$, $\vect{v}=(a,b)$; in $\R^3$, $\vect{v}=(a,b,c)$.</p>
-                </article>
-            </div>
-
-            <h3>Coordinates, Components, and Standard Basis (8 min)</h3>
-            <div class="notes-list">
-                <article class="note-item">
-                    $$\vect{e}_1=(1,0,\dots,0),\quad \vect{e}_2=(0,1,0,\dots,0),\quad \dots,\quad \vect{e}_n=(0,\dots,0,1)$$
-                    $$\vect{x}=(x_1,\dots,x_n)=x_1\vect{e}_1+x_2\vect{e}_2+\cdots+x_n\vect{e}_n$$
-                    <p>Components describe how much of the vector lies in each coordinate direction.</p>
-                    $$ (4,-1)=4\vect{e}_1-\vect{e}_2, \qquad (2,-3,5)=2\vect{e}_1-3\vect{e}_2+5\vect{e}_3 $$
-                </article>
-            </div>
-
-            <h3>Vector Addition, Scalar Multiplication, and Linear Combinations (15 min)</h3>
-            <div class="notes-list">
-                <article class="note-item">
-                    $$\vect{u}=(u_1,\dots,u_n),\quad \vect{v}=(v_1,\dots,v_n)$$
-                    $$\vect{u}+\vect{v}=(u_1+v_1,\dots,u_n+v_n)$$
-                    $$c\vect{u}=(cu_1,\dots,cu_n)$$
-                    $$a_1\vect{v}_1+a_2\vect{v}_2+\dots+a_k\vect{v}_k$$
-                    <p>Geometrically, vector addition combines displacements. Scalar multiplication stretches/compresses/reverses direction depending on $c$.</p>
-                    <p>In $\R^2$, linear combinations of two nonparallel vectors span the plane; in $\R^3$, three independent vectors span space.</p>
-                    $$ (x,y)=x(1,0)+y(0,1), \qquad (x,y,z)=x(1,0,0)+y(0,1,0)+z(0,0,1) $$
-                </article>
-            </div>
-
-            <h3>Magnitude, Distance, and Direction (8 min)</h3>
-            <div class="notes-list">
-                <article class="note-item">
-                    $$\norm{\vect{v}}=\sqrt{v_1^2+\dots+v_n^2}$$
-                    $$d(P,Q)=\norm{Q-P}$$
-                    $$\widehat{\vect{v}}=\frac{\vect{v}}{\norm{\vect{v}}}\quad (\vect{v}\neq\vect{0})$$
-                    $$\norm{(3,4)}=5,\qquad \norm{(2,-1,2)}=3$$
-                    <p>Unit vectors separate direction from magnitude, which is fundamental for directional derivatives.</p>
-                </article>
-            </div>
-
-            <h3>Dot Product, Angle, and Projection (18 min)</h3>
-            <div class="notes-list">
-                <article class="note-item">
-                    $$\vect{u}\cdot\vect{v}=u_1v_1+\dots+u_nv_n$$
-                    $$\vect{u}\cdot\vect{v}=\norm{\vect{u}}\norm{\vect{v}}\cos\theta,\qquad
-                    \cos\theta=\frac{\vect{u}\cdot\vect{v}}{\norm{\vect{u}}\norm{\vect{v}}}$$
-                    $$\vect{u}\perp\vect{v}\iff \vect{u}\cdot\vect{v}=0$$
-                    $$\operatorname{proj}_{\vect{v}}\vect{u}=\frac{\vect{u}\cdot\vect{v}}{\vect{v}\cdot\vect{v}}\,\vect{v}$$
-                    <p>Interpretation: projection extracts the component of $\vect{u}$ in the direction of $\vect{v}$.</p>
-                    <p><strong>Constraint example (minimum norm under linear constraint):</strong></p>
-                    $$\min_{\vect{w}\in\R^2} f(\vect{w})=w_1^2+w_2^2\quad\text{s.t.}\quad w_1+2w_2=1$$
-                    $$\vect{a}=(1,2),\ \vect{a}\cdot\vect{w}=1,\ \vect{w}=\lambda(1,2),\ 5\lambda=1\Rightarrow \lambda=\frac15$$
-                    $$\vect{w}^*=\left(\frac15,\frac25\right)$$
-                    <p>Geometric principle: at constrained optimum, objective and constraint are tangent (normals align), which previews Lagrange multipliers.</p>
-                </article>
-            </div>
-
-            <h3>Cross Product in $\R^3$ (15 min)</h3>
-            <div class="notes-list">
-                <article class="note-item">
-                    $$\vect{u}\times\vect{v}=\begin{pmatrix}
-                    u_2v_3-u_3v_2\\
-                    u_3v_1-u_1v_3\\
-                    u_1v_2-u_2v_1
-                    \end{pmatrix}$$
-                    $$\vect{u}\times\vect{v}\perp\vect{u},\qquad \vect{u}\times\vect{v}\perp\vect{v}$$
-                    $$\norm{\vect{u}\times\vect{v}}=\norm{\vect{u}}\norm{\vect{v}}\sin\theta$$
-                    $$\text{Area of parallelogram}=\norm{\vect{u}\times\vect{v}}$$
-                    <p>Dot product measures alignment; cross product measures oriented perpendicularity and area.</p>
-                    <p><strong>Worked area example:</strong></p>
-                    <p>In $\R^2$: $\vect{a}=(2,1),\ \vect{b}=(1,3)$ gives area</p>
-                    $$\left|\det\begin{pmatrix}2 & 1\\1 & 3\end{pmatrix}\right|=5$$
-                    <p>In $\R^3$: $\vect{u}=(2,1,0),\ \vect{v}=(1,3,1)$ gives</p>
-                    $$\vect{u}\times\vect{v}=(1,-2,5),\qquad \text{Area}=\sqrt{1^2+(-2)^2+5^2}=\sqrt{30}$$
-                    <p><strong>Another example:</strong> $\vect{u}=(1,2,0),\ \vect{v}=(3,1,4)$</p>
-                    $$\vect{u}\times\vect{v}=(8,-4,-5)$$
-                </article>
-            </div>
-
-            <h3>Determinants in Dimension 2 and 3 (15 min)</h3>
-            <div class="notes-list">
-                <article class="note-item">
-                    $$A=\begin{pmatrix}a&b\\c&d\end{pmatrix},\qquad \det(A)=ad-bc$$
-                    <p>In $\R^2$, $|\det(A)|$ is area scaling; sign encodes orientation.</p>
-                    <p>For $3\times3$ matrices, determinant can be computed by cofactor expansion.</p>
-                    $$\det(A)=a_{11}\begin{vmatrix}a_{22}&a_{23}\\a_{32}&a_{33}\end{vmatrix}
-                    -a_{12}\begin{vmatrix}a_{21}&a_{23}\\a_{31}&a_{33}\end{vmatrix}
-                    +a_{13}\begin{vmatrix}a_{21}&a_{22}\\a_{31}&a_{32}\end{vmatrix}$$
-                    <p>In $\R^3$, $|\det(A)|$ is volume scaling for the parallelepiped spanned by columns.</p>
-                    $$\vect{u}\cdot(\vect{v}\times\vect{w})=
-                    \det\begin{pmatrix}
-                    u_1&v_1&w_1\\
-                    u_2&v_2&w_2\\
-                    u_3&v_3&w_3
-                    \end{pmatrix}$$
-                    <p>Determinants are essential for Jacobians, coordinate changes, invertibility, and orientation.</p>
-                </article>
-            </div>
-
-            <h3>Changing Coordinates with Matrices and Computing Area/Volume (10 min)</h3>
-            <div class="notes-list">
-                <article class="note-item">
-                    <p>Let new basis vectors be columns of</p>
-                    $$A=\begin{pmatrix}a&b\\c&d\end{pmatrix},\qquad \vect{x}_{\text{standard}}=A\vect{x}_{\text{new}}$$
-                    <p>The unit square in new coordinates maps to a parallelogram in standard coordinates with area</p>
-                    $$\abs{\det(A)}$$
-                    <p>Example:</p>
-                    $$A=\begin{pmatrix}2&1\\1&3\end{pmatrix},\qquad \det(A)=5$$
-                    <p>So area scales by factor $5$.</p>
-                    <p>In $\R^3$, if columns are $\vect{v}_1,\vect{v}_2,\vect{v}_3$, then</p>
-                    $$\vect{x}_{\text{standard}}=A\vect{x}_{\text{new}},\qquad \text{volume scale}=\abs{\det(A)}$$
-                    <p>This is exactly the linear change-of-variables Jacobian idea.</p>
-                </article>
-            </div>
-
-            <h3>Lines, Planes, and Geometry from Vectors (8 min)</h3>
-            <div class="notes-list">
-                <article class="note-item">
-                    $$\vect{r}(t)=\vect{r}_0+t\vect{d},\qquad t\in\R$$
-                    <p>Line as motion: start at $\vect{r}_0$ and move along direction $\vect{d}$.</p>
-                    $$\vect{n}\cdot(\vect{r}-\vect{r}_0)=0$$
-                    <p>Plane in $\R^3$ through point $\vect{r}_0$ with normal vector $\vect{n}$.</p>
-                    <p>If $\vect{u}$ and $\vect{v}$ lie in a plane, then $\vect{u}\times\vect{v}$ is a normal vector to that plane.</p>
-                    <p><strong>Exercise example:</strong> For line $2x-y=3$, one point is $(2,1)$ and a direction vector is $(1,2)$, giving</p>
-                    $$\vect{r}(t)=\begin{pmatrix}2\\1\end{pmatrix}+t\begin{pmatrix}1\\2\end{pmatrix}$$
-                </article>
-            </div>
-
-            <h3>Matrices as Actions on Vectors (15 min)</h3>
-            <div class="notes-list">
-                <article class="note-item">
-                    <p>A matrix is a rule sending vectors to vectors.</p>
-                    $$A\vect{x}=\begin{pmatrix}a_{11}x+a_{12}y\\a_{21}x+a_{22}y\end{pmatrix}$$
-                    $$A=\begin{pmatrix}\vline&\vline\\\vect{c}_1&\vect{c}_2\\\vline&\vline\end{pmatrix}
-                    \Rightarrow
-                    A\begin{pmatrix}x\\y\end{pmatrix}=x\vect{c}_1+y\vect{c}_2$$
-                    <p>First column is image of $\vect{e}_1$, second column is image of $\vect{e}_2$.</p>
-                    <p>Examples:</p>
-                    $$\begin{pmatrix}2&0\\0&3\end{pmatrix}(x,y)=(2x,3y),\qquad
-                    \begin{pmatrix}0&-1\\1&0\end{pmatrix}(x,y)=(-y,x)$$
-                    $$ (A+B)\vect{x}=A\vect{x}+B\vect{x},\qquad (cA)\vect{x}=c(A\vect{x}) $$
-                    $$ (AB)\vect{x}=A(B\vect{x}) $$
-                    <p>Order generally matters: $AB\neq BA$.</p>
-                    <p><strong>Stretch+rotation order example:</strong></p>
-                    $$A=\begin{pmatrix}2&0\\0&1\end{pmatrix},\ B=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\ \vect{x}=\begin{pmatrix}1\\1\end{pmatrix}$$
-                    $$BA\vect{x}=\begin{pmatrix}-1\\2\end{pmatrix},\qquad AB\vect{x}=\begin{pmatrix}-2\\1\end{pmatrix}$$
-                    <p>Yet determinant composition remains multiplicative: $\det(AB)=\det(A)\det(B)$.</p>
-                    <p>Invertibility criterion: $\det(A)\neq 0$.</p>
-                </article>
-            </div>
-
-            <h3>Connection to Multivariable Calculus (4 min)</h3>
-            <div class="notes-list">
-                <article class="note-item">
-                    $$\nabla f=\left(\frac{\partial f}{\partial x_1},\dots,\frac{\partial f}{\partial x_n}\right)$$
-                    $$D_{\vect{u}}f=\nabla f\cdot\vect{u}\qquad (\vect{u}\text{ unit})$$
-                    <p>For $F:\R^n\to\R^m$, derivative is represented by the Jacobian matrix. Near a point, $F$ behaves approximately like a linear map.</p>
-                </article>
-            </div>
-
-            <h3>Worked Examples (6 min)</h3>
-            <div class="notes-list">
-                <article class="note-item">
-                    <p><strong>Example 1:</strong> $\vect{u}=(3,1),\ \vect{v}=(-2,4)\Rightarrow \vect{u}+\vect{v}=(1,5)$.</p>
-                    <p><strong>Example 2:</strong> $\vect{u}=(3,4),\ \vect{v}=(1,1)$:</p>
-                    $$\vect{u}\cdot\vect{v}=7,\quad \vect{v}\cdot\vect{v}=2,\quad
-                    \operatorname{proj}_{\vect{v}}\vect{u}=\left(\frac72,\frac72\right)$$
-                    <p><strong>Example 3:</strong> $\vect{v}_1=(2,1),\ \vect{v}_2=(1,3)$:</p>
-                    $$\det\begin{pmatrix}2&1\\1&3\end{pmatrix}=5\Rightarrow \text{area}=5$$
-                    <p><strong>Example 4:</strong> $\vect{u}=(1,0,0),\ \vect{v}=(1,2,0),\ \vect{w}=(1,2,3)$:</p>
-                    $$\det\begin{pmatrix}1&1&1\\0&2&2\\0&0&3\end{pmatrix}=6\Rightarrow \text{volume}=6$$
-                    <p><strong>Example 5 (shear):</strong></p>
-                    $$A=\begin{pmatrix}1&2\\0&1\end{pmatrix},\qquad A(x,y)=(x+2y,y)$$
-                </article>
-            </div>
-
-            <h3>Student Problems: Computational Practice (7 min)</h3>
-            <div class="notes-list">
-                <article class="note-item">
-                    <ol>
-                        <li>In $\R^2$, draw $(2,1)$, $(-1,3)$, and their sum; describe the combined motion.</li>
-                        <li>Compute norm and a unit vector in direction of $(6,8)$.</li>
-                        <li>Find angle between $(1,0)$ and $(1,\sqrt{3})$.</li>
-                        <li>Determine whether $(2,-1,3)$ and $(1,4,0)$ are orthogonal.</li>
-                        <li>Compute projection of $(4,1)$ onto $(1,2)$.</li>
-                        <li>Find $(1,2,3)\times(0,1,4)$ and verify orthogonality.</li>
-                        <li>Write line through $(1,-2,3)$ parallel to $(2,1,-1)$.</li>
-                        <li>Write plane through $(1,0,2)$ with normal $(3,-1,4)$.</li>
-                        <li>Compute $\det\begin{pmatrix}3&1\\2&5\end{pmatrix}$ and interpret geometrically.</li>
-                        <li>Compute $\det\begin{pmatrix}1&2&0\\0&1&1\\2&0&1\end{pmatrix}$.</li>
-                        <li>For $A=\begin{pmatrix}2&1\\1&2\end{pmatrix}$, compute $A(1,0)$, $A(0,1)$, $A(2,-1)$ and interpret action.</li>
-                    </ol>
-                </article>
-            </div>
-
-            <h3>Student Problems: Construction and Thinking (5 min)</h3>
-            <div class="notes-list">
-                <article class="note-item">
-                    <ol>
-                        <li>Construct two nonzero vectors summing to $(4,3)$. How many such pairs exist?</li>
-                        <li>Find all vectors orthogonal to $(2,-5)$ in $\R^2$; what geometric set do they form?</li>
-                        <li>Can two different vectors have same length and same projection on the $x$-axis? Give examples.</li>
-                        <li>Find a nonzero vector orthogonal to both $(1,1,0)$ and $(1,0,1)$ without formula first; then verify by cross product.</li>
-                        <li>Give three coplanar vectors in $\R^3$ and detect coplanarity by determinant.</li>
-                        <li>Find two vectors in $\R^2$ with same parallelogram area as $(3,0)$ and $(0,2)$ but different directions.</li>
-                        <li>Give a $2\times2$ matrix with negative determinant; describe orientation effect.</li>
-                        <li>Give a nonzero $2\times2$ matrix with determinant $0$; describe geometric collapse.</li>
-                        <li>Find a $2\times2$ matrix that doubles area but does not preserve lengths.</li>
-                        <li>Find a $3\times3$ diagonal matrix preserving volume but changing shape.</li>
-                        <li>Compare two products: rotation then stretch vs stretch then rotation; explain geometric difference.</li>
-                        <li>If both basis vectors map to same vector, what is determinant and what happens to squares?</li>
-                    </ol>
-                </article>
-            </div>
-
-            <h3>Short Concept Checks for Class (3 min)</h3>
-            <div class="notes-list">
-                <article class="note-item">
-                    <ol>
-                        <li>If $\vect{u}\cdot\vect{v}>0$, what does it imply about their angle?</li>
-                        <li>If $\det(A)=0$ for a $2\times2$ matrix, what can be said about its columns?</li>
-                        <li>Why does cross product in $\R^3$ produce a vector while determinant in $\R^2$ produces a scalar?</li>
-                        <li>What does the second column of a matrix represent geometrically?</li>
-                        <li>If $\det(A)=-1$, what does that say about area/volume and orientation?</li>
-                    </ol>
-                </article>
-            </div>
-
-            <h3>Summary (3 min)</h3>
-            <div class="notes-list">
-                <article class="note-item">
-                    <ul>
-                        <li>Vectors represent displacement, direction, and magnitude.</li>
-                        <li>Addition and scalar multiplication describe how motions combine.</li>
-                        <li>Dot product measures alignment and gives angles/projections.</li>
-                        <li>Cross product in $\R^3$ gives a perpendicular vector and area.</li>
-                        <li>Determinants measure signed area in $\R^2$ and signed volume in $\R^3$.</li>
-                        <li>Matrices represent linear actions; multiplication is composition.</li>
-                        <li>Determinants give area/volume scaling under matrix action.</li>
-                    </ul>
-                    <p>These ideas are the geometric language behind gradients, Jacobians, tangent approximations, and change of variables in multivariable calculus.</p>
-                </article>
-            </div>
-
-            <div class="quick-links" style="margin-top: 2rem;">
-                <a href="calculus-2.html" class="btn-secondary">Back to Course Page</a>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 Fudong. All rights reserved.</p>
-    </footer>
+</div>
+<p><strong>Geometric message.</strong> The same starting vector produces different outputs because the first action changes the direction or shape of the vector before the second action is applied.</p>
+<h4 id="think-about-this.">Think about this.</h4>
+<p>Although <span class="math display">\[AB \neq BA,\]</span> we still have <span class="math display">\[\det(AB)=\det(BA).\]</span> How can you explain this geometrically?</p>
+<p><em>Hint:</em> both compositions scale area by the product of the two individual area-scaling factors. One order may send a square to a different <em>shape</em> than the other, but the total area scale is the same: <span class="math display">\[\left\lvert \det(A) \right\rvert\,\left\lvert \det(B) \right\rvert.\]</span> So the final pictures can look different while the total area expansion factor remains identical.</p>
+</div>
+<h2 id="determinant-as-areavolume-scaling">Determinant as Area/Volume Scaling</h2>
+<p>If <span class="math inline">\(A\)</span> is a linear transformation:</p>
+<ul>
+<li><p>in <span class="math inline">\(\mathbb{R}^2\)</span>, <span class="math inline">\(\left\lvert \det(A) \right\rvert\)</span> is the factor by which areas scale,</p></li>
+<li><p>in <span class="math inline">\(\mathbb{R}^3\)</span>, <span class="math inline">\(\left\lvert \det(A) \right\rvert\)</span> is the factor by which volumes scale.</p></li>
+</ul>
+<p>Therefore, determinants measure how strongly a matrix expands, contracts, or collapses space.</p>
+<h2 id="invertibility">Invertibility</h2>
+<p>If <span class="math display">\[\det(A)\neq 0,\]</span> then the matrix is invertible, meaning the transformation can be undone.</p>
+<p>If <span class="math display">\[\det(A)=0,\]</span> then the matrix collapses dimension:</p>
+<ul>
+<li><p>in <span class="math inline">\(\mathbb{R}^2\)</span>, a region may collapse to a line or point,</p></li>
+<li><p>in <span class="math inline">\(\mathbb{R}^3\)</span>, a volume may collapse to a plane, line, or point.</p></li>
+</ul>
+<h1 id="connection-to-multivariable-calculus-4-min">Connection to Multivariable Calculus (4 min)</h1>
+<p>These topics are not separate preliminaries. They are the language of multivariable calculus.</p>
+<h2 id="gradients">Gradients</h2>
+<p>For a scalar function <span class="math inline">\(f(x_1,\dots,x_n)\)</span>, <span class="math display">\[\nabla f=
+\left(
+\frac{\partial f}{\partial x_1},
+\dots,
+\frac{\partial f}{\partial x_n}
+\right).\]</span> This is a vector of partial derivatives.</p>
+<h2 id="directional-derivatives">Directional Derivatives</h2>
+<p>If <span class="math inline">\(\mathbf{u}\)</span> is a unit vector, then <span class="math display">\[D_{\mathbf{u}}f=\nabla f\cdot\mathbf{u}.\]</span> The dot product turns the gradient into the rate of change in the chosen direction.</p>
+<h2 id="derivative-matrix">Derivative Matrix</h2>
+<p>For a vector-valued map <span class="math display">\[F:\mathbb{R}^n\to\mathbb{R}^m,\]</span> the derivative is represented by a matrix, the Jacobian matrix. Near a point, the function acts approximately like a linear transformation. That is why matrices and vectors are foundational.</p>
+<h1 id="worked-examples-6-min">Worked Examples (6 min)</h1>
+<h2 class="unnumbered" id="example-1-addition-as-combined-motion-in-mathbbr2">Example 1: Addition as Combined Motion in <span class="math inline">\(\mathbb{R}^2\)</span></h2>
+<p>Let <span class="math display">\[\mathbf{u}=(3,1), \qquad \mathbf{v}=(-2,4).\]</span> Then <span class="math display">\[\mathbf{u}+\mathbf{v}=(1,5).\]</span> Interpretation:</p>
+<ul>
+<li><p>first move right <span class="math inline">\(3\)</span> and up <span class="math inline">\(1\)</span>,</p></li>
+<li><p>then move left <span class="math inline">\(2\)</span> and up <span class="math inline">\(4\)</span>,</p></li>
+<li><p>net result: right <span class="math inline">\(1\)</span> and up <span class="math inline">\(5\)</span>.</p></li>
+</ul>
+<h2 class="unnumbered" id="example-2-projection-in-mathbbr2">Example 2: Projection in <span class="math inline">\(\mathbb{R}^2\)</span></h2>
+<p>Let <span class="math display">\[\mathbf{u}=(3,4), \qquad \mathbf{v}=(1,1).\]</span> Then <span class="math display">\[\mathbf{u}\cdot\mathbf{v}=7, \qquad \mathbf{v}\cdot\mathbf{v}=2,\]</span> so <span class="math display">\[\operatorname{proj}_{\mathbf{v}}\mathbf{u}
+=
+\frac{7}{2}(1,1)
+=
+\left(\frac{7}{2},\frac{7}{2}\right).\]</span></p>
+<h2 class="unnumbered" id="example-3-area-from-a-determinant-in-mathbbr2">Example 3: Area from a Determinant in <span class="math inline">\(\mathbb{R}^2\)</span></h2>
+<p>Let <span class="math display">\[\mathbf{v}_1=(2,1), \qquad \mathbf{v}_2=(1,3).\]</span> Using the matrix with these as columns: <span class="math display">\[A=
+\begin{pmatrix}
+2 &amp; 1 \\
+1 &amp; 3
+\end{pmatrix},\]</span> we get <span class="math display">\[\det(A)=2\cdot 3 - 1\cdot 1 = 5.\]</span> Therefore, the parallelogram spanned by <span class="math inline">\(\mathbf{v}_1\)</span> and <span class="math inline">\(\mathbf{v}_2\)</span> has area <span class="math inline">\(5\)</span>.</p>
+<h2 class="unnumbered" id="example-4-volume-from-a-determinant-in-mathbbr3">Example 4: Volume from a Determinant in <span class="math inline">\(\mathbb{R}^3\)</span></h2>
+<p>Let <span class="math display">\[\mathbf{u}=(1,0,0), \qquad \mathbf{v}=(1,2,0), \qquad \mathbf{w}=(1,2,3).\]</span> Then <span class="math display">\[\det
+\begin{pmatrix}
+1 &amp; 1 &amp; 1 \\
+0 &amp; 2 &amp; 2 \\
+0 &amp; 0 &amp; 3
+\end{pmatrix}
+= 6.\]</span> So the parallelepiped spanned by these vectors has volume <span class="math inline">\(6\)</span>.</p>
+<h2 class="unnumbered" id="example-5-matrix-as-a-transformation">Example 5: Matrix as a Transformation</h2>
+<p>Let <span class="math display">\[A=
+\begin{pmatrix}
+1 &amp; 2 \\
+0 &amp; 1
+\end{pmatrix}.\]</span> Then <span class="math display">\[A(x,y)=(x+2y,y).\]</span> This is a shear:</p>
+<ul>
+<li><p>horizontal position changes depending on height,</p></li>
+<li><p>vertical position stays unchanged.</p></li>
+</ul>
+<h1 id="student-problems-computational-practice-7-min">Student Problems: Computational Practice (7 min)</h1>
+<ol>
+<li><p>In <span class="math inline">\(\mathbb{R}^2\)</span>, draw the vectors <span class="math inline">\((2,1)\)</span>, <span class="math inline">\((-1,3)\)</span>, and their sum. Describe the combined motion in words.</p></li>
+<li><p>Compute the norm and a unit vector in the direction of <span class="math inline">\((6,8)\)</span>.</p></li>
+<li><p>Find the angle between <span class="math inline">\((1,0)\)</span> and <span class="math inline">\((1,\sqrt{3})\)</span>.</p></li>
+<li><p>Determine whether <span class="math inline">\((2,-1,3)\)</span> and <span class="math inline">\((1,4,0)\)</span> are orthogonal.</p></li>
+<li><p>Compute the projection of <span class="math inline">\((4,1)\)</span> onto <span class="math inline">\((1,2)\)</span>.</p></li>
+<li><p>Find the cross product of <span class="math inline">\((1,2,3)\)</span> and <span class="math inline">\((0,1,4)\)</span>.</p></li>
+<li><p>Verify directly that your cross product in the previous problem is perpendicular to both original vectors.</p></li>
+<li><p>Write the equation of the line through <span class="math inline">\((1,-2,3)\)</span> parallel to <span class="math inline">\((2,1,-1)\)</span>.</p></li>
+<li><p>Write the equation of the plane through <span class="math inline">\((1,0,2)\)</span> with normal vector <span class="math inline">\((3,-1,4)\)</span>.</p></li>
+<li><p>Compute the determinant of <span class="math display">\[\begin{pmatrix}
+3 &amp; 1 \\
+2 &amp; 5
+\end{pmatrix}\]</span> and interpret the result geometrically.</p></li>
+<li><p>Compute the determinant of <span class="math display">\[\begin{pmatrix}
+1 &amp; 2 &amp; 0 \\
+0 &amp; 1 &amp; 1 \\
+2 &amp; 0 &amp; 1
+\end{pmatrix}.\]</span></p></li>
+<li><p>Let <span class="math display">\[A=
+\begin{pmatrix}
+2 &amp; 1 \\
+1 &amp; 2
+\end{pmatrix}.\]</span> Compute <span class="math inline">\(A(1,0)\)</span>, <span class="math inline">\(A(0,1)\)</span>, and <span class="math inline">\(A(2,-1)\)</span>, and explain what the matrix does to the plane.</p></li>
+</ol>
+<h1 id="student-problems-construction-and-thinking-5-min">Student Problems: Construction and Thinking (5 min)</h1>
+<p>These work well for discussion, board work, or short group activities.</p>
+<ol>
+<li><p>In <span class="math inline">\(\mathbb{R}^2\)</span>, construct two different nonzero vectors whose sum is <span class="math inline">\((4,3)\)</span>. How many such pairs exist?</p></li>
+<li><p>In <span class="math inline">\(\mathbb{R}^2\)</span>, find all vectors orthogonal to <span class="math inline">\((2,-5)\)</span>. What geometric object do they form?</p></li>
+<li><p>In <span class="math inline">\(\mathbb{R}^2\)</span>, can two different vectors have the same length and the same projection onto the <span class="math inline">\(x\)</span>-axis? Give examples and explain.</p></li>
+<li><p>In <span class="math inline">\(\mathbb{R}^3\)</span>, find a nonzero vector orthogonal to both <span class="math inline">\((1,1,0)\)</span> and <span class="math inline">\((1,0,1)\)</span> without using the cross product formula first. Then verify your result with the cross product.</p></li>
+<li><p>In <span class="math inline">\(\mathbb{R}^3\)</span>, give three vectors that lie in the same plane. Explain how you can detect coplanarity using a determinant.</p></li>
+<li><p>Find two vectors in <span class="math inline">\(\mathbb{R}^2\)</span> that span the same parallelogram area as <span class="math inline">\((3,0)\)</span> and <span class="math inline">\((0,2)\)</span> but point in different directions.</p></li>
+<li><p>Give an example of a <span class="math inline">\(2\times 2\)</span> matrix with negative determinant. Describe what its action does to orientation.</p></li>
+<li><p>Give an example of a nonzero <span class="math inline">\(2\times 2\)</span> matrix with determinant <span class="math inline">\(0\)</span>. Describe the geometric collapse it causes.</p></li>
+<li><p>Find a <span class="math inline">\(2\times 2\)</span> matrix that doubles all areas but does not preserve lengths.</p></li>
+<li><p>Find a <span class="math inline">\(3\times 3\)</span> diagonal matrix that preserves volume but changes shape.</p></li>
+<li><p>Consider two matrices: one rotates the plane by <span class="math inline">\(90^\circ\)</span>, the other stretches only in the <span class="math inline">\(x\)</span>-direction. Compute both possible products and explain geometrically why the results differ.</p></li>
+<li><p>Suppose a matrix sends both basis vectors in <span class="math inline">\(\mathbb{R}^2\)</span> to the same vector. What must its determinant be? What happens to every square under this map?</p></li>
+</ol>
+<h1 id="short-concept-checks-for-class-3-min">Short Concept Checks for Class (3 min)</h1>
+<p>These can be used during the lecture to force interpretation, not just calculation.</p>
+<ol>
+<li><p>If <span class="math inline">\(\mathbf{u}\cdot\mathbf{v}&gt;0\)</span>, what does that tell you about the angle between the vectors?</p></li>
+<li><p>If <span class="math inline">\(\det(A)=0\)</span> for a <span class="math inline">\(2\times 2\)</span> matrix, what can you say about its two column vectors?</p></li>
+<li><p>Why does a cross product in <span class="math inline">\(\mathbb{R}^3\)</span> naturally produce a vector, while a determinant in <span class="math inline">\(\mathbb{R}^2\)</span> produces a number?</p></li>
+<li><p>What does the second column of a matrix tell you geometrically?</p></li>
+<li><p>If a matrix has determinant <span class="math inline">\(-1\)</span>, what does that say about area (or volume) and orientation?</p></li>
+</ol>
+<h1 id="summary-3-min">Summary (3 min)</h1>
+<p>The key structural ideas are:</p>
+<ul>
+<li><p>vectors represent displacement, direction, and magnitude,</p></li>
+<li><p>addition and scalar multiplication describe how motions combine,</p></li>
+<li><p>the dot product measures alignment and gives angles and projections,</p></li>
+<li><p>the cross product in <span class="math inline">\(\mathbb{R}^3\)</span> produces a perpendicular vector and measures area,</p></li>
+<li><p>determinants measure signed area in <span class="math inline">\(\mathbb{R}^2\)</span> and signed volume in <span class="math inline">\(\mathbb{R}^3\)</span>,</p></li>
+<li><p>matrices represent linear actions on vectors,</p></li>
+<li><p>matrix multiplication represents composition of actions,</p></li>
+<li><p>determinants measure area/volume scaling under matrices.</p></li>
+</ul>
+<p>These ideas form the geometric language behind gradients, Jacobians, tangent approximations, and change of variables in multivariable calculus.</p>
 </body>
 </html>
