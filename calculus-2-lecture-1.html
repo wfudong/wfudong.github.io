@@ -5,21 +5,22 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Vectors in Euclidean Space Lecture Notes for Multivariable Calculus</title>
+  <link rel="stylesheet" href="style.css">
   <style>
     html {
-      line-height: 1.5;
+      line-height: 1.38;
       font-family: Georgia, serif;
-      font-size: 20px;
+      font-size: 16px;
       color: #1a1a1a;
       background-color: #fdfdfd;
     }
     body {
       margin: 0 auto;
       max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-top: 16px;
+      padding-bottom: 30px;
       hyphens: auto;
       word-wrap: break-word;
       text-rendering: optimizeLegibility;
@@ -46,7 +47,7 @@
       }
     }
     p {
-      margin: 1em 0;
+      margin: 0.55em 0;
     }
     a {
       color: #1a1a1a;
@@ -58,7 +59,8 @@
       max-width: 100%;
     }
     h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
+      margin-top: 1em;
+      margin-bottom: 0.45em;
     }
     h5, h6 {
       font-size: 1em;
@@ -68,8 +70,8 @@
       font-weight: normal;
     }
     ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
+      padding-left: 1.35em;
+      margin-top: 0.55em;
     }
     li > ol, li > ul {
       margin-top: 0;
@@ -147,9 +149,13 @@
       max-width: 1280px;
       display: grid;
       grid-template-columns: 300px minmax(0, 1fr);
-      gap: 2rem;
+      gap: 1.1rem;
       align-items: start;
-      padding: 24px 24px 56px;
+      padding: 12px 16px 36px;
+    }
+
+    .navbar {
+      grid-column: 1 / -1;
     }
 
     header {
@@ -285,6 +291,19 @@
   <![endif]-->
 </head>
 <body>
+<nav class="navbar">
+<div class="container">
+<h1 class="logo">Fudong</h1>
+<ul class="nav-links">
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About Me</a></li>
+<li><a href="publications.html">Publications</a></li>
+<li><a href="projects.html">Projects</a></li>
+<li><a href="teaching.html" class="active">Teaching</a></li>
+<li><a href="notes.html">Notes</a></li>
+</ul>
+</div>
+</nav>
 <header id="title-block-header">
 <h1 class="title">Vectors in Euclidean Space<br />
 Lecture Notes for Multivariable Calculus</h1>
