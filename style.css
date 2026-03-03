@@ -117,6 +117,14 @@ body {
     background: #fafafa;
 }
 
+.avatar-photo {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+}
+
 .intro-panel {
     background: var(--white);
     border: 1px solid var(--border);
@@ -486,6 +494,11 @@ footer p {
     }
 
     .avatar-placeholder {
+        width: 180px;
+        height: 180px;
+    }
+
+    .avatar-photo {
         width: 180px;
         height: 180px;
     }
