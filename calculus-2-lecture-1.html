@@ -9,7 +9,13 @@
         window.MathJax = {
             tex: {
                 inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                macros: {
+                    R: '{\\mathbb{R}}',
+                    vect: ['{\\mathbf{#1}}', 1],
+                    norm: ['{\\left\\lVert #1 \\right\\rVert}', 1],
+                    abs: ['{\\left\\lvert #1 \\right\\rvert}', 1]
+                }
             },
             svg: { fontCache: 'global' }
         };
@@ -37,59 +43,108 @@
 
             <div class="courses-list">
                 <article class="course-item">
-                    <h4>本讲目标</h4>
-                    <p class="course-info">你可以后续在这里补充本讲目标、重点、难点。</p>
-                    <p>示例：复习函数、极限与连续的核心概念，为多元微积分做准备。</p>
+                    <h4>Vectors in Euclidean Space（板书版讲义）</h4>
+                    <p class="course-info">本页内容根据你的 TeX 文件整理，保留核心教学流程与公式，支持直接显示 LaTeX 数学公式。</p>
                 </article>
             </div>
 
-            <h3>数学公式示例（LaTeX）</h3>
+            <h3>Board 1：Vectors, Coordinates, and Basic Operations</h3>
             <div class="notes-list">
                 <article class="note-item">
-                    <p>行内公式示例：$\lim_{x \to 0}\frac{\sin x}{x}=1$</p>
-                    <p>多元函数偏导示例：$f(x,y)=x^2y+e^{xy}$，则 $\frac{\partial f}{\partial x}=2xy+ye^{xy}$</p>
-                    <p>展示公式示例：</p>
-                    $$
-                    \iint_D f(x,y)\,\mathrm{d}A
-                    $$
-                    $$
-                    \nabla f(x,y)=\left(\frac{\partial f}{\partial x},\frac{\partial f}{\partial y}\right)
-                    $$
+                    <p><strong>Euclidean space</strong></p>
+                    $$\R^n=\{(x_1,\dots,x_n)\mid x_i\in\R\}$$
+                    $$\R^2=\{(x,y)\},\qquad \R^3=\{(x,y,z)\}$$
+
+                    <p><strong>A vector</strong></p>
+                    $$\vect{v}=(a,b)\ \text{in }\R^2,\qquad \vect{v}=(a,b,c)\ \text{in }\R^3$$
+
+                    <p><strong>Standard basis</strong></p>
+                    $$\vect{e}_1=(1,0,\dots,0),\ \vect{e}_2=(0,1,0,\dots,0),\ \dots,\ \vect{e}_n=(0,\dots,0,1)$$
+                    $$\vect{x}=x_1\vect{e}_1+\cdots+x_n\vect{e}_n$$
+
+                    <p><strong>Basic operations</strong></p>
+                    $$\vect{u}+\vect{v}=(u_1+v_1,\dots,u_n+v_n)$$
+                    $$c\vect{u}=(cu_1,\dots,cu_n)$$
+                    $$a_1\vect{v}_1+\cdots+a_k\vect{v}_k$$
+
+                    <p><strong>Quick example</strong></p>
+                    $$(2,-1,3)+(-1,4,0)=(1,3,3)$$
                 </article>
             </div>
 
-            <h3>课堂笔记（待补充）</h3>
+            <h3>Board 2：Length, Distance, Dot Product, Projection</h3>
             <div class="notes-list">
                 <article class="note-item">
-                    <span class="note-date">待更新</span>
-                    <h3>知识点 1</h3>
-                    <p>在此补充讲解内容、例题、作业说明。</p>
+                    <p><strong>Norm / Distance / Unit vector</strong></p>
+                    $$\norm{\vect{v}}=\sqrt{v_1^2+\cdots+v_n^2}$$
+                    $$d(P,Q)=\norm{Q-P}$$
+                    $$\widehat{\vect{v}}=\frac{\vect{v}}{\norm{\vect{v}}}\qquad (\vect{v}\neq\vect{0})$$
+
+                    <p><strong>Dot product and angle</strong></p>
+                    $$\vect{u}\cdot\vect{v}=u_1v_1+\cdots+u_nv_n$$
+                    $$\vect{u}\cdot\vect{v}=\norm{\vect{u}}\norm{\vect{v}}\cos\theta$$
+                    $$\vect{u}\perp\vect{v}\iff \vect{u}\cdot\vect{v}=0$$
+
+                    <p><strong>Projection</strong></p>
+                    $$\operatorname{proj}_{\vect{v}}\vect{u}=\frac{\vect{u}\cdot\vect{v}}{\vect{v}\cdot\vect{v}}\,\vect{v}$$
+
+                    <p><strong>Quick example</strong></p>
+                    $$\norm{(3,4)}=5,\qquad \operatorname{proj}_{(1,1)}(3,4)=\frac{7}{2}(1,1)$$
                 </article>
                 <article class="note-item">
-                    <span class="note-date">待更新</span>
-                    <h3>知识点 2</h3>
-                    <p>在此添加你的板书总结、课件链接、参考资料。</p>
+                    <h3>Board 3：Cross Product and Determinants</h3>
+                    <p><strong>Cross product in $\R^3$</strong></p>
+                    $$\vect{u}\times\vect{v}=\begin{pmatrix}u_2v_3-u_3v_2\\u_3v_1-u_1v_3\\u_1v_2-u_2v_1\end{pmatrix}$$
+                    $$\vect{u}\times\vect{v}\perp\vect{u},\qquad \vect{u}\times\vect{v}\perp\vect{v}$$
+                    $$\norm{\vect{u}\times\vect{v}}=\norm{\vect{u}}\norm{\vect{v}}\sin\theta$$
+                    $$\text{Area of parallelogram}=\norm{\vect{u}\times\vect{v}}$$
+
+                    <p><strong>Determinants</strong></p>
+                    $$\det\begin{pmatrix}a & b\\c & d\end{pmatrix}=ad-bc$$
+                    $$\abs{\det(A)}=\text{area scaling factor in }\R^2$$
+                    $$\abs{\det(A)}=\text{volume scaling factor in }\R^3$$
+                    $$\vect{u}\cdot(\vect{v}\times\vect{w})=\det\begin{pmatrix}u_1 & v_1 & w_1\\u_2 & v_2 & w_2\\u_3 & v_3 & w_3\end{pmatrix}$$
+                    $$\det\begin{pmatrix}2 & 1\\1 & 3\end{pmatrix}=5$$
+                </article>
+                <article class="note-item">
+                    <h3>Board 4：Coordinate Change and Matrices as Actions</h3>
+                    <p><strong>Coordinate change</strong></p>
+                    $$A=\begin{pmatrix}\vline & \vline\\\vect{v}_1 & \vect{v}_2\\\vline & \vline\end{pmatrix},\qquad \vect{x}_{\text{standard}}=A\vect{x}_{\text{new}}$$
+                    $$\abs{\det(A)}=\text{how unit area or unit volume scales under the coordinate change}$$
+
+                    <p><strong>Matrix action and multiplication</strong></p>
+                    $$A\vect{x}=\text{a new vector}$$
+                    $$A=\begin{pmatrix}\vline & \vline\\\vect{c}_1 & \vect{c}_2\\\vline & \vline\end{pmatrix},\qquad A\begin{pmatrix}x\\y\end{pmatrix}=x\vect{c}_1+y\vect{c}_2$$
+                    $$(AB)\vect{x}=A(B\vect{x}),\qquad AB\neq BA\ \text{in general}$$
+                    $$\det(AB)=\det(A)\det(B)$$
+                </article>
+                <article class="note-item">
+                    <h3>Board 5：Lines, Planes, and Calculus Connection</h3>
+                    $$\vect{r}(t)=\vect{r}_0+t\vect{d}$$
+                    $$\vect{n}\cdot(\vect{r}-\vect{r}_0)=0$$
+                    $$\vect{n}=\vect{u}\times\vect{v}$$
+                    $$\nabla f=\left(\frac{\partial f}{\partial x_1},\dots,\frac{\partial f}{\partial x_n}\right)$$
+                    $$D_{\vect{u}}f=\nabla f\cdot\vect{u}\qquad (\vect{u}\ \text{unit})$$
+                    $$\text{Near a point, a multivariable map behaves like a matrix}$$
                 </article>
             </div>
 
-            <h3>Lecture Notes PDF</h3>
+            <h3>Core Board Formulas</h3>
             <div class="notes-list">
                 <article class="note-item">
-                    <p>
-                        当前讲义文件：
-                        <a href="lecturenotes/vectors_in_euclidean_space.pdf" target="_blank" rel="noopener noreferrer">vectors_in_euclidean_space.pdf</a>
-                    </p>
-                    <div class="quick-links" style="margin: 0.75rem 0 1rem;">
-                        <a href="lecturenotes/vectors_in_euclidean_space.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Open in New Tab</a>
-                        <a href="lecturenotes/vectors_in_euclidean_space.pdf" download class="btn-secondary">Download PDF</a>
-                    </div>
-                    <iframe
-                        src="lecturenotes/vectors_in_euclidean_space.pdf"
-                        title="Lecture 1 PDF"
-                        width="100%"
-                        height="900"
-                        style="border: 1px solid #ddd; border-radius: 8px;"
-                    ></iframe>
+                    $$\vect{x}=x_1\vect{e}_1+\cdots+x_n\vect{e}_n$$
+                    $$\vect{u}+\vect{v}=(u_1+v_1,\dots,u_n+v_n)$$
+                    $$\norm{\vect{v}}=\sqrt{v_1^2+\cdots+v_n^2}$$
+                    $$\vect{u}\cdot\vect{v}=u_1v_1+\cdots+u_nv_n$$
+                    $$\vect{u}\cdot\vect{v}=\norm{\vect{u}}\norm{\vect{v}}\cos\theta$$
+                    $$\operatorname{proj}_{\vect{v}}\vect{u}=\frac{\vect{u}\cdot\vect{v}}{\vect{v}\cdot\vect{v}}\,\vect{v}$$
+                    $$\norm{\vect{u}\times\vect{v}}=\norm{\vect{u}}\norm{\vect{v}}\sin\theta$$
+                    $$\abs{\det(A)}=\text{area/volume scaling}$$
+                    $$\vect{x}_{\text{standard}}=A\vect{x}_{\text{new}}$$
+                    $$(AB)\vect{x}=A(B\vect{x})$$
+                    $$\vect{r}(t)=\vect{r}_0+t\vect{d}$$
+                    $$\vect{n}\cdot(\vect{r}-\vect{r}_0)=0$$
+                    $$D_{\vect{u}}f=\nabla f\cdot\vect{u}$$
                 </article>
             </div>
 
