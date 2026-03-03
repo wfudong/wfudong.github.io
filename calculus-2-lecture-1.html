@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高等数学（二）第1讲</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">Fudong</h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Me</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="teaching.html" class="active">Teaching</a></li>
+                <li><a href="notes.html">Notes</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="content">
+        <div class="container">
+            <h2>第 1 讲：课程导论与预备知识</h2>
+
+            <div class="courses-list">
+                <article class="course-item">
+                    <h4>本讲目标</h4>
+                    <p class="course-info">你可以后续在这里补充本讲目标、重点、难点。</p>
+                    <p>示例：复习函数、极限与连续的核心概念，为多元微积分做准备。</p>
+                </article>
+            </div>
+
+            <h3>数学公式示例（LaTeX）</h3>
+            <div class="notes-list">
+                <article class="note-item">
+                    <p>行内公式示例：$\lim_{x \to 0}\frac{\sin x}{x}=1$</p>
+                    <p>多元函数偏导示例：$f(x,y)=x^2y+e^{xy}$，则 $\frac{\partial f}{\partial x}=2xy+ye^{xy}$</p>
+                    <p>展示公式示例：</p>
+                    $$
+                    \iint_D f(x,y)\,\mathrm{d}A
+                    $$
+                    $$
+                    \nabla f(x,y)=\left(\frac{\partial f}{\partial x},\frac{\partial f}{\partial y}\right)
+                    $$
+                </article>
+            </div>
+
+            <h3>课堂笔记（待补充）</h3>
+            <div class="notes-list">
+                <article class="note-item">
+                    <span class="note-date">待更新</span>
+                    <h3>知识点 1</h3>
+                    <p>在此补充讲解内容、例题、作业说明。</p>
+                </article>
+                <article class="note-item">
+                    <span class="note-date">待更新</span>
+                    <h3>知识点 2</h3>
+                    <p>在此添加你的板书总结、课件链接、参考资料。</p>
+                </article>
+            </div>
+
+            <div class="quick-links" style="margin-top: 2rem;">
+                <a href="calculus-2.html" class="btn-secondary">返回课程主页</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Fudong. All rights reserved.</p>
+    </footer>
+</body>
+</html>
