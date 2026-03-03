@@ -120,9 +120,11 @@ body {
 .avatar-photo {
     width: 220px;
     height: 220px;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
     border-radius: 16px;
     border: 1px solid var(--border);
+    background: #fafafa;
 }
 
 .intro-panel {
