@@ -14,7 +14,8 @@
                     R: '{\\mathbb{R}}',
                     vect: ['{\\mathbf{#1}}', 1],
                     norm: ['{\\left\\lVert #1 \\right\\rVert}', 1],
-                    abs: ['{\\left\\lvert #1 \\right\\rvert}', 1]
+                    abs: ['{\\left\\lvert #1 \\right\\rvert}', 1],
+                    dd: '{\\,\\mathrm{d}}'
                 }
             },
             svg: { fontCache: 'global' }
@@ -39,112 +40,142 @@
 
     <section class="content">
         <div class="container">
-            <h2>第 1 讲：课程导论与预备知识</h2>
+            <h2>第 1 讲：Vectors in Euclidean Space</h2>
 
             <div class="courses-list">
                 <article class="course-item">
-                    <h4>Vectors in Euclidean Space（板书版讲义）</h4>
-                    <p class="course-info">本页内容根据你的 TeX 文件整理，保留核心教学流程与公式，支持直接显示 LaTeX 数学公式。</p>
+                    <h4>Lecture Scope and Goals</h4>
+                    <p class="course-info">以下内容根据你给定的 <strong>vectors_in_euclidean_space.tex</strong> 整理（完整版讲义结构），并保留公式与示例，支持 MathJax 直接渲染。</p>
+                    <p>本讲重点：向量与欧氏空间、向量运算、点积/叉积、行列式、坐标变换、矩阵作用，以及与多元微积分（梯度、方向导数、Jacobian）的联系。</p>
                 </article>
             </div>
 
-            <h3>Board 1：Vectors, Coordinates, and Basic Operations</h3>
+            <h3>1) Euclidean Space, Coordinates, and Basis</h3>
             <div class="notes-list">
                 <article class="note-item">
-                    <p><strong>Euclidean space</strong></p>
-                    $$\R^n=\{(x_1,\dots,x_n)\mid x_i\in\R\}$$
-                    $$\R^2=\{(x,y)\},\qquad \R^3=\{(x,y,z)\}$$
-
-                    <p><strong>A vector</strong></p>
-                    $$\vect{v}=(a,b)\ \text{in }\R^2,\qquad \vect{v}=(a,b,c)\ \text{in }\R^3$$
-
-                    <p><strong>Standard basis</strong></p>
+                    $$\R^n=\{(x_1,x_2,\dots,x_n)\mid x_i\in\R\},\qquad \R^2=\{(x,y)\},\ \R^3=\{(x,y,z)\}$$
                     $$\vect{e}_1=(1,0,\dots,0),\ \vect{e}_2=(0,1,0,\dots,0),\ \dots,\ \vect{e}_n=(0,\dots,0,1)$$
-                    $$\vect{x}=x_1\vect{e}_1+\cdots+x_n\vect{e}_n$$
-
-                    <p><strong>Basic operations</strong></p>
-                    $$\vect{u}+\vect{v}=(u_1+v_1,\dots,u_n+v_n)$$
-                    $$c\vect{u}=(cu_1,\dots,cu_n)$$
-                    $$a_1\vect{v}_1+\cdots+a_k\vect{v}_k$$
-
-                    <p><strong>Quick example</strong></p>
-                    $$(2,-1,3)+(-1,4,0)=(1,3,3)$$
+                    $$\vect{x}=(x_1,\dots,x_n)=x_1\vect{e}_1+\cdots+x_n\vect{e}_n$$
+                    <p>向量既可看作点的位置，也可看作位移（长度 + 方向）。</p>
                 </article>
             </div>
 
-            <h3>Board 2：Length, Distance, Dot Product, Projection</h3>
+            <h3>2) Vector Operations and Linear Combination</h3>
             <div class="notes-list">
                 <article class="note-item">
-                    <p><strong>Norm / Distance / Unit vector</strong></p>
-                    $$\norm{\vect{v}}=\sqrt{v_1^2+\cdots+v_n^2}$$
-                    $$d(P,Q)=\norm{Q-P}$$
-                    $$\widehat{\vect{v}}=\frac{\vect{v}}{\norm{\vect{v}}}\qquad (\vect{v}\neq\vect{0})$$
-
-                    <p><strong>Dot product and angle</strong></p>
-                    $$\vect{u}\cdot\vect{v}=u_1v_1+\cdots+u_nv_n$$
-                    $$\vect{u}\cdot\vect{v}=\norm{\vect{u}}\norm{\vect{v}}\cos\theta$$
-                    $$\vect{u}\perp\vect{v}\iff \vect{u}\cdot\vect{v}=0$$
-
-                    <p><strong>Projection</strong></p>
-                    $$\operatorname{proj}_{\vect{v}}\vect{u}=\frac{\vect{u}\cdot\vect{v}}{\vect{v}\cdot\vect{v}}\,\vect{v}$$
-
-                    <p><strong>Quick example</strong></p>
-                    $$\norm{(3,4)}=5,\qquad \operatorname{proj}_{(1,1)}(3,4)=\frac{7}{2}(1,1)$$
+                    $$\vect{u}+\vect{v}=(u_1+v_1,\dots,u_n+v_n),\qquad c\vect{u}=(cu_1,\dots,cu_n)$$
+                    $$a_1\vect{v}_1+\cdots+a_k\vect{v}_k$$
+                    <p>线性组合是后续线性代数与多元微积分的核心语言。</p>
+                    <p><strong>Example:</strong> $\vect{u}=(3,1),\ \vect{v}=(-2,4)\Rightarrow \vect{u}+\vect{v}=(1,5)$。</p>
                 </article>
-                <article class="note-item">
-                    <h3>Board 3：Cross Product and Determinants</h3>
-                    <p><strong>Cross product in $\R^3$</strong></p>
-                    $$\vect{u}\times\vect{v}=\begin{pmatrix}u_2v_3-u_3v_2\\u_3v_1-u_1v_3\\u_1v_2-u_2v_1\end{pmatrix}$$
-                    $$\vect{u}\times\vect{v}\perp\vect{u},\qquad \vect{u}\times\vect{v}\perp\vect{v}$$
-                    $$\norm{\vect{u}\times\vect{v}}=\norm{\vect{u}}\norm{\vect{v}}\sin\theta$$
-                    $$\text{Area of parallelogram}=\norm{\vect{u}\times\vect{v}}$$
+            </div>
 
-                    <p><strong>Determinants</strong></p>
-                    $$\det\begin{pmatrix}a & b\\c & d\end{pmatrix}=ad-bc$$
+            <h3>3) Magnitude, Distance, Unit Vector</h3>
+            <div class="notes-list">
+                <article class="note-item">
+                    $$\norm{\vect{v}}=\sqrt{v_1^2+\cdots+v_n^2},\qquad d(P,Q)=\norm{Q-P}$$
+                    $$\widehat{\vect{v}}=\frac{\vect{v}}{\norm{\vect{v}}}\quad (\vect{v}\neq\vect{0})$$
+                    <p><strong>Examples:</strong> $\norm{(3,4)}=5,\ \norm{(2,-1,2)}=3$。</p>
+                </article>
+            </div>
+
+            <h3>4) Dot Product, Angle, Projection</h3>
+            <div class="notes-list">
+                <article class="note-item">
+                    $$\vect{u}\cdot\vect{v}=u_1v_1+\cdots+u_nv_n$$
+                    $$\vect{u}\cdot\vect{v}=\norm{\vect{u}}\norm{\vect{v}}\cos\theta,\qquad
+                    \cos\theta=\frac{\vect{u}\cdot\vect{v}}{\norm{\vect{u}}\norm{\vect{v}}}$$
+                    $$\vect{u}\perp\vect{v}\iff \vect{u}\cdot\vect{v}=0$$
+                    $$\operatorname{proj}_{\vect{v}}\vect{u}=\frac{\vect{u}\cdot\vect{v}}{\vect{v}\cdot\vect{v}}\,\vect{v}$$
+                    <p><strong>Projection Example:</strong> $\vect{u}=(3,4),\ \vect{v}=(1,1)$，则 $\operatorname{proj}_{\vect{v}}\vect{u}=\frac{7}{2}(1,1)$。</p>
+                </article>
+            </div>
+
+            <h3>5) Cross Product in $\R^3$</h3>
+            <div class="notes-list">
+                <article class="note-item">
+                    $$\vect{u}\times\vect{v}=\begin{pmatrix}
+                    u_2v_3-u_3v_2\\
+                    u_3v_1-u_1v_3\\
+                    u_1v_2-u_2v_1
+                    \end{pmatrix}$$
+                    $$\vect{u}\times\vect{v}\perp\vect{u},\quad \vect{u}\times\vect{v}\perp\vect{v},\quad
+                    \norm{\vect{u}\times\vect{v}}=\norm{\vect{u}}\norm{\vect{v}}\sin\theta$$
+                    $$\text{Area of parallelogram}=\norm{\vect{u}\times\vect{v}}$$
+                    <p><strong>Example:</strong> $\vect{u}=(2,1,0),\ \vect{v}=(1,3,1)$，则 $\vect{u}\times\vect{v}=(1,-2,5)$，面积为 $\sqrt{30}$。</p>
+                </article>
+            </div>
+
+            <h3>6) Determinants and Geometry</h3>
+            <div class="notes-list">
+                <article class="note-item">
+                    $$\det\begin{pmatrix}a & b\\ c & d\end{pmatrix}=ad-bc$$
                     $$\abs{\det(A)}=\text{area scaling factor in }\R^2$$
                     $$\abs{\det(A)}=\text{volume scaling factor in }\R^3$$
-                    $$\vect{u}\cdot(\vect{v}\times\vect{w})=\det\begin{pmatrix}u_1 & v_1 & w_1\\u_2 & v_2 & w_2\\u_3 & v_3 & w_3\end{pmatrix}$$
-                    $$\det\begin{pmatrix}2 & 1\\1 & 3\end{pmatrix}=5$$
-                </article>
-                <article class="note-item">
-                    <h3>Board 4：Coordinate Change and Matrices as Actions</h3>
-                    <p><strong>Coordinate change</strong></p>
-                    $$A=\begin{pmatrix}\vline & \vline\\\vect{v}_1 & \vect{v}_2\\\vline & \vline\end{pmatrix},\qquad \vect{x}_{\text{standard}}=A\vect{x}_{\text{new}}$$
-                    $$\abs{\det(A)}=\text{how unit area or unit volume scales under the coordinate change}$$
-
-                    <p><strong>Matrix action and multiplication</strong></p>
-                    $$A\vect{x}=\text{a new vector}$$
-                    $$A=\begin{pmatrix}\vline & \vline\\\vect{c}_1 & \vect{c}_2\\\vline & \vline\end{pmatrix},\qquad A\begin{pmatrix}x\\y\end{pmatrix}=x\vect{c}_1+y\vect{c}_2$$
-                    $$(AB)\vect{x}=A(B\vect{x}),\qquad AB\neq BA\ \text{in general}$$
-                    $$\det(AB)=\det(A)\det(B)$$
-                </article>
-                <article class="note-item">
-                    <h3>Board 5：Lines, Planes, and Calculus Connection</h3>
-                    $$\vect{r}(t)=\vect{r}_0+t\vect{d}$$
-                    $$\vect{n}\cdot(\vect{r}-\vect{r}_0)=0$$
-                    $$\vect{n}=\vect{u}\times\vect{v}$$
-                    $$\nabla f=\left(\frac{\partial f}{\partial x_1},\dots,\frac{\partial f}{\partial x_n}\right)$$
-                    $$D_{\vect{u}}f=\nabla f\cdot\vect{u}\qquad (\vect{u}\ \text{unit})$$
-                    $$\text{Near a point, a multivariable map behaves like a matrix}$$
+                    $$\vect{u}\cdot(\vect{v}\times\vect{w})=
+                    \det\begin{pmatrix}
+                    u_1 & v_1 & w_1\\
+                    u_2 & v_2 & w_2\\
+                    u_3 & v_3 & w_3
+                    \end{pmatrix}$$
+                    <p><strong>Example:</strong> $A=\begin{pmatrix}2 & 1\\1 & 3\end{pmatrix}$，则 $\det(A)=5$，对应平行四边形面积为 $5$。</p>
                 </article>
             </div>
 
-            <h3>Core Board Formulas</h3>
+            <h3>7) Coordinate Change by Matrices</h3>
             <div class="notes-list">
                 <article class="note-item">
-                    $$\vect{x}=x_1\vect{e}_1+\cdots+x_n\vect{e}_n$$
-                    $$\vect{u}+\vect{v}=(u_1+v_1,\dots,u_n+v_n)$$
-                    $$\norm{\vect{v}}=\sqrt{v_1^2+\cdots+v_n^2}$$
-                    $$\vect{u}\cdot\vect{v}=u_1v_1+\cdots+u_nv_n$$
-                    $$\vect{u}\cdot\vect{v}=\norm{\vect{u}}\norm{\vect{v}}\cos\theta$$
-                    $$\operatorname{proj}_{\vect{v}}\vect{u}=\frac{\vect{u}\cdot\vect{v}}{\vect{v}\cdot\vect{v}}\,\vect{v}$$
-                    $$\norm{\vect{u}\times\vect{v}}=\norm{\vect{u}}\norm{\vect{v}}\sin\theta$$
-                    $$\abs{\det(A)}=\text{area/volume scaling}$$
-                    $$\vect{x}_{\text{standard}}=A\vect{x}_{\text{new}}$$
-                    $$(AB)\vect{x}=A(B\vect{x})$$
-                    $$\vect{r}(t)=\vect{r}_0+t\vect{d}$$
-                    $$\vect{n}\cdot(\vect{r}-\vect{r}_0)=0$$
-                    $$D_{\vect{u}}f=\nabla f\cdot\vect{u}$$
+                    $$A=\begin{pmatrix}
+                    \vline & \vline & \vline\\
+                    \vect{v}_1 & \vect{v}_2 & \vect{v}_3\\
+                    \vline & \vline & \vline
+                    \end{pmatrix},\qquad
+                    \vect{x}_{\text{standard}}=A\vect{x}_{\text{new}}$$
+                    $$\text{unit square/cube in new coordinates }\xrightarrow{\ A\ }\text{parallelogram/parallelepiped in standard space}$$
+                    $$\text{scale factor}=\abs{\det(A)}$$
+                    <p>这正是多元积分变量替换中 Jacobian 行列式的几何来源。</p>
+                </article>
+            </div>
+
+            <h3>8) Lines, Planes, and Matrix Actions</h3>
+            <div class="notes-list">
+                <article class="note-item">
+                    $$\vect{r}(t)=\vect{r}_0+t\vect{d}\quad (\text{line})$$
+                    $$\vect{n}\cdot(\vect{r}-\vect{r}_0)=0\quad (\text{plane in }\R^3)$$
+                    $$A\vect{x}=\text{new vector},\qquad (AB)\vect{x}=A(B\vect{x}),\qquad AB\neq BA\ \text{in general}$$
+                    $$\det(AB)=\det(A)\det(B)$$
+                    <p>矩阵可理解为“对向量施加动作”的规则：拉伸、旋转、错切、压缩等。</p>
+                </article>
+            </div>
+
+            <h3>9) Connection to Multivariable Calculus</h3>
+            <div class="notes-list">
+                <article class="note-item">
+                    $$\nabla f=\left(\frac{\partial f}{\partial x_1},\dots,\frac{\partial f}{\partial x_n}\right),\qquad
+                    D_{\vect{u}}f=\nabla f\cdot\vect{u}\ (\vect{u}\text{ unit})$$
+                    <p>向量、点积、矩阵与行列式共同构成梯度、方向导数、切平面、Jacobian 的统一语言。</p>
+                </article>
+            </div>
+
+            <h3>10) Worked Examples & Practice</h3>
+            <div class="notes-list">
+                <article class="note-item">
+                    <p><strong>Worked example (volume):</strong></p>
+                    $$\det\begin{pmatrix}
+                    1 & 1 & 1\\
+                    0 & 2 & 2\\
+                    0 & 0 & 3
+                    \end{pmatrix}=6$$
+                    <p>由此可得对应平行六面体体积为 $6$。</p>
+
+                    <p><strong>课后练习建议（选自原讲义）</strong></p>
+                    <ul>
+                        <li>计算 $(6,8)$ 的范数与单位向量；</li>
+                        <li>求 $(4,1)$ 在 $(1,2)$ 上的投影；</li>
+                        <li>计算 $(1,2,3)\times(0,1,4)$ 并验证正交；</li>
+                        <li>写出过 $(1,0,2)$ 且法向量为 $(3,-1,4)$ 的平面方程；</li>
+                        <li>解释为什么一般有 $AB\neq BA$。</li>
+                    </ul>
                 </article>
             </div>
 
