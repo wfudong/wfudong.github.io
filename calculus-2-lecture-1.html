@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>高等数学（二）第1讲</title>
+    <title>Calculus II - Lecture 1</title>
     <link rel="stylesheet" href="style.css">
     <script>
         window.MathJax = {
@@ -40,58 +40,80 @@
 
     <section class="content">
         <div class="container">
-            <h2>第 1 讲：Vectors in Euclidean Space</h2>
+            <h2>Lecture 1: Vectors in Euclidean Space</h2>
 
             <div class="courses-list">
                 <article class="course-item">
-                    <h4>Lecture Scope and Goals</h4>
-                    <p class="course-info">以下内容根据你给定的 <strong>vectors_in_euclidean_space.tex</strong> 整理（完整版讲义结构），并保留公式与示例，支持 MathJax 直接渲染。</p>
-                    <p>本讲重点：向量与欧氏空间、向量运算、点积/叉积、行列式、坐标变换、矩阵作用，以及与多元微积分（梯度、方向导数、Jacobian）的联系。</p>
+                    <h4>Lecture Scope and Goals (5 min)</h4>
+                    <p>This lecture is designed as a 2-hour 30-minute introduction to vectors in Euclidean space for students beginning multivariable calculus.</p>
+                    <p>The central goals are to understand vectors as quantities with magnitude and direction, move fluently between geometric pictures and coordinate formulas, learn vector algebra in $\R^2$ and $\R^3$, connect dot product/cross product/determinants/matrices to geometry, and prepare for gradients, tangent planes, linear approximations, and Jacobians.</p>
+                    <p><strong>Suggested time allocation:</strong> 25 min (vectors and coordinates), 25 min (addition/scalar multiplication/linear combinations), 25 min (dot product and projection), 20 min (cross product), 15 min (determinants), 10 min (coordinate change), 15 min (matrices as actions), 10 min (integrated examples), then discussion/problem-solving/review.</p>
                 </article>
             </div>
 
-            <h3>1) Euclidean Space, Coordinates, and Basis</h3>
+            <h3>Euclidean Space and the Meaning of a Vector (12 min)</h3>
             <div class="notes-list">
                 <article class="note-item">
-                    $$\R^n=\{(x_1,x_2,\dots,x_n)\mid x_i\in\R\},\qquad \R^2=\{(x,y)\},\ \R^3=\{(x,y,z)\}$$
-                    $$\vect{e}_1=(1,0,\dots,0),\ \vect{e}_2=(0,1,0,\dots,0),\ \dots,\ \vect{e}_n=(0,\dots,0,1)$$
-                    $$\vect{x}=(x_1,\dots,x_n)=x_1\vect{e}_1+\cdots+x_n\vect{e}_n$$
-                    <p>向量既可看作点的位置，也可看作位移（长度 + 方向）。</p>
+                    $$\R^n=\{(x_1,x_2,\dots,x_n)\mid x_i\in\R\},\qquad \R^2=\{(x,y)\},\qquad \R^3=\{(x,y,z)\}$$
+                    <p>Two complementary viewpoints: an element of $\R^n$ can be interpreted as a <strong>point</strong> (location) or a <strong>vector</strong> (displacement from the origin).</p>
+                    <p>For example, $(3,2)$ can represent a location, or a movement of 3 units in the $x$-direction and 2 units in the $y$-direction.</p>
+                    <p>A free vector is characterized by length and direction, independent of tail position. A position vector is a vector with tail at the origin.</p>
+                    <p>In $\R^2$, $\vect{v}=(a,b)$; in $\R^3$, $\vect{v}=(a,b,c)$.</p>
                 </article>
             </div>
 
-            <h3>2) Vector Operations and Linear Combination</h3>
+            <h3>Coordinates, Components, and Standard Basis (8 min)</h3>
             <div class="notes-list">
                 <article class="note-item">
-                    $$\vect{u}+\vect{v}=(u_1+v_1,\dots,u_n+v_n),\qquad c\vect{u}=(cu_1,\dots,cu_n)$$
-                    $$a_1\vect{v}_1+\cdots+a_k\vect{v}_k$$
-                    <p>线性组合是后续线性代数与多元微积分的核心语言。</p>
-                    <p><strong>Example:</strong> $\vect{u}=(3,1),\ \vect{v}=(-2,4)\Rightarrow \vect{u}+\vect{v}=(1,5)$。</p>
+                    $$\vect{e}_1=(1,0,\dots,0),\quad \vect{e}_2=(0,1,0,\dots,0),\quad \dots,\quad \vect{e}_n=(0,\dots,0,1)$$
+                    $$\vect{x}=(x_1,\dots,x_n)=x_1\vect{e}_1+x_2\vect{e}_2+\cdots+x_n\vect{e}_n$$
+                    <p>Components describe how much of the vector lies in each coordinate direction.</p>
+                    $$ (4,-1)=4\vect{e}_1-\vect{e}_2, \qquad (2,-3,5)=2\vect{e}_1-3\vect{e}_2+5\vect{e}_3 $$
                 </article>
             </div>
 
-            <h3>3) Magnitude, Distance, Unit Vector</h3>
+            <h3>Vector Addition, Scalar Multiplication, and Linear Combinations (15 min)</h3>
             <div class="notes-list">
                 <article class="note-item">
-                    $$\norm{\vect{v}}=\sqrt{v_1^2+\cdots+v_n^2},\qquad d(P,Q)=\norm{Q-P}$$
+                    $$\vect{u}=(u_1,\dots,u_n),\quad \vect{v}=(v_1,\dots,v_n)$$
+                    $$\vect{u}+\vect{v}=(u_1+v_1,\dots,u_n+v_n)$$
+                    $$c\vect{u}=(cu_1,\dots,cu_n)$$
+                    $$a_1\vect{v}_1+a_2\vect{v}_2+\dots+a_k\vect{v}_k$$
+                    <p>Geometrically, vector addition combines displacements. Scalar multiplication stretches/compresses/reverses direction depending on $c$.</p>
+                    <p>In $\R^2$, linear combinations of two nonparallel vectors span the plane; in $\R^3$, three independent vectors span space.</p>
+                    $$ (x,y)=x(1,0)+y(0,1), \qquad (x,y,z)=x(1,0,0)+y(0,1,0)+z(0,0,1) $$
+                </article>
+            </div>
+
+            <h3>Magnitude, Distance, and Direction (8 min)</h3>
+            <div class="notes-list">
+                <article class="note-item">
+                    $$\norm{\vect{v}}=\sqrt{v_1^2+\dots+v_n^2}$$
+                    $$d(P,Q)=\norm{Q-P}$$
                     $$\widehat{\vect{v}}=\frac{\vect{v}}{\norm{\vect{v}}}\quad (\vect{v}\neq\vect{0})$$
-                    <p><strong>Examples:</strong> $\norm{(3,4)}=5,\ \norm{(2,-1,2)}=3$。</p>
+                    $$\norm{(3,4)}=5,\qquad \norm{(2,-1,2)}=3$$
+                    <p>Unit vectors separate direction from magnitude, which is fundamental for directional derivatives.</p>
                 </article>
             </div>
 
-            <h3>4) Dot Product, Angle, Projection</h3>
+            <h3>Dot Product, Angle, and Projection (18 min)</h3>
             <div class="notes-list">
                 <article class="note-item">
-                    $$\vect{u}\cdot\vect{v}=u_1v_1+\cdots+u_nv_n$$
+                    $$\vect{u}\cdot\vect{v}=u_1v_1+\dots+u_nv_n$$
                     $$\vect{u}\cdot\vect{v}=\norm{\vect{u}}\norm{\vect{v}}\cos\theta,\qquad
                     \cos\theta=\frac{\vect{u}\cdot\vect{v}}{\norm{\vect{u}}\norm{\vect{v}}}$$
                     $$\vect{u}\perp\vect{v}\iff \vect{u}\cdot\vect{v}=0$$
                     $$\operatorname{proj}_{\vect{v}}\vect{u}=\frac{\vect{u}\cdot\vect{v}}{\vect{v}\cdot\vect{v}}\,\vect{v}$$
-                    <p><strong>Projection Example:</strong> $\vect{u}=(3,4),\ \vect{v}=(1,1)$，则 $\operatorname{proj}_{\vect{v}}\vect{u}=\frac{7}{2}(1,1)$。</p>
+                    <p>Interpretation: projection extracts the component of $\vect{u}$ in the direction of $\vect{v}$.</p>
+                    <p><strong>Constraint example (minimum norm under linear constraint):</strong></p>
+                    $$\min_{\vect{w}\in\R^2} f(\vect{w})=w_1^2+w_2^2\quad\text{s.t.}\quad w_1+2w_2=1$$
+                    $$\vect{a}=(1,2),\ \vect{a}\cdot\vect{w}=1,\ \vect{w}=\lambda(1,2),\ 5\lambda=1\Rightarrow \lambda=\frac15$$
+                    $$\vect{w}^*=\left(\frac15,\frac25\right)$$
+                    <p>Geometric principle: at constrained optimum, objective and constraint are tangent (normals align), which previews Lagrange multipliers.</p>
                 </article>
             </div>
 
-            <h3>5) Cross Product in $\R^3$</h3>
+            <h3>Cross Product in $\R^3$ (15 min)</h3>
             <div class="notes-list">
                 <article class="note-item">
                     $$\vect{u}\times\vect{v}=\begin{pmatrix}
@@ -99,88 +121,187 @@
                     u_3v_1-u_1v_3\\
                     u_1v_2-u_2v_1
                     \end{pmatrix}$$
-                    $$\vect{u}\times\vect{v}\perp\vect{u},\quad \vect{u}\times\vect{v}\perp\vect{v},\quad
-                    \norm{\vect{u}\times\vect{v}}=\norm{\vect{u}}\norm{\vect{v}}\sin\theta$$
+                    $$\vect{u}\times\vect{v}\perp\vect{u},\qquad \vect{u}\times\vect{v}\perp\vect{v}$$
+                    $$\norm{\vect{u}\times\vect{v}}=\norm{\vect{u}}\norm{\vect{v}}\sin\theta$$
                     $$\text{Area of parallelogram}=\norm{\vect{u}\times\vect{v}}$$
-                    <p><strong>Example:</strong> $\vect{u}=(2,1,0),\ \vect{v}=(1,3,1)$，则 $\vect{u}\times\vect{v}=(1,-2,5)$，面积为 $\sqrt{30}$。</p>
+                    <p>Dot product measures alignment; cross product measures oriented perpendicularity and area.</p>
+                    <p><strong>Worked area example:</strong></p>
+                    <p>In $\R^2$: $\vect{a}=(2,1),\ \vect{b}=(1,3)$ gives area</p>
+                    $$\left|\det\begin{pmatrix}2 & 1\\1 & 3\end{pmatrix}\right|=5$$
+                    <p>In $\R^3$: $\vect{u}=(2,1,0),\ \vect{v}=(1,3,1)$ gives</p>
+                    $$\vect{u}\times\vect{v}=(1,-2,5),\qquad \text{Area}=\sqrt{1^2+(-2)^2+5^2}=\sqrt{30}$$
+                    <p><strong>Another example:</strong> $\vect{u}=(1,2,0),\ \vect{v}=(3,1,4)$</p>
+                    $$\vect{u}\times\vect{v}=(8,-4,-5)$$
                 </article>
             </div>
 
-            <h3>6) Determinants and Geometry</h3>
+            <h3>Determinants in Dimension 2 and 3 (15 min)</h3>
             <div class="notes-list">
                 <article class="note-item">
-                    $$\det\begin{pmatrix}a & b\\ c & d\end{pmatrix}=ad-bc$$
-                    $$\abs{\det(A)}=\text{area scaling factor in }\R^2$$
-                    $$\abs{\det(A)}=\text{volume scaling factor in }\R^3$$
+                    $$A=\begin{pmatrix}a&b\\c&d\end{pmatrix},\qquad \det(A)=ad-bc$$
+                    <p>In $\R^2$, $|\det(A)|$ is area scaling; sign encodes orientation.</p>
+                    <p>For $3\times3$ matrices, determinant can be computed by cofactor expansion.</p>
+                    $$\det(A)=a_{11}\begin{vmatrix}a_{22}&a_{23}\\a_{32}&a_{33}\end{vmatrix}
+                    -a_{12}\begin{vmatrix}a_{21}&a_{23}\\a_{31}&a_{33}\end{vmatrix}
+                    +a_{13}\begin{vmatrix}a_{21}&a_{22}\\a_{31}&a_{32}\end{vmatrix}$$
+                    <p>In $\R^3$, $|\det(A)|$ is volume scaling for the parallelepiped spanned by columns.</p>
                     $$\vect{u}\cdot(\vect{v}\times\vect{w})=
                     \det\begin{pmatrix}
-                    u_1 & v_1 & w_1\\
-                    u_2 & v_2 & w_2\\
-                    u_3 & v_3 & w_3
+                    u_1&v_1&w_1\\
+                    u_2&v_2&w_2\\
+                    u_3&v_3&w_3
                     \end{pmatrix}$$
-                    <p><strong>Example:</strong> $A=\begin{pmatrix}2 & 1\\1 & 3\end{pmatrix}$，则 $\det(A)=5$，对应平行四边形面积为 $5$。</p>
+                    <p>Determinants are essential for Jacobians, coordinate changes, invertibility, and orientation.</p>
                 </article>
             </div>
 
-            <h3>7) Coordinate Change by Matrices</h3>
+            <h3>Changing Coordinates with Matrices and Computing Area/Volume (10 min)</h3>
             <div class="notes-list">
                 <article class="note-item">
-                    $$A=\begin{pmatrix}
-                    \vline & \vline & \vline\\
-                    \vect{v}_1 & \vect{v}_2 & \vect{v}_3\\
-                    \vline & \vline & \vline
-                    \end{pmatrix},\qquad
-                    \vect{x}_{\text{standard}}=A\vect{x}_{\text{new}}$$
-                    $$\text{unit square/cube in new coordinates }\xrightarrow{\ A\ }\text{parallelogram/parallelepiped in standard space}$$
-                    $$\text{scale factor}=\abs{\det(A)}$$
-                    <p>这正是多元积分变量替换中 Jacobian 行列式的几何来源。</p>
+                    <p>Let new basis vectors be columns of</p>
+                    $$A=\begin{pmatrix}a&b\\c&d\end{pmatrix},\qquad \vect{x}_{\text{standard}}=A\vect{x}_{\text{new}}$$
+                    <p>The unit square in new coordinates maps to a parallelogram in standard coordinates with area</p>
+                    $$\abs{\det(A)}$$
+                    <p>Example:</p>
+                    $$A=\begin{pmatrix}2&1\\1&3\end{pmatrix},\qquad \det(A)=5$$
+                    <p>So area scales by factor $5$.</p>
+                    <p>In $\R^3$, if columns are $\vect{v}_1,\vect{v}_2,\vect{v}_3$, then</p>
+                    $$\vect{x}_{\text{standard}}=A\vect{x}_{\text{new}},\qquad \text{volume scale}=\abs{\det(A)}$$
+                    <p>This is exactly the linear change-of-variables Jacobian idea.</p>
                 </article>
             </div>
 
-            <h3>8) Lines, Planes, and Matrix Actions</h3>
+            <h3>Lines, Planes, and Geometry from Vectors (8 min)</h3>
             <div class="notes-list">
                 <article class="note-item">
-                    $$\vect{r}(t)=\vect{r}_0+t\vect{d}\quad (\text{line})$$
-                    $$\vect{n}\cdot(\vect{r}-\vect{r}_0)=0\quad (\text{plane in }\R^3)$$
-                    $$A\vect{x}=\text{new vector},\qquad (AB)\vect{x}=A(B\vect{x}),\qquad AB\neq BA\ \text{in general}$$
-                    $$\det(AB)=\det(A)\det(B)$$
-                    <p>矩阵可理解为“对向量施加动作”的规则：拉伸、旋转、错切、压缩等。</p>
+                    $$\vect{r}(t)=\vect{r}_0+t\vect{d},\qquad t\in\R$$
+                    <p>Line as motion: start at $\vect{r}_0$ and move along direction $\vect{d}$.</p>
+                    $$\vect{n}\cdot(\vect{r}-\vect{r}_0)=0$$
+                    <p>Plane in $\R^3$ through point $\vect{r}_0$ with normal vector $\vect{n}$.</p>
+                    <p>If $\vect{u}$ and $\vect{v}$ lie in a plane, then $\vect{u}\times\vect{v}$ is a normal vector to that plane.</p>
+                    <p><strong>Exercise example:</strong> For line $2x-y=3$, one point is $(2,1)$ and a direction vector is $(1,2)$, giving</p>
+                    $$\vect{r}(t)=\begin{pmatrix}2\\1\end{pmatrix}+t\begin{pmatrix}1\\2\end{pmatrix}$$
                 </article>
             </div>
 
-            <h3>9) Connection to Multivariable Calculus</h3>
+            <h3>Matrices as Actions on Vectors (15 min)</h3>
             <div class="notes-list">
                 <article class="note-item">
-                    $$\nabla f=\left(\frac{\partial f}{\partial x_1},\dots,\frac{\partial f}{\partial x_n}\right),\qquad
-                    D_{\vect{u}}f=\nabla f\cdot\vect{u}\ (\vect{u}\text{ unit})$$
-                    <p>向量、点积、矩阵与行列式共同构成梯度、方向导数、切平面、Jacobian 的统一语言。</p>
+                    <p>A matrix is a rule sending vectors to vectors.</p>
+                    $$A\vect{x}=\begin{pmatrix}a_{11}x+a_{12}y\\a_{21}x+a_{22}y\end{pmatrix}$$
+                    $$A=\begin{pmatrix}\vline&\vline\\\vect{c}_1&\vect{c}_2\\\vline&\vline\end{pmatrix}
+                    \Rightarrow
+                    A\begin{pmatrix}x\\y\end{pmatrix}=x\vect{c}_1+y\vect{c}_2$$
+                    <p>First column is image of $\vect{e}_1$, second column is image of $\vect{e}_2$.</p>
+                    <p>Examples:</p>
+                    $$\begin{pmatrix}2&0\\0&3\end{pmatrix}(x,y)=(2x,3y),\qquad
+                    \begin{pmatrix}0&-1\\1&0\end{pmatrix}(x,y)=(-y,x)$$
+                    $$ (A+B)\vect{x}=A\vect{x}+B\vect{x},\qquad (cA)\vect{x}=c(A\vect{x}) $$
+                    $$ (AB)\vect{x}=A(B\vect{x}) $$
+                    <p>Order generally matters: $AB\neq BA$.</p>
+                    <p><strong>Stretch+rotation order example:</strong></p>
+                    $$A=\begin{pmatrix}2&0\\0&1\end{pmatrix},\ B=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\ \vect{x}=\begin{pmatrix}1\\1\end{pmatrix}$$
+                    $$BA\vect{x}=\begin{pmatrix}-1\\2\end{pmatrix},\qquad AB\vect{x}=\begin{pmatrix}-2\\1\end{pmatrix}$$
+                    <p>Yet determinant composition remains multiplicative: $\det(AB)=\det(A)\det(B)$.</p>
+                    <p>Invertibility criterion: $\det(A)\neq 0$.</p>
                 </article>
             </div>
 
-            <h3>10) Worked Examples & Practice</h3>
+            <h3>Connection to Multivariable Calculus (4 min)</h3>
             <div class="notes-list">
                 <article class="note-item">
-                    <p><strong>Worked example (volume):</strong></p>
-                    $$\det\begin{pmatrix}
-                    1 & 1 & 1\\
-                    0 & 2 & 2\\
-                    0 & 0 & 3
-                    \end{pmatrix}=6$$
-                    <p>由此可得对应平行六面体体积为 $6$。</p>
+                    $$\nabla f=\left(\frac{\partial f}{\partial x_1},\dots,\frac{\partial f}{\partial x_n}\right)$$
+                    $$D_{\vect{u}}f=\nabla f\cdot\vect{u}\qquad (\vect{u}\text{ unit})$$
+                    <p>For $F:\R^n\to\R^m$, derivative is represented by the Jacobian matrix. Near a point, $F$ behaves approximately like a linear map.</p>
+                </article>
+            </div>
 
-                    <p><strong>课后练习建议（选自原讲义）</strong></p>
+            <h3>Worked Examples (6 min)</h3>
+            <div class="notes-list">
+                <article class="note-item">
+                    <p><strong>Example 1:</strong> $\vect{u}=(3,1),\ \vect{v}=(-2,4)\Rightarrow \vect{u}+\vect{v}=(1,5)$.</p>
+                    <p><strong>Example 2:</strong> $\vect{u}=(3,4),\ \vect{v}=(1,1)$:</p>
+                    $$\vect{u}\cdot\vect{v}=7,\quad \vect{v}\cdot\vect{v}=2,\quad
+                    \operatorname{proj}_{\vect{v}}\vect{u}=\left(\frac72,\frac72\right)$$
+                    <p><strong>Example 3:</strong> $\vect{v}_1=(2,1),\ \vect{v}_2=(1,3)$:</p>
+                    $$\det\begin{pmatrix}2&1\\1&3\end{pmatrix}=5\Rightarrow \text{area}=5$$
+                    <p><strong>Example 4:</strong> $\vect{u}=(1,0,0),\ \vect{v}=(1,2,0),\ \vect{w}=(1,2,3)$:</p>
+                    $$\det\begin{pmatrix}1&1&1\\0&2&2\\0&0&3\end{pmatrix}=6\Rightarrow \text{volume}=6$$
+                    <p><strong>Example 5 (shear):</strong></p>
+                    $$A=\begin{pmatrix}1&2\\0&1\end{pmatrix},\qquad A(x,y)=(x+2y,y)$$
+                </article>
+            </div>
+
+            <h3>Student Problems: Computational Practice (7 min)</h3>
+            <div class="notes-list">
+                <article class="note-item">
+                    <ol>
+                        <li>In $\R^2$, draw $(2,1)$, $(-1,3)$, and their sum; describe the combined motion.</li>
+                        <li>Compute norm and a unit vector in direction of $(6,8)$.</li>
+                        <li>Find angle between $(1,0)$ and $(1,\sqrt{3})$.</li>
+                        <li>Determine whether $(2,-1,3)$ and $(1,4,0)$ are orthogonal.</li>
+                        <li>Compute projection of $(4,1)$ onto $(1,2)$.</li>
+                        <li>Find $(1,2,3)\times(0,1,4)$ and verify orthogonality.</li>
+                        <li>Write line through $(1,-2,3)$ parallel to $(2,1,-1)$.</li>
+                        <li>Write plane through $(1,0,2)$ with normal $(3,-1,4)$.</li>
+                        <li>Compute $\det\begin{pmatrix}3&1\\2&5\end{pmatrix}$ and interpret geometrically.</li>
+                        <li>Compute $\det\begin{pmatrix}1&2&0\\0&1&1\\2&0&1\end{pmatrix}$.</li>
+                        <li>For $A=\begin{pmatrix}2&1\\1&2\end{pmatrix}$, compute $A(1,0)$, $A(0,1)$, $A(2,-1)$ and interpret action.</li>
+                    </ol>
+                </article>
+            </div>
+
+            <h3>Student Problems: Construction and Thinking (5 min)</h3>
+            <div class="notes-list">
+                <article class="note-item">
+                    <ol>
+                        <li>Construct two nonzero vectors summing to $(4,3)$. How many such pairs exist?</li>
+                        <li>Find all vectors orthogonal to $(2,-5)$ in $\R^2$; what geometric set do they form?</li>
+                        <li>Can two different vectors have same length and same projection on the $x$-axis? Give examples.</li>
+                        <li>Find a nonzero vector orthogonal to both $(1,1,0)$ and $(1,0,1)$ without formula first; then verify by cross product.</li>
+                        <li>Give three coplanar vectors in $\R^3$ and detect coplanarity by determinant.</li>
+                        <li>Find two vectors in $\R^2$ with same parallelogram area as $(3,0)$ and $(0,2)$ but different directions.</li>
+                        <li>Give a $2\times2$ matrix with negative determinant; describe orientation effect.</li>
+                        <li>Give a nonzero $2\times2$ matrix with determinant $0$; describe geometric collapse.</li>
+                        <li>Find a $2\times2$ matrix that doubles area but does not preserve lengths.</li>
+                        <li>Find a $3\times3$ diagonal matrix preserving volume but changing shape.</li>
+                        <li>Compare two products: rotation then stretch vs stretch then rotation; explain geometric difference.</li>
+                        <li>If both basis vectors map to same vector, what is determinant and what happens to squares?</li>
+                    </ol>
+                </article>
+            </div>
+
+            <h3>Short Concept Checks for Class (3 min)</h3>
+            <div class="notes-list">
+                <article class="note-item">
+                    <ol>
+                        <li>If $\vect{u}\cdot\vect{v}>0$, what does it imply about their angle?</li>
+                        <li>If $\det(A)=0$ for a $2\times2$ matrix, what can be said about its columns?</li>
+                        <li>Why does cross product in $\R^3$ produce a vector while determinant in $\R^2$ produces a scalar?</li>
+                        <li>What does the second column of a matrix represent geometrically?</li>
+                        <li>If $\det(A)=-1$, what does that say about area/volume and orientation?</li>
+                    </ol>
+                </article>
+            </div>
+
+            <h3>Summary (3 min)</h3>
+            <div class="notes-list">
+                <article class="note-item">
                     <ul>
-                        <li>计算 $(6,8)$ 的范数与单位向量；</li>
-                        <li>求 $(4,1)$ 在 $(1,2)$ 上的投影；</li>
-                        <li>计算 $(1,2,3)\times(0,1,4)$ 并验证正交；</li>
-                        <li>写出过 $(1,0,2)$ 且法向量为 $(3,-1,4)$ 的平面方程；</li>
-                        <li>解释为什么一般有 $AB\neq BA$。</li>
+                        <li>Vectors represent displacement, direction, and magnitude.</li>
+                        <li>Addition and scalar multiplication describe how motions combine.</li>
+                        <li>Dot product measures alignment and gives angles/projections.</li>
+                        <li>Cross product in $\R^3$ gives a perpendicular vector and area.</li>
+                        <li>Determinants measure signed area in $\R^2$ and signed volume in $\R^3$.</li>
+                        <li>Matrices represent linear actions; multiplication is composition.</li>
+                        <li>Determinants give area/volume scaling under matrix action.</li>
                     </ul>
+                    <p>These ideas are the geometric language behind gradients, Jacobians, tangent approximations, and change of variables in multivariable calculus.</p>
                 </article>
             </div>
 
             <div class="quick-links" style="margin-top: 2rem;">
-                <a href="calculus-2.html" class="btn-secondary">返回课程主页</a>
+                <a href="calculus-2.html" class="btn-secondary">Back to Course Page</a>
             </div>
         </div>
     </section>
