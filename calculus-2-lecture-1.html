@@ -168,6 +168,67 @@
       padding: 0.9rem;
       background: #fafafa;
       margin-top: 0;
+      font-size: 0.84rem;
+      line-height: 1.35;
+    }
+
+    #TOC > ul {
+      margin: 0;
+      padding-left: 0;
+    }
+
+    #TOC > ul > li {
+      margin: 0.2rem 0;
+      padding: 0.3rem 0.4rem;
+      border-radius: 8px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    #TOC > ul > li:hover {
+      background: #f1f5fb;
+    }
+
+    #TOC > ul > li > a {
+      font-weight: 600;
+      color: #2b2b2b;
+      text-decoration: none;
+      grid-column: 1;
+    }
+
+    #TOC > ul > li > ul {
+      display: none;
+      grid-column: 1 / -1;
+      margin: 0.35rem 0 0.15rem;
+      padding: 0 0 0 0.75rem;
+      border-left: 2px solid #e1e7f0;
+    }
+
+    #TOC > ul > li.expanded > ul {
+      display: block;
+    }
+
+    #TOC .toc-toggle {
+      border: none;
+      background: transparent;
+      color: #4a4a4a;
+      cursor: pointer;
+      font-size: 0.72rem;
+      line-height: 1;
+      padding: 0.2rem;
+      border-radius: 6px;
+    }
+
+    #TOC .toc-toggle:hover {
+      background: #e8eef8;
+    }
+
+    #TOC > ul > li > ul a {
+      color: #4a4a4a;
+      font-weight: 500;
+      font-size: 0.8rem;
     }
 
     #TOC ~ * {
@@ -192,6 +253,33 @@
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const topItems = document.querySelectorAll('#TOC > ul > li');
+      topItems.forEach(function (item) {
+        const subList = item.querySelector(':scope > ul');
+        if (!subList) return;
+
+        const toggle = document.createElement('button');
+        toggle.type = 'button';
+        toggle.className = 'toc-toggle';
+        toggle.setAttribute('aria-label', 'Toggle subsections');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.textContent = '▸';
+
+        item.appendChild(toggle);
+
+        toggle.addEventListener('click', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+
+          const expanded = item.classList.toggle('expanded');
+          toggle.setAttribute('aria-expanded', String(expanded));
+          toggle.textContent = expanded ? '▾' : '▸';
+        });
+      });
+    });
+  </script>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
