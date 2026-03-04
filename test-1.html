@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 1 - Lecture 1 Exercises</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Fudong Wang</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Me</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="teaching.html" class="active">Teaching</a></li>
+                <li><a href="notes.html">Notes</a></li>
+                <li><a href="test-1-zh.html" class="lang-switch">中文</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="content">
+        <div class="container">
+            <h2>Test 1</h2>
+            <p>This interactive problem helps you practice checking whether two lines in R<sup>3</sup> lie in the same plane.</p>
+
+            <div class="course-item" style="cursor: default;">
+                <h4>Problem 1: Coplanarity Check</h4>
+                <p>Consider the two lines given in parametric form:</p>
+                <ul>
+                    <li><strong>Line L<sub>1</sub>:</strong> r = (1, -1, 3) + t (2, 1, -1)</li>
+                    <li><strong>Line L<sub>2</sub>:</strong> r = (3, 2, -1) + s (1, -2, 4)</li>
+                </ul>
+                <p style="margin-bottom: 0.8rem;">Use the scalar triple product [p<sub>2</sub> - p<sub>1</sub>, v<sub>1</sub>, v<sub>2</sub>] (where p<sub>1</sub> and p<sub>2</sub> are points on the two lines and v<sub>1</sub>, v<sub>2</sub> are their direction vectors) to decide whether the lines are coplanar.</p>
+
+                <ol>
+                    <li>Compute the vector that connects the point on $L_1$ to the point on $L_2$.</li>
+                    <li>Evaluate the scalar triple product of that connector with the two direction vectors.</li>
+                    <li>Use your result to decide if the lines lie on the same plane.</li>
+                </ol>
+
+                <div class="interactive-panel" style="margin-top: 1.2rem; border-top: 1px solid #e1e1e1; padding-top: 1.2rem; display: flex; flex-direction: column; gap: 0.9rem;">
+                    <label for="triple-input">Your scalar triple product value:</label>
+                    <input id="triple-input" type="number" step="any" placeholder="e.g. 0" style="max-width: 260px; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+
+                    <label for="coplanar-choice">Do the lines lie in the same plane?</label>
+                    <select id="coplanar-choice" style="max-width: 260px; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+                        <option value="">Select an answer</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+
+                    <button id="check-problem" class="btn-primary" style="max-width: 220px;">Check My Work</button>
+                    <p id="problem-feedback" style="min-height: 1.4rem; font-weight: 600;" aria-live="polite"></p>
+                </div>
+
+                <details style="margin-top: 1rem;">
+                    <summary>Need a hint?</summary>
+                    <p style="margin-top: 0.6rem;">Remember that three vectors are coplanar if and only if their scalar triple product is zero. Build the connecting vector p<sub>2</sub> - p<sub>1</sub> and then expand the determinant.</p>
+                </details>
+
+                <details style="margin-top: 0.6rem;">
+                    <summary>Show solution</summary>
+                    <p style="margin-top: 0.6rem;">Taking p<sub>1</sub> = (1, -1, 3) and p<sub>2</sub> = (3, 2, -1) gives p<sub>2</sub> - p<sub>1</sub> = (2, 3, -4). The direction vectors are v<sub>1</sub> = (2, 1, -1) and v<sub>2</sub> = (1, -2, 4). Their scalar triple product is -3, which is non-zero, so the lines are skew and do not share a plane.</p>
+                </details>
+            </div>
+
+            <div class="quick-links" style="margin-top: 1.4rem;">
+                <a href="calculus-2.html" class="btn-secondary">Back to Course Syllabus</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Fudong Wang. All rights reserved.</p>
+    </footer>
+
+    <script>
+        (function () {
+            const tripleInput = document.getElementById('triple-input');
+            const choice = document.getElementById('coplanar-choice');
+            const button = document.getElementById('check-problem');
+            const feedback = document.getElementById('problem-feedback');
+            const correctTriple = -3;
+            const isCoplanar = false;
+
+            button.addEventListener('click', function () {
+                const tripleValue = parseFloat(tripleInput.value);
+                const choiceValue = choice.value;
+
+                if (Number.isNaN(tripleValue) || !choiceValue) {
+                    feedback.textContent = 'Enter the triple product and choose an answer before checking.';
+                    feedback.style.color = '#d9534f';
+                    return;
+                }
+
+                const tripleCorrect = Math.abs(tripleValue - correctTriple) < 1e-6;
+                const choiceCorrect = (choiceValue === 'yes') === isCoplanar;
+
+                if (tripleCorrect && choiceCorrect) {
+                    feedback.textContent = 'Great job! The scalar triple product is -3, so the lines are not coplanar.';
+                    feedback.style.color = '#2a7b4f';
+                } else if (!tripleCorrect && choiceCorrect) {
+                    feedback.textContent = 'Your conclusion is right, but the triple product should be -3.';
+                    feedback.style.color = '#f0ad4e';
+                } else if (tripleCorrect && !choiceCorrect) {
+                    feedback.textContent = 'The triple product is correct, but a non-zero value means the lines do not lie in the same plane.';
+                    feedback.style.color = '#f0ad4e';
+                } else {
+                    feedback.textContent = 'Both the triple product and the conclusion need another look. Revisit the determinant.';
+                    feedback.style.color = '#d9534f';
+                }
+            });
+        }());
+    </script>
+</body>
+</html>

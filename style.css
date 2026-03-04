@@ -100,6 +100,19 @@ body:not(.home-page) .navbar .container {
     color: var(--white);
 }
 
+.nav-links .lang-switch {
+    background: #eef5ff;
+    border-color: #cfdff5;
+    color: #1f3f72;
+    font-weight: 600;
+}
+
+.nav-links .lang-switch:hover {
+    background: #dcecff;
+    border-color: #bdd5f3;
+    color: #15335f;
+}
+
 /* Home Page */
 .home-main {
     background: var(--white);
