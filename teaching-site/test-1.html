@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test 1 - Lecture 1 Exercises</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/styles.css">
     <script>
         window.MathJax = {
             tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
@@ -14,20 +14,33 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">Fudong Wang</a>
+    <div class="site-shell">
+        <nav class="navbar" aria-label="Primary">
+            <a href="index.html" class="logo">GBU Calculus Hub</a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Me</a></li>
-                <li><a href="publications.html">Publications</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="teaching.html" class="active">Teaching</a></li>
-                <li><a href="notes.html">Notes</a></li>
+                <li><a href="calculus-2.html">Course</a></li>
+                <li class="nav-dropdown is-active">
+                    <button class="nav-trigger" type="button" aria-haspopup="true">
+                        Tests
+                        <span class="caret" aria-hidden="true">▾</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="test-1.html" aria-current="page">Test 1 · Vectors Warm-up</a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown">
+                    <button class="nav-trigger" type="button" aria-haspopup="true">
+                        Lecture Notes
+                        <span class="caret" aria-hidden="true">▾</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="calculus-2-lecture-1.html">Lecture 1 · Vectors in Euclidean Space</a></li>
+                    </ul>
+                </li>
                 <li><a href="test-1-zh.html" class="lang-switch">中文</a></li>
             </ul>
-        </div>
-    </nav>
+        </nav>
 
     <section class="content">
         <div class="container">
@@ -249,8 +262,9 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 Fudong Wang. All rights reserved.</p>
+        <p>© 2026 GBU Calculus Hub · Independent Teaching Portal</p>
     </footer>
+    </div>
 
     <script>
         (function () {

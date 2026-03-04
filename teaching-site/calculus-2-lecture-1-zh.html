@@ -4,23 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>第一讲：欧氏空间中的向量</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <a href="index-zh.html" class="logo">Fudong Wang</a>
+    <div class="site-shell">
+        <nav class="navbar" aria-label="Primary">
+            <a href="index-zh.html" class="logo">GBU Calculus Hub</a>
             <ul class="nav-links">
                 <li><a href="index-zh.html">首页</a></li>
-                <li><a href="about-zh.html">个人简介</a></li>
-                <li><a href="publications-zh.html">论文发表</a></li>
-                <li><a href="projects-zh.html">研究项目</a></li>
-                <li><a href="teaching-zh.html" class="active">教学</a></li>
-                <li><a href="notes-zh.html">笔记</a></li>
+                <li><a href="calculus-2-zh.html">课程</a></li>
+                <li class="nav-dropdown">
+                    <button class="nav-trigger" type="button" aria-haspopup="true">
+                        测试
+                        <span class="caret" aria-hidden="true">▾</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="test-1-zh.html">Test 1 · 第一讲练习</a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown is-active">
+                    <button class="nav-trigger" type="button" aria-haspopup="true">
+                        讲义
+                        <span class="caret" aria-hidden="true">▾</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="calculus-2-lecture-1-zh.html" aria-current="page">讲义 1 · 欧氏空间中的向量</a></li>
+                    </ul>
+                </li>
                 <li><a href="calculus-2-lecture-1.html" class="lang-switch">EN</a></li>
             </ul>
-        </div>
-    </nav>
+        </nav>
 
     <section class="content">
         <div class="container">
@@ -59,6 +72,8 @@
             </div>
         </div>
     </section>
+
+    </div>
 
     <footer>
         <p>&copy; 2026 Fudong Wang. All rights reserved.</p>

@@ -5,827 +5,109 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Lecture 1: Vectors in Euclidean Space</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    html {
-      line-height: 1.38;
-      font-family: 'STIX Two Text', 'Times New Roman', serif;
-      font-size: 15px;
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
+  <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/lecture-notes.css">
 
-    mjx-container,
-    .math,
-    .math.inline,
-    .math.display {
-      font-family: 'STIX Two Math', 'Cambria Math', 'Times New Roman', serif !important;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 20px;
-      padding-right: 20px;
-      padding-top: 16px;
-      padding-bottom: 30px;
-      hyphens: auto;
-      word-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 1em;
-      }
-    }
-    @media print {
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 0.55em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1em;
-      margin-bottom: 0.45em;
-    }
-
-    h1 + p {
-      margin-top: 0.1em;
-    }
-
-    #lecture-scope-and-goals-5-min {
-      margin-bottom: 0 !important;
-    }
-
-    #lecture-scope-and-goals-5-min + p {
-      margin-top: 0 !important;
-    }
-
-    html {
-      scroll-padding-top: 111px;
-    }
-
-    h1[id], h2[id], h3[id], h4[id] {
-      scroll-margin-top: 111px;
-      position: relative;
-    }
-
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.35em;
-      margin-top: 0.55em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
-      font-size: 85%;
-      margin: 0;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-
-    body {
-      max-width: 1280px;
-      display: grid;
-      grid-template-columns: 280px minmax(0, 760px);
-      justify-content: center;
-      gap: 1.4rem;
-      align-items: start;
-      padding: 162px 16px 36px;
-      counter-reset: section;
-    }
-
-    .lecture-main-box {
-      counter-reset: section;
-    }
-
-    .lecture-main-box > h1[id] {
-      counter-increment: section;
-      counter-reset: subsection;
-      font-size: 1.38rem;
-    }
-
-    .lecture-main-box > h1[id]::before {
-      content: counter(section) ". ";
-    }
-
-    .lecture-main-box > h2[id] {
-      counter-increment: subsection;
-      font-size: 1.08rem;
-    }
-
-    .lecture-main-box > h2[id]::before {
-      content: counter(section) "." counter(subsection) " ";
-    }
-
-    .navbar {
-      grid-column: 1 / -1;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 140;
-    }
-
-    header {
-      grid-column: 2;
-      text-align: center;
-      margin: 0;
-      position: fixed;
-      top: 108px;
-      left: 0;
-      transform: none;
-      width: 100%;
-      z-index: 120;
-      background: #ffeef5;
-      padding: 0.35rem 0.75rem 0.25rem;
-      border-radius: 12px;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
-    }
-
-    #title-block-header .title {
-      margin: 0;
-      text-align: center;
-      width: 100%;
-    }
-
-    #TOC {
-      position: sticky;
-      top: 162px;
-      max-height: calc(100vh - 180px);
-      overflow: auto;
-      border: none;
-      border-radius: 18px;
-      padding: 1rem;
-      background: #eaf4ff;
-      margin-top: 0;
-      font-size: 0.8rem;
-      line-height: 1.35;
-      box-shadow: 0 10px 24px rgba(31, 63, 114, 0.08);
-      z-index: 90;
-    }
-
-    #TOC > ul {
-      counter-reset: toc-section;
-    }
-
-    #TOC > ul > li {
-      counter-increment: toc-section;
-      counter-reset: toc-subsection;
-    }
-
-    #TOC > ul > li > a::before {
-      content: counter(toc-section) ". ";
-    }
-
-    #TOC > ul > li > ul > li {
-      counter-increment: toc-subsection;
-    }
-
-    #TOC > ul > li > ul > li > a::before {
-      content: counter(toc-section) "." counter(toc-subsection) " ";
-    }
-
-    #TOC .toc-syllabus {
-      display: block;
-      margin: 0 0 0.7rem;
-      padding: 0.45rem 0.6rem;
-      border: 1px solid #cfd7e6;
-      border-radius: 8px;
-      background: #ffffff;
-      color: #1f3f72;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.8rem;
-      text-align: center;
-    }
-
-    #TOC .toc-syllabus:hover {
-      background: #f2f7ff;
-    }
-
-    #TOC > ul {
-      margin: 0;
-      padding-left: 0;
-    }
-
-    #TOC > ul > li {
-      margin: 0.2rem 0;
-      padding: 0.3rem 0.4rem;
-      border-radius: 8px;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    #TOC > ul > li:hover {
-      background: rgba(255, 255, 255, 0.6);
-    }
-
-    #TOC > ul > li > a {
-      font-weight: 600;
-      color: #2b2b2b;
-      text-decoration: none;
-      grid-column: 1;
-    }
-
-    #TOC > ul > li > ul {
-      display: none;
-      grid-column: 1 / -1;
-      margin: 0.35rem 0 0.15rem;
-      padding: 0 0 0 0.75rem;
-      border-left: 2px solid #cbdcf6;
-    }
-
-    #TOC > ul > li.expanded > ul {
-      display: block;
-    }
-
-    #TOC .toc-toggle {
-      border: none;
-      background: transparent;
-      color: #4a4a4a;
-      cursor: pointer;
-      font-size: 0.72rem;
-      line-height: 1;
-      padding: 0.2rem;
-      border-radius: 6px;
-    }
-
-    #TOC .toc-toggle:hover {
-      background: rgba(255, 255, 255, 0.7);
-    }
-
-    #TOC .toc-mobile-toggle {
-      display: none;
-    }
-
-    #TOC > ul > li > ul a {
-      color: #4a4a4a;
-      font-weight: 500;
-      font-size: 0.76rem;
-    }
-
-    .lecture-main-box {
-      grid-column: 2;
-      width: min(800px, calc(100vw - 400px));
-      max-width: 800px;
-      background: #fffbe6;
-      border-radius: 22px;
-      padding: 1rem 1.35rem 1.25rem;
-      position: fixed;
-      top: 162px;
-      left: 50%;
-      transform: translateX(calc(-50% + 151px));
-      height: calc(100vh - 180px);
-      overflow: auto;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
-    }
-
-    .lecture-main-box > :first-child {
-      margin-top: 0;
-    }
-
-    @media (max-width: 1200px) {
-      body {
-        grid-template-columns: 240px minmax(0, 1fr);
-        gap: 1rem;
-        padding: 154px 14px 20px;
-      }
-
-      header {
-        top: 98px;
-      }
-
-      #TOC {
-        top: 154px;
-        max-height: calc(100vh - 172px);
-      }
-
-      .lecture-main-box {
-        position: sticky;
-        top: 154px;
-        left: auto;
-        transform: none;
-        width: 100%;
-        max-width: none;
-        height: calc(100vh - 172px);
-      }
-    }
-
-    @media (max-width: 1000px) {
-      body {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        padding: 154px 16px 16px;
-      }
-
-      header {
-        top: 98px;
-        width: 100%;
-      }
-
-      #TOC {
-        position: static;
-        max-height: none;
-      }
-
-      .lecture-main-box {
-        grid-column: 1;
-        max-width: none;
-        position: static;
-        top: auto;
-        left: auto;
-        transform: none;
-        width: auto;
-        height: auto;
-        overflow: visible;
-        padding: 0.9rem 1rem 1.1rem;
-      }
-    }
-
-    @media (max-width: 560px) {
-      header {
-        top: 104px;
-      }
-
-      #title-block-header .title {
-        font-size: 1.18rem;
-        line-height: 1.25;
-      }
-
-      body {
-        padding: 148px 10px 12px;
-      }
-
-      #TOC {
-        padding: 0.72rem;
-        font-size: 0.74rem;
-      }
-
-      .lecture-main-box {
-        padding: 0.72rem 0.78rem 0.9rem;
-        border-radius: 14px;
-      }
-
-      p, li {
-        font-size: 0.93rem;
-      }
-
-      h1[id], h2[id], h3[id], h4[id] {
-        scroll-margin-top: 138px;
-      }
-
-      mjx-container[display="true"] {
-        overflow-x: auto;
-        overflow-y: hidden;
-        max-width: 100%;
-        padding-bottom: 2px;
-      }
-
-      .lecture-main-box pre,
-      .lecture-main-box table {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-    }
-
-    @media (max-width: 400px) {
-      header {
-        top: 100px;
-      }
-
-      #title-block-header .title {
-        font-size: 1.08rem;
-      }
-
-      body {
-        padding: 142px 8px 10px;
-      }
-
-      .lecture-main-box {
-        padding: 0.64rem 0.68rem 0.82rem;
-      }
-
-      #TOC {
-        font-size: 0.7rem;
-      }
-    }
-
-    @media (max-width: 380px) {
-      body {
-        max-width: 100%;
-        padding: 86px 6px 10px;
-      }
-
-      .navbar {
-        position: sticky;
-        top: 0;
-      }
-
-      header {
-        position: static;
-        top: auto;
-        left: auto;
-        width: 100%;
-        border-radius: 8px;
-        box-shadow: none;
-        margin-bottom: 0.55rem;
-      }
-
-      #title-block-header .title {
-        font-size: 1rem;
-      }
-
-      #TOC {
-        padding: 0.58rem;
-        font-size: 0.68rem;
-      }
-
-      .lecture-main-box {
-        position: static;
-        top: auto;
-        left: auto;
-        transform: none;
-        width: 100%;
-        max-width: none;
-        height: auto;
-        overflow: visible;
-        border-radius: 12px;
-        padding: 0.56rem 0.6rem 0.74rem;
-      }
-
-      p,
-      li {
-        font-size: 0.9rem;
-      }
-
-      mjx-container[display="true"],
-      .lecture-main-box table,
-      .lecture-main-box pre {
-        overflow-x: auto;
-        max-width: 100%;
-      }
-    }
-
-    /* Mobile-first reading fallback (overrides desktop fixed layout) */
-    @media (max-width: 900px) {
-      html {
-        font-size: 16px;
-      }
-
-      body {
-        display: block;
-        max-width: 100%;
-        padding: 0;
-        margin: 0;
-      }
-
-      .navbar {
-        position: sticky;
-        top: 0;
-        left: auto;
-        width: 100%;
-        z-index: 120;
-      }
-
-      header {
-        position: static;
-        width: 100%;
-        left: auto;
-        transform: none;
-        margin: 0;
-        padding: 0.85rem 0.9rem 0.55rem;
-        border-radius: 0;
-        box-shadow: none;
-      }
-
-      #title-block-header .title {
-        font-size: 1.25rem;
-        line-height: 1.3;
-      }
-
-      .lecture-main-box {
-        position: static !important;
-        top: auto !important;
-        left: auto !important;
-        transform: none !important;
-        width: auto !important;
-        max-width: none !important;
-        height: auto !important;
-        max-height: none !important;
-        overflow: visible !important;
-      }
-
-      #TOC {
-        position: sticky !important;
-        top: 64px !important;
-        left: auto !important;
-        transform: none !important;
-        width: min(68vw, 260px) !important;
-        max-width: 260px !important;
-        max-height: 56vh !important;
-        overflow: auto !important;
-        margin: 0.75rem 0.75rem 0.65rem auto;
-        border-radius: 12px;
-        padding: 0.58rem;
-        font-size: 0.74rem;
-        line-height: 1.26;
-      }
-
-      #TOC .toc-mobile-toggle {
-        display: block;
-        width: 100%;
-        border: none;
-        border-radius: 8px;
-        background: #d8eaff;
-        color: #1f3f72;
-        font-size: 0.7rem;
-        font-weight: 600;
-        text-align: center;
-        padding: 0.36rem 0.45rem;
-        margin-bottom: 0.45rem;
-        cursor: pointer;
-      }
-
-      #TOC.mobile-collapsed {
-        max-height: 14vh !important;
-        min-height: 54px;
-        overflow: hidden !important;
-      }
-
-      #TOC.mobile-collapsed .toc-mobile-toggle {
-        margin-bottom: 0;
-      }
-
-      #TOC > ul > li {
-        padding: 0.22rem 0.26rem;
-      }
-
-      #TOC > ul > li > a {
-        font-size: 0.72rem;
-      }
-
-      #TOC > ul > li > ul a {
-        font-size: 0.66rem;
-      }
-
-      .lecture-main-box {
-        margin: 0 0.75rem 0.9rem;
-        border-radius: 12px;
-        padding: 0.9rem 0.9rem 1rem;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-      }
-
-      .lecture-main-box > h1[id] {
-        font-size: 1.2rem;
-      }
-
-      .lecture-main-box > h2[id] {
-        font-size: 1.04rem;
-      }
-
-      p,
-      li {
-        font-size: 1rem;
-        line-height: 1.7;
-      }
-
-      h1[id],
-      h2[id],
-      h3[id],
-      h4[id] {
-        scroll-margin-top: 92px;
-      }
-
-      mjx-container[display="true"],
-      .lecture-main-box table,
-      .lecture-main-box pre {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        max-width: 100%;
-      }
-    }
-
-    @media (max-width: 480px) {
-      #title-block-header .title {
-        font-size: 1.12rem;
-      }
-
-      #TOC {
-        top: 58px !important;
-        width: min(72vw, 220px) !important;
-        max-width: 220px !important;
-        margin: 0.55rem 0.5rem 0.55rem auto;
-        padding: 0.5rem;
-        font-size: 0.68rem;
-      }
-
-      #TOC > ul > li > a {
-        font-size: 0.66rem;
-      }
-
-      #TOC > ul > li > ul a {
-        font-size: 0.62rem;
-      }
-
-      #TOC.mobile-collapsed {
-        max-height: 13vh !important;
-      }
-
-      .lecture-main-box {
-        margin: 0 0.5rem 0.75rem;
-        padding: 0.74rem 0.7rem 0.88rem;
-      }
-
-      p,
-      li {
-        font-size: 0.96rem;
-      }
-    }
-  </style>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const toc = document.getElementById('TOC');
-      if (toc) {
-        const contentBox = document.createElement('div');
-        contentBox.className = 'lecture-main-box';
+      const floatingToggle = document.querySelector('.outline-toggle');
+      const body = document.body;
+      let userPinned = false;
 
-        let sibling = toc.nextElementSibling;
-        while (sibling) {
-          const nextSibling = sibling.nextElementSibling;
-          contentBox.appendChild(sibling);
-          sibling = nextSibling;
-        }
+      const updateFloatingToggle = function () {
+        if (!floatingToggle) return;
+        const collapsed = body.classList.contains('outline-hidden');
+        floatingToggle.textContent = collapsed ? 'Show Outline' : 'Hide Outline';
+        floatingToggle.setAttribute('aria-expanded', String(!collapsed));
+      };
 
-        toc.insertAdjacentElement('afterend', contentBox);
-      }
+      const applyResponsiveState = function () {
+        if (userPinned) return;
+        const shouldCollapse = window.innerWidth <= 1100;
+        body.classList.toggle('outline-hidden', shouldCollapse);
+        updateFloatingToggle();
+      };
 
-      if (toc) {
-        const mobileToggle = document.createElement('button');
-        mobileToggle.type = 'button';
-        mobileToggle.className = 'toc-mobile-toggle';
-        mobileToggle.textContent = 'Outline ▾';
-        toc.insertBefore(mobileToggle, toc.firstChild);
+      applyResponsiveState();
+      window.addEventListener('resize', applyResponsiveState);
 
-        const setMobileTocState = function () {
-          if (window.innerWidth <= 900) {
-            toc.classList.add('mobile-collapsed');
-            mobileToggle.textContent = 'Outline ▾';
-          } else {
-            toc.classList.remove('mobile-collapsed');
-            mobileToggle.textContent = 'Outline ▾';
-          }
-        };
-
-        setMobileTocState();
-        window.addEventListener('resize', setMobileTocState);
-
-        mobileToggle.addEventListener('click', function () {
-          const isCollapsed = toc.classList.toggle('mobile-collapsed');
-          mobileToggle.textContent = isCollapsed ? 'Outline ▾' : 'Outline ▴';
-        });
-      }
-
-      const topItems = document.querySelectorAll('#TOC > ul > li');
-      topItems.forEach(function (item) {
-        const subList = item.querySelector(':scope > ul');
-        if (!subList) return;
-
-        const toggle = document.createElement('button');
-        toggle.type = 'button';
-        toggle.className = 'toc-toggle';
-        toggle.setAttribute('aria-label', 'Toggle subsections');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.textContent = '▸';
-
-        item.appendChild(toggle);
-
-        toggle.addEventListener('click', function (event) {
-          event.preventDefault();
-          event.stopPropagation();
-
-          const expanded = item.classList.toggle('expanded');
-          toggle.setAttribute('aria-expanded', String(expanded));
-          toggle.textContent = expanded ? '▾' : '▸';
-        });
+      floatingToggle?.addEventListener('click', function () {
+        userPinned = true;
+        body.classList.toggle('outline-hidden');
+        updateFloatingToggle();
       });
+
+      if (toc) {
+        const topSections = toc.querySelectorAll(':scope > ul > li');
+        topSections.forEach(function (section) {
+          const nestedList = section.querySelector(':scope > ul');
+          if (!nestedList) return;
+
+          const anchor = section.querySelector(':scope > a');
+          const sectionToggle = document.createElement('button');
+          sectionToggle.type = 'button';
+          sectionToggle.className = 'toc-section-toggle';
+          sectionToggle.setAttribute('aria-expanded', 'false');
+          sectionToggle.textContent = '▸';
+
+          if (anchor) {
+            anchor.insertAdjacentElement('afterend', sectionToggle);
+          } else {
+            section.insertBefore(sectionToggle, nestedList);
+          }
+
+          nestedList.hidden = true;
+
+          sectionToggle.addEventListener('click', function (event) {
+            event.preventDefault();
+            const expanded = nestedList.hidden;
+            nestedList.hidden = !expanded;
+            sectionToggle.setAttribute('aria-expanded', String(expanded));
+            sectionToggle.textContent = expanded ? '▾' : '▸';
+          });
+        });
+      }
     });
   </script>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
 </head>
-<body>
-<nav class="navbar">
-<div class="container">
-<a href="index.html" class="logo">Fudong Wang</a>
+<body class="lecture-page">
+<div class="site-shell" style="padding-top: 1rem;">
+<nav class="navbar" aria-label="Primary">
+<a href="index.html" class="logo">GBU Calculus Hub</a>
 <ul class="nav-links">
 <li><a href="index.html">Home</a></li>
-<li><a href="about.html">About Me</a></li>
-<li><a href="publications.html">Publications</a></li>
-<li><a href="projects.html">Projects</a></li>
-<li><a href="teaching.html" class="active">Teaching</a></li>
-<li><a href="notes.html">Notes</a></li>
+<li><a href="calculus-2.html">Course</a></li>
+<li class="nav-dropdown">
+  <button class="nav-trigger" type="button" aria-haspopup="true">
+    Tests
+    <span class="caret" aria-hidden="true">▾</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="test-1.html">Test 1 · Vectors Warm-up</a></li>
+  </ul>
+</li>
+<li class="nav-dropdown is-active">
+  <button class="nav-trigger" type="button" aria-haspopup="true">
+    Lecture Notes
+    <span class="caret" aria-hidden="true">▾</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="calculus-2-lecture-1.html" aria-current="page">Lecture 1 · Vectors in Euclidean Space</a></li>
+    <li><a href="calculus-2-lecture-2.html">Lecture 2 · Linear Systems and Geometry</a></li>
+  </ul>
+</li>
 <li><a href="calculus-2-lecture-1-zh.html" class="lang-switch">中文</a></li>
 </ul>
-</div>
 </nav>
 <header id="title-block-header">
 <h1 class="title">Lecture 1: Vectors in Euclidean Space</h1>
 </header>
+<div class="lecture-layout">
 <nav id="TOC" role="doc-toc">
 <a href="calculus-2.html" class="toc-syllabus">← Back to Course Syllabus</a>
 <ul>
@@ -927,8 +209,10 @@
 <li><a href="#student-problems-construction-and-thinking-5-min">Student Problems: Construction and Thinking (5 min)</a></li>
 <li><a href="#short-concept-checks-for-class-3-min">Short Concept Checks for Class (3 min)</a></li>
 <li><a href="#summary-3-min">Summary (3 min)</a></li>
-</ul>
+ </ul>
 </nav>
+<button class="outline-toggle" type="button" aria-expanded="true" aria-controls="TOC">Hide Outline</button>
+<article class="lecture-main">
 <h1 id="lecture-scope-and-goals-5-min">Lecture Scope and Goals (5 min)</h1>
 
 <p>This lecture is designed as a <span class="math inline">\(2\)</span>-hour <span class="math inline">\(30\)</span>-minute introduction to vectors in Euclidean space for students beginning multivariable calculus. The central goals are:</p>
@@ -1575,7 +859,7 @@ AB\mathbf{x}=A(B\mathbf{x})=
 <li><p>determinants measure area/volume scaling under matrices.</p></li>
 </ul>
 <p>These ideas form the geometric language behind gradients, Jacobians, tangent approximations, and change of variables in multivariable calculus.</p>
-<section style="margin-top: 2rem; border: 1px solid #ddd; border-radius: 10px; padding: 1rem; background: #fafafa;">
+<section class="lecture-pdf-card">
 <h2 id="lecture-pdf">Lecture PDF</h2>
 <p>You can view the original full lecture note PDF below:</p>
 <p>
@@ -1583,12 +867,15 @@ AB\mathbf{x}=A(B\mathbf{x})=
 &nbsp;|&nbsp;
 <a href="vectors_in_euclidean_space.pdf" download>Download PDF</a>
 </p>
-<object data="vectors_in_euclidean_space.pdf" type="application/pdf" width="100%" height="900" style="border: 1px solid #ccc; border-radius: 8px; background: #fff;">
+<object data="vectors_in_euclidean_space.pdf" type="application/pdf" width="100%" height="900">
 <p>
 This browser cannot display the embedded PDF.
 Please use <a href="vectors_in_euclidean_space.pdf" target="_blank" rel="noopener noreferrer">this direct PDF link</a>.
 </p>
 </object>
 </section>
+</article>
+</div>
+</div>
 </body>
 </html>
