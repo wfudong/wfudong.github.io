@@ -222,7 +222,7 @@
       text-align: center;
       margin: 0;
       position: fixed;
-      top: 96px;
+      top: 108px;
       left: 0;
       transform: none;
       width: 100%;
@@ -373,6 +373,33 @@
       margin-top: 0;
     }
 
+    @media (max-width: 1200px) {
+      body {
+        grid-template-columns: 240px minmax(0, 1fr);
+        gap: 1rem;
+        padding: 154px 14px 20px;
+      }
+
+      header {
+        top: 98px;
+      }
+
+      #TOC {
+        top: 154px;
+        max-height: calc(100vh - 172px);
+      }
+
+      .lecture-main-box {
+        position: sticky;
+        top: 154px;
+        left: auto;
+        transform: none;
+        width: 100%;
+        max-width: none;
+        height: calc(100vh - 172px);
+      }
+    }
+
     @media (max-width: 1000px) {
       body {
         grid-template-columns: 1fr;
@@ -381,7 +408,7 @@
       }
 
       header {
-        top: 86px;
+        top: 98px;
         width: 100%;
       }
 
@@ -401,6 +428,17 @@
         height: auto;
         overflow: visible;
         padding: 0.9rem 1rem 1.1rem;
+      }
+    }
+
+    @media (max-width: 560px) {
+      header {
+        top: 104px;
+      }
+
+      #title-block-header .title {
+        font-size: 1.18rem;
+        line-height: 1.25;
       }
     }
   </style>
