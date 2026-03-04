@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test 1 - Lecture 1 Exercises</title>
+    <title>Test 1 - 第一讲互动练习</title>
     <link rel="stylesheet" href="style.css">
     <script>
         window.MathJax = {
@@ -16,15 +16,15 @@
 <body>
     <nav class="navbar">
         <div class="container">
-            <a href="index.html" class="logo">Fudong Wang</a>
+            <a href="index-zh.html" class="logo">Fudong Wang</a>
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Me</a></li>
-                <li><a href="publications.html">Publications</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="teaching.html" class="active">Teaching</a></li>
-                <li><a href="notes.html">Notes</a></li>
-                <li><a href="test-1-zh.html" class="lang-switch">中文</a></li>
+                <li><a href="index-zh.html">首页</a></li>
+                <li><a href="about-zh.html">个人简介</a></li>
+                <li><a href="publications-zh.html">论文发表</a></li>
+                <li><a href="projects-zh.html">研究项目</a></li>
+                <li><a href="teaching-zh.html" class="active">教学</a></li>
+                <li><a href="notes-zh.html">笔记</a></li>
+                <li><a href="test-1.html" class="lang-switch">EN</a></li>
             </ul>
         </div>
     </nav>
@@ -32,218 +32,218 @@
     <section class="content">
         <div class="container">
             <h2>Test 1</h2>
-            <p>Work through this interactive checklist to revisit the main ideas from Lecture&nbsp;1: lines and planes, dot and cross products, determinants, and matrices acting on vectors.</p>
+            <p>以下互动练习覆盖第一讲的关键信息：向量与直线、点积与叉积、行列式以及矩阵作为线性“动作”。全部题目集中在一个列表中，依次完成即可。</p>
 
             <ol class="interactive-list" style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.5rem;">
                 <li>
                     <div class="course-item" style="cursor: default;">
-                        <h4>Exercise 1: Coplanarity via Triple Products</h4>
-                        <p>Consider the lines</p>
+                        <h4>练习 1：用三重积判定共面</h4>
+                        <p>考虑直线</p>
                         <ul>
-                            <li><strong>L<sub>1</sub>:</strong> \( \mathbf{r} = (1,-1,3) + t(2,1,-1) \)</li>
-                            <li><strong>L<sub>2</sub>:</strong> \( \mathbf{r} = (3,2,-1) + s(1,-2,4) \)</li>
+                            <li><strong>L<sub>1</sub>：</strong> \( \mathbf{r} = (1,-1,3) + t(2,1,-1) \)</li>
+                            <li><strong>L<sub>2</sub>：</strong> \( \mathbf{r} = (3,2,-1) + s(1,-2,4) \)</li>
                         </ul>
-                        <p style="margin-bottom: 0.8rem;">Use the scalar triple product \( [\mathbf{p}_2 - \mathbf{p}_1, \mathbf{v}_1, \mathbf{v}_2] \) to decide whether they lie in the same plane.</p>
+                        <p style="margin-bottom: 0.8rem;">计算 \( [\mathbf{p}_2 - \mathbf{p}_1, \mathbf{v}_1, \mathbf{v}_2] \) 并判断两条直线是否共面。</p>
                         <div class="interactive-panel" style="margin-top: 1.2rem; border-top: 1px solid #e1e1e1; padding-top: 1.2rem; display: flex; flex-direction: column; gap: 0.9rem;">
-                            <label for="triple-input">Scalar triple product value</label>
-                            <input id="triple-input" type="number" step="any" placeholder="e.g. -3" style="max-width: 260px; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+                            <label for="triple-input">标量三重积</label>
+                            <input id="triple-input" type="number" step="any" placeholder="例如 -3" style="max-width: 260px; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
 
-                            <label for="coplanar-choice">Do the lines share a plane?</label>
+                            <label for="coplanar-choice">是否共面？</label>
                             <select id="coplanar-choice" style="max-width: 260px; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
-                                <option value="">Select an answer</option>
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
+                                <option value="">请选择</option>
+                                <option value="yes">是</option>
+                                <option value="no">否</option>
                             </select>
 
-                            <button id="check-problem" class="btn-primary" style="max-width: 220px;">Check coplanarity</button>
+                            <button id="check-problem" class="btn-primary" style="max-width: 220px;">检查共面性</button>
                             <p id="problem-feedback" style="min-height: 1.4rem; font-weight: 600;" aria-live="polite"></p>
                         </div>
                         <details style="margin-top: 1rem;">
-                            <summary>Hint</summary>
-                            <p style="margin-top: 0.6rem;">Compute \( \mathbf{p}_2 - \mathbf{p}_1 \) first, then form the determinant with the two direction vectors. A zero triple product means the three vectors are coplanar.</p>
+                            <summary>提示</summary>
+                            <p style="margin-top: 0.6rem;">先求出连接向量 \( \mathbf{p}_2 - \mathbf{p}_1 \)，再把三个向量放进同一个行列式。三重积为 0 表示共面。</p>
                         </details>
                         <details style="margin-top: 0.6rem;">
-                            <summary>Solution</summary>
-                            <p style="margin-top: 0.6rem;">\( \mathbf{p}_2 - \mathbf{p}_1 = (2,3,-4) \), \( \mathbf{v}_1 = (2,1,-1) \), \( \mathbf{v}_2 = (1,-2,4) \). The triple product equals \(-3 \neq 0\), so the lines are skew and have no common plane.</p>
+                            <summary>解答</summary>
+                            <p style="margin-top: 0.6rem;">\( \mathbf{p}_2 - \mathbf{p}_1 = (2,3,-4) \)、\( \mathbf{v}_1 = (2,1,-1) \)、\( \mathbf{v}_2 = (1,-2,4) \)。三重积为 \(-3 \neq 0\)，说明两条直线为歪斜直线。</p>
                         </details>
                     </div>
                 </li>
 
                 <li>
                     <div class="course-item" style="cursor: default;">
-                        <h4>Exercise 2: Matrix Image of a Vector</h4>
-                        <p>The shear matrix \( A = \begin{pmatrix} 1 & 2 \\ 0 & 1 \end{pmatrix} \) acts on \( \mathbf{x} = (-1, 3) \). Compute \( A\mathbf{x} \).</p>
+                        <h4>练习 2：矩阵作用后的向量</h4>
+                        <p>剪切矩阵 \( A = \begin{pmatrix} 1 & 2 \\ 0 & 1 \end{pmatrix} \) 作用在 \( \mathbf{x} = (-1, 3) \) 上，求 \( A\mathbf{x} \)。</p>
                         <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 0.8rem 0;">
                             <label style="display: flex; flex-direction: column;">
-                                First component
+                                第一分量
                                 <input id="matrix1-x" type="number" step="any" style="min-width: 120px; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;">
                             </label>
                             <label style="display: flex; flex-direction: column;">
-                                Second component
+                                第二分量
                                 <input id="matrix1-y" type="number" step="any" style="min-width: 120px; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;">
                             </label>
                         </div>
-                        <button id="check-matrix-vector" class="btn-primary" style="max-width: 220px;">Check Ax</button>
+                        <button id="check-matrix-vector" class="btn-primary" style="max-width: 220px;">检查 Ax</button>
                         <p id="matrix1-feedback" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
                         <details style="margin-top: 1rem;">
-                            <summary>Hint</summary>
-                            <p style="margin-top: 0.6rem;">Think column-wise: \( A(x, y) = x(1,0) + y(2,1) \). Multiply \( x \) by the first column and \( y \) by the second column.</p>
+                            <summary>提示</summary>
+                            <p style="margin-top: 0.6rem;">记住 \( A(x, y) = x(1,0) + y(2,1) \)。先乘列向量再相加。</p>
                         </details>
                         <details style="margin-top: 0.6rem;">
-                            <summary>Solution</summary>
-                            <p style="margin-top: 0.6rem;">\( A\mathbf{x} = (-1 + 2\cdot 3, 3) = (5, 3) \). The shear keeps \( y \) unchanged and shifts \( x \) by twice the height.</p>
+                            <summary>解答</summary>
+                            <p style="margin-top: 0.6rem;">\( A\mathbf{x} = (-1 + 2\cdot 3, 3) = (5, 3) \)。该剪切保持 \( y \) 不变，把 \( x \) 改为 \( x + 2y \)。</p>
                         </details>
                     </div>
                 </li>
 
                 <li>
                     <div class="course-item" style="cursor: default;">
-                        <h4>Exercise 3: Determinant and Orientation</h4>
-                        <p>For \( S = \begin{pmatrix} 2 & 0 \\ 0 & -1 \end{pmatrix} \), record \( |\det S| \) and the orientation change.</p>
+                        <h4>练习 3：行列式与取向</h4>
+                        <p>对于 \( S = \begin{pmatrix} 2 & 0 \\ 0 & -1 \end{pmatrix} \)，输入 \( |\det S| \) 并说明取向变化。</p>
                         <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 0.8rem 0;">
                             <label style="display: flex; flex-direction: column;">
                                 |det(S)|
                                 <input id="area-scale" type="number" step="any" style="min-width: 120px; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;">
                             </label>
                             <label style="display: flex; flex-direction: column;">
-                                Orientation effect
+                                取向变化
                                 <select id="orientation-choice" style="min-width: 180px; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;">
-                                    <option value="">Select</option>
-                                    <option value="preserve">Preserved</option>
-                                    <option value="reverse">Reversed</option>
-                                    <option value="collapse">Collapses area to 0</option>
+                                    <option value="">请选择</option>
+                                    <option value="preserve">保持不变</option>
+                                    <option value="reverse">翻转取向</option>
+                                    <option value="collapse">面积被压缩为 0</option>
                                 </select>
                             </label>
                         </div>
-                        <button id="check-area-problem" class="btn-primary" style="max-width: 220px;">Check determinant facts</button>
+                        <button id="check-area-problem" class="btn-primary" style="max-width: 220px;">检查行列式信息</button>
                         <p id="area-feedback" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
                         <details style="margin-top: 1rem;">
-                            <summary>Hint</summary>
-                            <p style="margin-top: 0.6rem;">For a diagonal matrix, \( \det S \) is the product of the diagonal entries. The sign tells you whether the transformation flips orientation.</p>
+                            <summary>提示</summary>
+                            <p style="margin-top: 0.6rem;">对角矩阵的 \( \det S \) 就是对角线乘积。符号决定取向是否翻转。</p>
                         </details>
                         <details style="margin-top: 0.6rem;">
-                            <summary>Solution</summary>
-                            <p style="margin-top: 0.6rem;">\( \det S = 2\cdot(-1) = -2 \), so \( |\det S| = 2 \) and the negative sign indicates an orientation flip while areas scale by 2.</p>
+                            <summary>解答</summary>
+                            <p style="margin-top: 0.6rem;">\( \det S = 2 \cdot (-1) = -2 \)，故 \( |\det S| = 2 \) 且符号为负，表示面积放大 2 倍但取向翻转。</p>
                         </details>
                     </div>
                 </li>
 
                 <li>
                     <div class="course-item" style="cursor: default;">
-                        <h4>Exercise 4: Composition Order Matters</h4>
-                        <p>\( A = \begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix} \) stretches horizontally, \( B = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} \) rotates \(90^\circ\) counterclockwise, and \( \mathbf{x} = (1, 1) \). Choose the correct statement about \( BA\mathbf{x} \) versus \( AB\mathbf{x} \).</p>
+                        <h4>练习 4：复合次序</h4>
+                        <p>\( A = \begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix} \) 沿 x 方向拉伸，\( B = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} \) 逆时针旋转 \(90^\circ\)，初始向量 \( \mathbf{x} = (1, 1) \)。判断 \( BA\mathbf{x} \) 与 \( AB\mathbf{x} \) 的关系。</p>
                         <select id="composition-choice" style="min-width: 260px; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; margin: 0.8rem 0;">
-                            <option value="">Select</option>
-                            <option value="same">A then B equals B then A.</option>
-                            <option value="different">A then B gives (-2, 1) while B then A gives (-1, 2).</option>
-                            <option value="zero">Both orders send the vector to (0, 0).</option>
+                            <option value="">请选择</option>
+                            <option value="same">顺序无关，结果相同。</option>
+                            <option value="different">先 A 后 B 得 (-2, 1)，先 B 后 A 得 (-1, 2)。</option>
+                            <option value="zero">无论顺序如何都变成 (0, 0)。</option>
                         </select>
-                        <button id="check-composition" class="btn-primary" style="max-width: 220px;">Check composition</button>
+                        <button id="check-composition" class="btn-primary" style="max-width: 220px;">检查复合关系</button>
                         <p id="composition-feedback" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
                         <details style="margin-top: 1rem;">
-                            <summary>Hint</summary>
-                            <p style="margin-top: 0.6rem;">Remember that matrix products apply the rightmost matrix first. Try computing \( A\mathbf{x} \) and \( B\mathbf{x} \) separately before stacking the actions.</p>
+                            <summary>提示</summary>
+                            <p style="margin-top: 0.6rem;">矩阵乘法代表“先右后左”的动作。可以先分别算 \( A\mathbf{x} \) 与 \( B\mathbf{x} \)，再组合。</p>
                         </details>
                         <details style="margin-top: 0.6rem;">
-                            <summary>Solution</summary>
-                            <p style="margin-top: 0.6rem;">\( BA\mathbf{x} = B(2,1) = (-1, 2) \) while \( AB\mathbf{x} = A(-1,1) = (-2, 1) \). The outputs differ, so the stretch and rotation do not commute.</p>
+                            <summary>解答</summary>
+                            <p style="margin-top: 0.6rem;">\( BA\mathbf{x} = B(2,1) = (-1, 2) \)，而 \( AB\mathbf{x} = A(-1,1) = (-2, 1) \)。两者不同，说明操作不交换。</p>
                         </details>
                     </div>
                 </li>
 
                 <li>
                     <div class="course-item" style="cursor: default;">
-                        <h4>Exercise 5: Dot Product Classification</h4>
-                        <p>Let \( \mathbf{u} = (2,-1,2) \) and \( \mathbf{v} = (1,1,0) \). Compute \( \mathbf{u} \cdot \mathbf{v} \) and decide whether the angle between them is acute, right, or obtuse.</p>
+                        <h4>练习 5：点积与夹角</h4>
+                        <p>设 \( \mathbf{u} = (2,-1,2) \)，\( \mathbf{v} = (1,1,0) \)。计算 \( \mathbf{u} \cdot \mathbf{v} \) 并判断夹角类型。</p>
                         <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 0.8rem 0;">
                             <label style="display: flex; flex-direction: column;">
                                 u · v
                                 <input id="dot-product-value" type="number" step="any" style="min-width: 140px; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;">
                             </label>
                             <label style="display: flex; flex-direction: column;">
-                                Angle type
+                                夹角类型
                                 <select id="dot-classification" style="min-width: 180px; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;">
-                                    <option value="">Select</option>
-                                    <option value="acute">Acute (&lt; 90°)</option>
-                                    <option value="right">Right (= 90°)</option>
-                                    <option value="obtuse">Obtuse (&gt; 90°)</option>
+                                    <option value="">请选择</option>
+                                    <option value="acute">锐角 (&lt; 90°)</option>
+                                    <option value="right">直角 (= 90°)</option>
+                                    <option value="obtuse">钝角 (&gt; 90°)</option>
                                 </select>
                             </label>
                         </div>
-                        <button id="check-dot-product" class="btn-primary" style="max-width: 220px;">Check dot product</button>
+                        <button id="check-dot-product" class="btn-primary" style="max-width: 220px;">检查点积</button>
                         <p id="dot-feedback" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
                         <details style="margin-top: 1rem;">
-                            <summary>Hint</summary>
-                            <p style="margin-top: 0.6rem;">Multiply matching components and sum: \( \mathbf{u} \cdot \mathbf{v} = u_1v_1 + u_2v_2 + u_3v_3 \). A positive dot product means \( \cos \theta &gt; 0 \).</p>
+                            <summary>提示</summary>
+                            <p style="margin-top: 0.6rem;">逐项相乘再求和：\( \mathbf{u} \cdot \mathbf{v} = u_1v_1 + u_2v_2 + u_3v_3 \)。点积大于 0 说明 \( \cos \theta &gt; 0 \)。</p>
                         </details>
                         <details style="margin-top: 0.6rem;">
-                            <summary>Solution</summary>
-                            <p style="margin-top: 0.6rem;">\( \mathbf{u} \cdot \mathbf{v} = 2\cdot1 + (-1)\cdot1 + 2\cdot0 = 1 &gt; 0 \), so the vectors form an acute angle.</p>
+                            <summary>解答</summary>
+                            <p style="margin-top: 0.6rem;">\( \mathbf{u} \cdot \mathbf{v} = 2\cdot1 + (-1)\cdot1 + 2\cdot0 = 1 &gt; 0 \)，因此夹角为锐角。</p>
                         </details>
                     </div>
                 </li>
 
                 <li>
                     <div class="course-item" style="cursor: default;">
-                        <h4>Exercise 6: Projection Components</h4>
-                        <p>Project \( \mathbf{u} = (4, 1) \) onto \( \mathbf{v} = (1, 2) \). Enter the x- and y-components of \( \operatorname{proj}_{\mathbf{v}}(\mathbf{u}) \).</p>
+                        <h4>练习 6：投影分量</h4>
+                        <p>把 \( \mathbf{u} = (4, 1) \) 投影到 \( \mathbf{v} = (1, 2) \) 上，填写 \( \operatorname{proj}_{\mathbf{v}}(\mathbf{u}) \) 的 x、y 分量。</p>
                         <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 0.8rem 0;">
                             <label style="display: flex; flex-direction: column;">
-                                x-component
+                                x 分量
                                 <input id="projection-x" type="number" step="any" style="min-width: 140px; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;">
                             </label>
                             <label style="display: flex; flex-direction: column;">
-                                y-component
+                                y 分量
                                 <input id="projection-y" type="number" step="any" style="min-width: 140px; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;">
                             </label>
                         </div>
-                        <button id="check-projection" class="btn-primary" style="max-width: 220px;">Check projection</button>
+                        <button id="check-projection" class="btn-primary" style="max-width: 220px;">检查投影</button>
                         <p id="projection-feedback" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
                         <details style="margin-top: 1rem;">
-                            <summary>Hint</summary>
-                            <p style="margin-top: 0.6rem;">Use \( \operatorname{proj}_{\mathbf{v}}(\mathbf{u}) = \dfrac{\mathbf{u}\cdot\mathbf{v}}{\mathbf{v}\cdot\mathbf{v}}\, \mathbf{v} \). Compute the scalar coefficient first, then multiply \( \mathbf{v} \).</p>
+                            <summary>提示</summary>
+                            <p style="margin-top: 0.6rem;">公式：\( \operatorname{proj}_{\mathbf{v}}(\mathbf{u}) = \dfrac{\mathbf{u}\cdot\mathbf{v}}{\mathbf{v}\cdot\mathbf{v}}\, \mathbf{v} \)。先求出比例系数再乘以 \( \mathbf{v} \)。</p>
                         </details>
                         <details style="margin-top: 0.6rem;">
-                            <summary>Solution</summary>
-                            <p style="margin-top: 0.6rem;">\( \mathbf{u} \cdot \mathbf{v} = 6 \) and \( \mathbf{v} \cdot \mathbf{v} = 5 \), so \( \operatorname{proj}_{\mathbf{v}}(\mathbf{u}) = (6/5)(1, 2) = (6/5, 12/5) \).</p>
+                            <summary>解答</summary>
+                            <p style="margin-top: 0.6rem;">\( \mathbf{u} \cdot \mathbf{v} = 6 \)，\( \mathbf{v} \cdot \mathbf{v} = 5 \)，故 \( \operatorname{proj}_{\mathbf{v}}(\mathbf{u}) = (6/5)(1, 2) = (6/5, 12/5) \)。</p>
                         </details>
                     </div>
                 </li>
 
                 <li>
                     <div class="course-item" style="cursor: default;">
-                        <h4>Exercise 7: Cross Product Coordinates</h4>
-                        <p>Find \( \mathbf{u} \times \mathbf{v} \) for \( \mathbf{u} = (1, 2, 0) \) and \( \mathbf{v} = (3, 1, 4) \). Enter each component.</p>
+                        <h4>练习 7：叉积坐标</h4>
+                        <p>求 \( \mathbf{u} \times \mathbf{v} \)，其中 \( \mathbf{u} = (1, 2, 0) \)，\( \mathbf{v} = (3, 1, 4) \)。写出三个分量。</p>
                         <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 0.8rem 0;">
                             <label style="display: flex; flex-direction: column;">
-                                i-component
+                                i 分量
                                 <input id="cross-x" type="number" step="any" style="min-width: 120px; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;">
                             </label>
                             <label style="display: flex; flex-direction: column;">
-                                j-component
+                                j 分量
                                 <input id="cross-y" type="number" step="any" style="min-width: 120px; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;">
                             </label>
                             <label style="display: flex; flex-direction: column;">
-                                k-component
+                                k 分量
                                 <input id="cross-z" type="number" step="any" style="min-width: 120px; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;">
                             </label>
                         </div>
-                        <button id="check-cross-product" class="btn-primary" style="max-width: 220px;">Check cross product</button>
+                        <button id="check-cross-product" class="btn-primary" style="max-width: 220px;">检查叉积</button>
                         <p id="cross-feedback" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
                         <details style="margin-top: 1rem;">
-                            <summary>Hint</summary>
-                            <p style="margin-top: 0.6rem;">Set up the determinant with \( \mathbf{i}, \mathbf{j}, \mathbf{k} \) in the first row, \( \mathbf{u} \) in the second, \( \mathbf{v} \) in the third. Remember the alternating signs.</p>
+                            <summary>提示</summary>
+                            <p style="margin-top: 0.6rem;">写成含有 \( \mathbf{i}, \mathbf{j}, \mathbf{k} \) 的 \(3\times3\) 行列式，注意符号交替。</p>
                         </details>
                         <details style="margin-top: 0.6rem;">
-                            <summary>Solution</summary>
-                            <p style="margin-top: 0.6rem;">\( \mathbf{u} \times \mathbf{v} = (8, -4, -5) \). Its magnitude \( \sqrt{105} \) equals the area of the parallelogram spanned by \( \mathbf{u} \) and \( \mathbf{v} \).</p>
+                            <summary>解答</summary>
+                            <p style="margin-top: 0.6rem;">\( \mathbf{u} \times \mathbf{v} = (8, -4, -5) \)，其模长 \( \sqrt{105} \) 即为两向量张成平行四边形的面积。</p>
                         </details>
                     </div>
                 </li>
             </ol>
 
             <div class="quick-links" style="margin-top: 1.4rem;">
-                <a href="calculus-2.html" class="btn-secondary">Back to Course Syllabus</a>
+                <a href="calculus-2-zh.html" class="btn-secondary">返回课程大纲</a>
             </div>
         </div>
     </section>
@@ -269,7 +269,7 @@
                     const choiceValue = choice.value;
 
                     if (Number.isNaN(tripleValue) || !choiceValue) {
-                        feedback.textContent = 'Enter the triple product and choose an answer before checking.';
+                        feedback.textContent = '请先填入三重积的值并选择结论。';
                         feedback.style.color = '#d9534f';
                         return;
                     }
@@ -278,16 +278,16 @@
                     const choiceCorrect = (choiceValue === 'yes') === isCoplanar;
 
                     if (tripleCorrect && choiceCorrect) {
-                        feedback.textContent = 'Great job! The scalar triple product is -3, so the lines are not coplanar.';
+                        feedback.textContent = '很好！标量三重积为 -3，因此两条直线不共面。';
                         feedback.style.color = '#2a7b4f';
                     } else if (!tripleCorrect && choiceCorrect) {
-                        feedback.textContent = 'Your conclusion is right, but the triple product should be -3.';
+                        feedback.textContent = '结论正确，但三重积应该是 -3。';
                         feedback.style.color = '#f0ad4e';
                     } else if (tripleCorrect && !choiceCorrect) {
-                        feedback.textContent = 'The triple product is correct, but a non-zero value means the lines do not lie in the same plane.';
+                        feedback.textContent = '数值正确，但非零三重积意味着直线不在同一平面。';
                         feedback.style.color = '#f0ad4e';
                     } else {
-                        feedback.textContent = 'Both the triple product and the conclusion need another look. Revisit the determinant.';
+                        feedback.textContent = '数值和结论都需要再检查，请重新计算行列式。';
                         feedback.style.color = '#d9534f';
                     }
                 });
@@ -301,16 +301,16 @@
                     const second = parseFloat(document.getElementById('matrix1-y').value);
 
                     if (Number.isNaN(first) || Number.isNaN(second)) {
-                        matrixFeedback.textContent = 'Fill in both components before checking.';
+                        matrixFeedback.textContent = '请先填完两个分量。';
                         matrixFeedback.style.color = '#d9534f';
                         return;
                     }
 
                     if (isClose(first, 5) && isClose(second, 3)) {
-                        matrixFeedback.textContent = 'Correct: A x = (5, 3). That is the shear sending e1 to (1, 0) and e2 to (2, 1).';
+                        matrixFeedback.textContent = '正确：A x = (5, 3)。这是一个剪切矩阵，e2 被送到 (2, 1)。';
                         matrixFeedback.style.color = '#2a7b4f';
                     } else {
-                        matrixFeedback.textContent = 'Not quite. Remember A(x, y) = (x + 2y, y). Plug in x = -1 and y = 3.';
+                        matrixFeedback.textContent = '再想想：A(x, y) = (x + 2y, y)。代入 x = -1, y = 3。';
                         matrixFeedback.style.color = '#d9534f';
                     }
                 });
@@ -324,7 +324,7 @@
                     const orientationValue = document.getElementById('orientation-choice').value;
 
                     if (Number.isNaN(scaleValue) || !orientationValue) {
-                        areaFeedback.textContent = 'Enter the determinant magnitude and pick an orientation description.';
+                        areaFeedback.textContent = '请输入 |det(S)| 并选择取向描述。';
                         areaFeedback.style.color = '#d9534f';
                         return;
                     }
@@ -333,13 +333,13 @@
                     const orientationCorrect = orientationValue === 'reverse';
 
                     if (scaleCorrect && orientationCorrect) {
-                        areaFeedback.textContent = 'Exactly: |det(S)| = 2 and the negative determinant flips orientation while scaling area by 2.';
+                        areaFeedback.textContent = '完全正确：|det(S)| = 2，负行列式意味着取向翻转、面积放大 2 倍。';
                         areaFeedback.style.color = '#2a7b4f';
                     } else if (scaleCorrect || orientationCorrect) {
-                        areaFeedback.textContent = 'You got part of it. Make sure you capture both the area scale (2) and the orientation flip from the negative determinant.';
+                        areaFeedback.textContent = '部分正确。请同时写对面积缩放（2）和取向翻转（det<0）。';
                         areaFeedback.style.color = '#f0ad4e';
                     } else {
-                        areaFeedback.textContent = 'Revisit the determinant: det(S) = 2 · (-1) = -2, so |det| = 2 and the sign is negative.';
+                        areaFeedback.textContent = '再算一次：det(S) = 2 · (-1) = -2，所以 |det| = 2 且符号为负。';
                         areaFeedback.style.color = '#d9534f';
                     }
                 });
@@ -352,16 +352,16 @@
                     const choiceValue = document.getElementById('composition-choice').value;
 
                     if (!choiceValue) {
-                        compositionFeedback.textContent = 'Select a statement before checking.';
+                        compositionFeedback.textContent = '请选择一个描述。';
                         compositionFeedback.style.color = '#d9534f';
                         return;
                     }
 
                     if (choiceValue === 'different') {
-                        compositionFeedback.textContent = 'Right: order matters. Stretching then rotating gives (-2, 1); rotating then stretching gives (-1, 2).';
+                        compositionFeedback.textContent = '正确：次序不同。先 A 后 B 为 (-2, 1)，先 B 后 A 为 (-1, 2)。';
                         compositionFeedback.style.color = '#2a7b4f';
                     } else {
-                        compositionFeedback.textContent = 'Not correct. Matrix multiplication encodes composition, and these two actions do not commute.';
+                        compositionFeedback.textContent = '不对。矩阵乘法编码“先做哪个动作”，一般不满足交换律。';
                         compositionFeedback.style.color = '#d9534f';
                     }
                 });
@@ -375,7 +375,7 @@
                     const angleChoice = document.getElementById('dot-classification').value;
 
                     if (Number.isNaN(dotValue) || !angleChoice) {
-                        dotFeedback.textContent = 'Enter the dot product and select an angle classification.';
+                        dotFeedback.textContent = '请先填完点积数值并选择夹角类型。';
                         dotFeedback.style.color = '#d9534f';
                         return;
                     }
@@ -384,13 +384,13 @@
                     const angleCorrect = angleChoice === 'acute';
 
                     if (dotCorrect && angleCorrect) {
-                        dotFeedback.textContent = 'Correct: u · v = 1 > 0, so the angle is acute.';
+                        dotFeedback.textContent = '正确：u · v = 1 > 0，说明夹角是锐角。';
                         dotFeedback.style.color = '#2a7b4f';
                     } else if (dotCorrect || angleCorrect) {
-                        dotFeedback.textContent = 'Halfway there. Positive dot products correspond to acute angles—match both parts.';
+                        dotFeedback.textContent = '还有一部分没对。点积为正时夹角必为锐角，请让两部分一致。';
                         dotFeedback.style.color = '#f0ad4e';
                     } else {
-                        dotFeedback.textContent = 'Recompute the dot product (multiply matching coordinates) and interpret its sign.';
+                        dotFeedback.textContent = '请重新逐项相乘并求和，再根据符号判断夹角。';
                         dotFeedback.style.color = '#d9534f';
                     }
                 });
@@ -404,7 +404,7 @@
                     const projY = parseFloat(document.getElementById('projection-y').value);
 
                     if (Number.isNaN(projX) || Number.isNaN(projY)) {
-                        projectionFeedback.textContent = 'Fill in both projection components.';
+                        projectionFeedback.textContent = '请填写投影的两个分量。';
                         projectionFeedback.style.color = '#d9534f';
                         return;
                     }
@@ -413,13 +413,13 @@
                     const yCorrect = isClose(projY, 12 / 5);
 
                     if (xCorrect && yCorrect) {
-                        projectionFeedback.textContent = 'Exactly: proj_v(u) = (6/5, 12/5).';
+                        projectionFeedback.textContent = '正确：proj_v(u) = (6/5, 12/5)。';
                         projectionFeedback.style.color = '#2a7b4f';
                     } else if (xCorrect || yCorrect) {
-                        projectionFeedback.textContent = 'One component is right. Double-check the scalar (u · v)/(v · v) = 6/5 and apply it to both entries.';
+                        projectionFeedback.textContent = '有一个分量正确。使用 (u · v)/(v · v) = 6/5 乘到两个坐标上。';
                         projectionFeedback.style.color = '#f0ad4e';
                     } else {
-                        projectionFeedback.textContent = 'Recompute u · v and divide by v · v to get the scalar multiple of v.';
+                        projectionFeedback.textContent = '重新计算 u · v 并除以 v · v，得到系数再乘 v。';
                         projectionFeedback.style.color = '#d9534f';
                     }
                 });
@@ -434,7 +434,7 @@
                     const crossZ = parseFloat(document.getElementById('cross-z').value);
 
                     if (Number.isNaN(crossX) || Number.isNaN(crossY) || Number.isNaN(crossZ)) {
-                        crossFeedback.textContent = 'Enter all three components to check the cross product.';
+                        crossFeedback.textContent = '请填写三个叉积分量。';
                         crossFeedback.style.color = '#d9534f';
                         return;
                     }
@@ -444,13 +444,13 @@
                     const zCorrect = isClose(crossZ, -5);
 
                     if (xCorrect && yCorrect && zCorrect) {
-                        crossFeedback.textContent = 'Great! u × v = (8, -4, -5); its magnitude √105 is the parallelogram area.';
+                        crossFeedback.textContent = '很好：u × v = (8, -4, -5)，其模长 √105 给出平行四边形面积。';
                         crossFeedback.style.color = '#2a7b4f';
                     } else if (xCorrect || yCorrect || zCorrect) {
-                        crossFeedback.textContent = 'Some components are off. Watch the sign pattern when expanding the determinant.';
+                        crossFeedback.textContent = '还有分量需要修正，展开 3×3 行列式时注意符号。';
                         crossFeedback.style.color = '#f0ad4e';
                     } else {
-                        crossFeedback.textContent = 'Try setting up the determinant with i, j, k to avoid arithmetic slips.';
+                        crossFeedback.textContent = '再写一遍含 i、j、k 的行列式，按照 cofactor 模式求值。';
                         crossFeedback.style.color = '#d9534f';
                     }
                 });
