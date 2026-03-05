@@ -255,6 +255,84 @@
                 </li>
             </ol>
 
+            <section class="course-item" style="margin-top: 2rem; cursor: default;">
+                <h3 style="margin-top: 0;">第一讲测验（自动评分）</h3>
+                <p style="margin-bottom: 0.9rem;">完成全部题目后点击提交。页面只显示总分和做错的题目位置。</p>
+
+                <ol style="display: flex; flex-direction: column; gap: 1rem; padding-left: 1.2rem; margin: 0;">
+                    <li>
+                        <p style="margin: 0 0 0.5rem;">设 \(\mathbf{u}=(3,-1,2)\)、\(\mathbf{v}=(-2,4,1)\)，计算 \(\mathbf{u}\cdot\mathbf{v}\)。</p>
+                        <input id="exam-q1" type="number" step="any" placeholder="输入数值" style="max-width: 220px;">
+                    </li>
+                    <li>
+                        <p style="margin: 0 0 0.5rem;">设 \(A=\begin{pmatrix}2&1\\5&3\end{pmatrix}\)，求 \(\det(A)\)。</p>
+                        <input id="exam-q2" type="number" step="any" placeholder="输入数值" style="max-width: 220px;">
+                    </li>
+                    <li>
+                        <p style="margin: 0 0 0.5rem;">若 \(\det(M)=-4\)，\(\mathbb{R}^2\) 中的取向与面积缩放如何变化？</p>
+                        <select id="exam-q3" style="max-width: 360px;">
+                            <option value="">请选择</option>
+                            <option value="a">取向保持不变；面积放大 4 倍</option>
+                            <option value="b">取向翻转；面积放大 4 倍</option>
+                            <option value="c">取向翻转；面积放大 -4 倍</option>
+                        </select>
+                    </li>
+                    <li>
+                        <p style="margin: 0 0 0.5rem;">计算 \(A\mathbf{x}\)，其中 \(A=\begin{pmatrix}3&-1\\2&4\end{pmatrix}\)、\(\mathbf{x}=(1,-2)\)。填写 \((x,y)\)。</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; max-width: 380px;">
+                            <input id="exam-q4x" type="number" step="any" placeholder="x 分量">
+                            <input id="exam-q4y" type="number" step="any" placeholder="y 分量">
+                        </div>
+                    </li>
+                    <li>
+                        <p style="margin: 0 0 0.5rem;"><strong>难题：</strong>设 \(\mathbf{u}=(1,2,3)\)、\(\mathbf{v}=(2,-1,1)\)、\(\mathbf{w}=(0,1,4)\)。计算标量三重积 \([\mathbf{u},\mathbf{v},\mathbf{w}]\)，再写出平行六面体体积，并判断三向量是否共面。</p>
+                        <div style="display: flex; flex-direction: column; gap: 0.8rem; max-width: 420px;">
+                            <input id="exam-q5-triple" type="number" step="any" placeholder="标量三重积">
+                            <input id="exam-q5-volume" type="number" step="any" placeholder="体积">
+                            <select id="exam-q5-coplanar">
+                                <option value="">是否共面？</option>
+                                <option value="yes">是</option>
+                                <option value="no">否</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <p style="margin: 0 0 0.5rem;">\(\mathbb{R}^3\) 中过点 \((2,-1,3)\) 与 \((5,3,1)\) 的直线，填写一个合法方向向量 \((d_x,d_y,d_z)\)。</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; max-width: 420px;">
+                            <input id="exam-q6x" type="number" step="any" placeholder="d_x">
+                            <input id="exam-q6y" type="number" step="any" placeholder="d_y">
+                            <input id="exam-q6z" type="number" step="any" placeholder="d_z">
+                        </div>
+                    </li>
+                    <li>
+                        <p style="margin: 0 0 0.5rem;">用 Cramer 法则求解方程组 \(\begin{cases}2x+y=7\\x-3y=-5\end{cases}\)，填写 \((x,y)\)。</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; max-width: 320px;">
+                            <input id="exam-q7x" type="number" step="any" placeholder="x">
+                            <input id="exam-q7y" type="number" step="any" placeholder="y">
+                        </div>
+                    </li>
+                    <li>
+                        <p style="margin: 0 0 0.5rem;">用行列式判定共面：\(A=(1,0,2),\ B=(3,-1,4),\ C=(2,2,1),\ D=(4,1,5)\)。计算 \(\det[\overrightarrow{AB},\overrightarrow{AC},\overrightarrow{AD}]\)，并判断 \(D\) 是否在过 \(A,B,C\) 的平面内。</p>
+                        <div style="display: flex; flex-direction: column; gap: 0.8rem; max-width: 420px;">
+                            <input id="exam-q8-det" type="number" step="any" placeholder="行列式数值">
+                            <select id="exam-q8-inplane">
+                                <option value="">D 是否在平面 ABC 内？</option>
+                                <option value="yes">是</option>
+                                <option value="no">否</option>
+                            </select>
+                        </div>
+                    </li>
+                </ol>
+
+                <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.2rem;">
+                    <button id="exam-submit" class="btn-primary" style="max-width: 200px;">提交测验</button>
+                    <button id="exam-reset" class="btn-secondary" type="button" style="max-width: 200px;">重置测验</button>
+                </div>
+
+                <p id="exam-score" class="feedback" style="margin-top: 0.9rem;" aria-live="polite"></p>
+                <ul id="exam-wrong-list" style="margin: 0.3rem 0 0; padding-left: 1.2rem;"></ul>
+            </section>
+
             <div class="quick-links" style="margin-top: 1.4rem;">
                 <a href="calculus-2-zh.html" class="btn-secondary">返回课程大纲</a>
             </div>
@@ -467,6 +545,140 @@
                         crossFeedback.textContent = '再写一遍含 i、j、k 的行列式，按照 cofactor 模式求值。';
                         crossFeedback.style.color = '#d9534f';
                     }
+                });
+            }
+
+            const examSubmit = document.getElementById('exam-submit');
+            const examReset = document.getElementById('exam-reset');
+            const examScore = document.getElementById('exam-score');
+            const examWrongList = document.getElementById('exam-wrong-list');
+
+            const clearExamOutput = function () {
+                examScore.textContent = '';
+                examScore.className = 'feedback';
+                examWrongList.innerHTML = '';
+            };
+
+            if (examSubmit && examScore && examWrongList) {
+                examSubmit.addEventListener('click', function () {
+                    const wrong = [];
+                    let earned = 0;
+                    const total = 10;
+
+                    const q1 = parseFloat(document.getElementById('exam-q1').value);
+                    if (!Number.isNaN(q1) && isClose(q1, -8)) {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q1：点积数值错误。');
+                    }
+
+                    const q2 = parseFloat(document.getElementById('exam-q2').value);
+                    if (!Number.isNaN(q2) && isClose(q2, 1)) {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q2：行列式数值错误。');
+                    }
+
+                    const q3 = document.getElementById('exam-q3').value;
+                    if (q3 === 'b') {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q3：取向与面积解释错误。');
+                    }
+
+                    const q4x = parseFloat(document.getElementById('exam-q4x').value);
+                    const q4y = parseFloat(document.getElementById('exam-q4y').value);
+                    if (!Number.isNaN(q4x) && !Number.isNaN(q4y) && isClose(q4x, 5) && isClose(q4y, -6)) {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q4：矩阵乘向量结果错误。');
+                    }
+
+                    const q5Triple = parseFloat(document.getElementById('exam-q5-triple').value);
+                    const q5Volume = parseFloat(document.getElementById('exam-q5-volume').value);
+                    const q5Coplanar = document.getElementById('exam-q5-coplanar').value;
+                    const q5TripleCorrect = !Number.isNaN(q5Triple) && isClose(q5Triple, -15);
+                    const q5VolumeCorrect = !Number.isNaN(q5Volume) && isClose(q5Volume, 15);
+                    const q5CoplanarCorrect = q5Coplanar === 'no';
+
+                    if (q5TripleCorrect) {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q5a（难题）：标量三重积错误。');
+                    }
+
+                    if (q5VolumeCorrect) {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q5b（难题）：体积错误。');
+                    }
+
+                    if (q5CoplanarCorrect) {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q5c（难题）：共面结论错误。');
+                    }
+
+                    const q6x = parseFloat(document.getElementById('exam-q6x').value);
+                    const q6y = parseFloat(document.getElementById('exam-q6y').value);
+                    const q6z = parseFloat(document.getElementById('exam-q6z').value);
+                    const q6AllNumbers = !Number.isNaN(q6x) && !Number.isNaN(q6y) && !Number.isNaN(q6z);
+                    const q6IsParallel = q6AllNumbers && isClose(q6x * 4, q6y * 3) && isClose(q6x * (-2), q6z * 3);
+
+                    if (q6IsParallel && !(isClose(q6x, 0) && isClose(q6y, 0) && isClose(q6z, 0))) {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q6：直线方向向量错误。');
+                    }
+
+                    const q7x = parseFloat(document.getElementById('exam-q7x').value);
+                    const q7y = parseFloat(document.getElementById('exam-q7y').value);
+                    if (!Number.isNaN(q7x) && !Number.isNaN(q7y) && isClose(q7x, 16 / 7) && isClose(q7y, 17 / 7)) {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q7：Cramer 法则结果错误。');
+                    }
+
+                    const q8Det = parseFloat(document.getElementById('exam-q8-det').value);
+                    const q8InPlane = document.getElementById('exam-q8-inplane').value;
+                    const q8DetCorrect = !Number.isNaN(q8Det) && isClose(q8Det, 10);
+                    const q8InPlaneCorrect = q8InPlane === 'no';
+
+                    if (q8DetCorrect && q8InPlaneCorrect) {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q8：行列式或是否在平面内的结论错误。');
+                    }
+
+                    examScore.textContent = `得分：${earned}/${total}`;
+                    examScore.className = earned === total ? 'feedback success' : 'feedback error';
+                    examWrongList.innerHTML = '';
+
+                    wrong.forEach(function (item) {
+                        const li = document.createElement('li');
+                        li.textContent = item;
+                        examWrongList.appendChild(li);
+                    });
+                });
+            }
+
+            if (examReset) {
+                examReset.addEventListener('click', function () {
+                    ['exam-q1', 'exam-q2', 'exam-q4x', 'exam-q4y', 'exam-q5-triple', 'exam-q5-volume', 'exam-q6x', 'exam-q6y', 'exam-q6z', 'exam-q7x', 'exam-q7y', 'exam-q8-det'].forEach(function (id) {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            element.value = '';
+                        }
+                    });
+
+                    ['exam-q3', 'exam-q5-coplanar', 'exam-q8-inplane'].forEach(function (id) {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            element.selectedIndex = 0;
+                        }
+                    });
+
+                    clearExamOutput();
                 });
             }
         }());

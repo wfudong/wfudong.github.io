@@ -10,6 +10,9 @@
     --lecture-accent: #1d4ed8;
     --lecture-accent-soft: #e2e8ff;
     --lecture-shadow: 0 25px 60px rgba(15, 23, 42, 0.1);
+    --outline-anchor-right: clamp(1rem, 4vw, 3rem);
+    --outline-button-top: 5.75rem;
+    --outline-box-top: 9.25rem;
 }
 
 body.lecture-page {
@@ -59,17 +62,17 @@ body.lecture-page .navbar {
 
 #TOC {
     position: fixed;
-    top: 6.5rem;
-    right: clamp(1rem, 4vw, 3rem);
-    width: min(320px, 30vw);
-    max-height: calc(100vh - 7.5rem);
+    top: var(--outline-box-top);
+    right: var(--outline-anchor-right);
+    width: min(280px, 24vw);
+    max-height: calc(100vh - 10.25rem);
     overflow-y: auto;
     background: var(--lecture-surface);
     border: 1px solid var(--lecture-border);
     border-radius: 20px;
-    padding: 1.1rem 1.2rem 1.2rem;
+    padding: 0.95rem 1rem 1rem;
     box-shadow: var(--lecture-shadow);
-    font-size: 0.92rem;
+    font-size: 0.86rem;
     color: var(--lecture-text);
     transition: opacity 0.25s ease, transform 0.25s ease;
     z-index: 70;
@@ -131,10 +134,14 @@ body.outline-hidden #TOC {
     margin-top: 0.35rem;
     padding-left: 0.75rem;
     border-left: 1px dashed var(--lecture-border);
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 0.35rem;
     grid-column: 1 / -1;
+}
+
+#TOC > ul > li > ul:not([hidden]) {
+    display: flex;
 }
 
 #TOC > ul > li > ul a {
@@ -162,11 +169,9 @@ body.outline-hidden #TOC {
 }
 
 .outline-toggle {
-    position: sticky;
-    top: 0.75rem;
-    margin-left: auto;
-    align-self: flex-start;
-    right: 1rem;
+    position: fixed;
+    top: var(--outline-button-top);
+    right: var(--outline-anchor-right);
     border: none;
     border-radius: 999px;
     background: var(--lecture-accent);
@@ -176,7 +181,7 @@ body.outline-hidden #TOC {
     padding: 0.65rem 1.4rem;
     box-shadow: 0 15px 35px rgba(29, 78, 216, 0.35);
     cursor: pointer;
-    z-index: 80;
+    z-index: 90;
 }
 
 body.outline-hidden .outline-toggle {
@@ -199,6 +204,27 @@ body.outline-hidden .outline-toggle {
 
 .lecture-main .lecture-content {
     flex: 1;
+}
+
+.lecture-main.is-collapsed .lecture-content {
+    max-height: calc(10 * 1.75em);
+    overflow: hidden;
+}
+
+.lecture-expand-toggle {
+    margin: 1rem auto 0;
+    border: 1px solid var(--lecture-border);
+    border-radius: 999px;
+    background: var(--lecture-outline);
+    color: var(--lecture-text);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.55rem 1.2rem;
+    cursor: pointer;
+}
+
+.lecture-main:not(.is-collapsed) .lecture-expand-toggle {
+    display: none;
 }
 
 
@@ -340,9 +366,9 @@ mjx-container {
 
 @media (max-width: 1100px) {
     #TOC {
-        width: min(340px, calc(100% - 2rem));
+        width: min(300px, calc(100% - 2rem));
         right: 1rem;
-        top: 6rem;
+        top: 8.75rem;
     }
 
     .lecture-main {
@@ -355,7 +381,7 @@ mjx-container {
         left: 1rem;
         right: 1rem;
         width: auto;
-        top: 5.5rem;
+        top: 8.4rem;
     }
 
     .lecture-main {
@@ -380,7 +406,7 @@ mjx-container {
 
     .outline-toggle {
         right: 1rem;
-        top: 0.5rem;
+        top: 5.75rem;
     }
 
     .lecture-pdf-card object {

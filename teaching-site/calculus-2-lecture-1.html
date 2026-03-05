@@ -13,6 +13,8 @@
     document.addEventListener('DOMContentLoaded', function () {
       const toc = document.getElementById('TOC');
       const floatingToggle = document.querySelector('.outline-toggle');
+      const expandToggle = document.querySelector('.lecture-expand-toggle');
+      const lectureMain = document.querySelector('.lecture-main');
       const body = document.body;
       let userPinned = false;
 
@@ -69,6 +71,12 @@
           });
         });
       }
+
+      expandToggle?.addEventListener('click', function () {
+        lectureMain?.classList.remove('is-collapsed');
+        expandToggle.setAttribute('aria-expanded', 'true');
+        expandToggle.hidden = true;
+      });
     });
   </script>
   <!--[if lt IE 9]>
@@ -211,7 +219,7 @@
 <li><a href="#summary-3-min">Summary (3 min)</a></li>
  </ul>
 </nav>
-<article class="lecture-main">
+<article class="lecture-main is-collapsed">
 <button class="outline-toggle" type="button" aria-expanded="true" aria-controls="TOC">Hide Outline</button>
 <div class="lecture-content">
 <h1 id="lecture-scope-and-goals-5-min">Lecture Scope and Goals (5 min)</h1>
@@ -861,6 +869,7 @@ AB\mathbf{x}=A(B\mathbf{x})=
 </ul>
 <p>These ideas form the geometric language behind gradients, Jacobians, tangent approximations, and change of variables in multivariable calculus.</p>
 </div>
+<button class="lecture-expand-toggle" type="button" aria-expanded="false">Read More</button>
 </article>
 </div>
 </div>
