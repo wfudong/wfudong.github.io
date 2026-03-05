@@ -255,6 +255,84 @@
                 </li>
             </ol>
 
+            <section class="course-item" style="margin-top: 2rem; cursor: default;">
+                <h3 style="margin-top: 0;">Lecture 1 Exam (Auto-Scored)</h3>
+                <p style="margin-bottom: 0.9rem;">Answer all questions, then submit once. The result will show only your total score and which questions are incorrect.</p>
+
+                <ol style="display: flex; flex-direction: column; gap: 1rem; padding-left: 1.2rem; margin: 0;">
+                    <li>
+                        <p style="margin: 0 0 0.5rem;">For \(\mathbf{u}=(3,-1,2)\) and \(\mathbf{v}=(-2,4,1)\), compute \(\mathbf{u}\cdot\mathbf{v}\).</p>
+                        <input id="exam-q1" type="number" step="any" placeholder="Enter a number" style="max-width: 220px;">
+                    </li>
+                    <li>
+                        <p style="margin: 0 0 0.5rem;">Let \(A=\begin{pmatrix}2&1\\5&3\end{pmatrix}\). What is \(\det(A)\)?</p>
+                        <input id="exam-q2" type="number" step="any" placeholder="Enter a number" style="max-width: 220px;">
+                    </li>
+                    <li>
+                        <p style="margin: 0 0 0.5rem;">If \(\det(M)=-4\), what happens to orientation and area scaling in \(\mathbb{R}^2\)?</p>
+                        <select id="exam-q3" style="max-width: 360px;">
+                            <option value="">Select</option>
+                            <option value="a">Orientation preserved; area scales by 4</option>
+                            <option value="b">Orientation reversed; area scales by 4</option>
+                            <option value="c">Orientation reversed; area scales by -4</option>
+                        </select>
+                    </li>
+                    <li>
+                        <p style="margin: 0 0 0.5rem;">Compute \(A\mathbf{x}\) for \(A=\begin{pmatrix}3&-1\\2&4\end{pmatrix}\), \(\mathbf{x}=(1,-2)\). Enter \((x,y)\).</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; max-width: 380px;">
+                            <input id="exam-q4x" type="number" step="any" placeholder="x-component">
+                            <input id="exam-q4y" type="number" step="any" placeholder="y-component">
+                        </div>
+                    </li>
+                    <li>
+                        <p style="margin: 0 0 0.5rem;"><strong>Hard problem:</strong> For \(\mathbf{u}=(1,2,3)\), \(\mathbf{v}=(2,-1,1)\), \(\mathbf{w}=(0,1,4)\), compute the scalar triple product \([\mathbf{u},\mathbf{v},\mathbf{w}]\), then give the volume of the parallelepiped and state whether the vectors are coplanar.</p>
+                        <div style="display: flex; flex-direction: column; gap: 0.8rem; max-width: 420px;">
+                            <input id="exam-q5-triple" type="number" step="any" placeholder="Scalar triple product">
+                            <input id="exam-q5-volume" type="number" step="any" placeholder="Volume">
+                            <select id="exam-q5-coplanar">
+                                <option value="">Coplanar?</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <p style="margin: 0 0 0.5rem;">Line equation in \(\mathbb{R}^3\): through \((2,-1,3)\) and \((5,3,1)\), enter a valid direction vector \((d_x,d_y,d_z)\).</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; max-width: 420px;">
+                            <input id="exam-q6x" type="number" step="any" placeholder="d_x">
+                            <input id="exam-q6y" type="number" step="any" placeholder="d_y">
+                            <input id="exam-q6z" type="number" step="any" placeholder="d_z">
+                        </div>
+                    </li>
+                    <li>
+                        <p style="margin: 0 0 0.5rem;">Use Cramer's rule to solve \(\begin{cases}2x+y=7\\x-3y=-5\end{cases}\). Enter \((x,y)\).</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; max-width: 320px;">
+                            <input id="exam-q7x" type="number" step="any" placeholder="x">
+                            <input id="exam-q7y" type="number" step="any" placeholder="y">
+                        </div>
+                    </li>
+                    <li>
+                        <p style="margin: 0 0 0.5rem;">Use a determinant test for coplanarity: \(A=(1,0,2),\ B=(3,-1,4),\ C=(2,2,1),\ D=(4,1,5)\). Compute \(\det[\overrightarrow{AB},\overrightarrow{AC},\overrightarrow{AD}]\), then choose whether \(D\) lies in the plane through \(A,B,C\).</p>
+                        <div style="display: flex; flex-direction: column; gap: 0.8rem; max-width: 420px;">
+                            <input id="exam-q8-det" type="number" step="any" placeholder="Determinant value">
+                            <select id="exam-q8-inplane">
+                                <option value="">Does D lie in plane ABC?</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                    </li>
+                </ol>
+
+                <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.2rem;">
+                    <button id="exam-submit" class="btn-primary" style="max-width: 200px;">Submit Exam</button>
+                    <button id="exam-reset" class="btn-secondary" type="button" style="max-width: 200px;">Reset Exam</button>
+                </div>
+
+                <p id="exam-score" class="feedback" style="margin-top: 0.9rem;" aria-live="polite"></p>
+                <ul id="exam-wrong-list" style="margin: 0.3rem 0 0; padding-left: 1.2rem;"></ul>
+            </section>
+
             <div class="quick-links" style="margin-top: 1.4rem;">
                 <a href="calculus-2.html" class="btn-secondary">Back to Course Syllabus</a>
             </div>
@@ -467,6 +545,140 @@
                         crossFeedback.textContent = 'Try setting up the determinant with i, j, k to avoid arithmetic slips.';
                         crossFeedback.style.color = '#d9534f';
                     }
+                });
+            }
+
+            const examSubmit = document.getElementById('exam-submit');
+            const examReset = document.getElementById('exam-reset');
+            const examScore = document.getElementById('exam-score');
+            const examWrongList = document.getElementById('exam-wrong-list');
+
+            const clearExamOutput = function () {
+                examScore.textContent = '';
+                examScore.className = 'feedback';
+                examWrongList.innerHTML = '';
+            };
+
+            if (examSubmit && examScore && examWrongList) {
+                examSubmit.addEventListener('click', function () {
+                    const wrong = [];
+                    let earned = 0;
+                    const total = 10;
+
+                    const q1 = parseFloat(document.getElementById('exam-q1').value);
+                    if (!Number.isNaN(q1) && isClose(q1, -8)) {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q1: Dot product value is incorrect.');
+                    }
+
+                    const q2 = parseFloat(document.getElementById('exam-q2').value);
+                    if (!Number.isNaN(q2) && isClose(q2, 1)) {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q2: Determinant value is incorrect.');
+                    }
+
+                    const q3 = document.getElementById('exam-q3').value;
+                    if (q3 === 'b') {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q3: Orientation/area interpretation is incorrect.');
+                    }
+
+                    const q4x = parseFloat(document.getElementById('exam-q4x').value);
+                    const q4y = parseFloat(document.getElementById('exam-q4y').value);
+                    if (!Number.isNaN(q4x) && !Number.isNaN(q4y) && isClose(q4x, 5) && isClose(q4y, -6)) {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q4: Matrix-vector result is incorrect.');
+                    }
+
+                    const q5Triple = parseFloat(document.getElementById('exam-q5-triple').value);
+                    const q5Volume = parseFloat(document.getElementById('exam-q5-volume').value);
+                    const q5Coplanar = document.getElementById('exam-q5-coplanar').value;
+                    const q5TripleCorrect = !Number.isNaN(q5Triple) && isClose(q5Triple, -15);
+                    const q5VolumeCorrect = !Number.isNaN(q5Volume) && isClose(q5Volume, 15);
+                    const q5CoplanarCorrect = q5Coplanar === 'no';
+
+                    if (q5TripleCorrect) {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q5a (Hard): Scalar triple product is incorrect.');
+                    }
+
+                    if (q5VolumeCorrect) {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q5b (Hard): Volume is incorrect.');
+                    }
+
+                    if (q5CoplanarCorrect) {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q5c (Hard): Coplanarity conclusion is incorrect.');
+                    }
+
+                    const q6x = parseFloat(document.getElementById('exam-q6x').value);
+                    const q6y = parseFloat(document.getElementById('exam-q6y').value);
+                    const q6z = parseFloat(document.getElementById('exam-q6z').value);
+                    const q6AllNumbers = !Number.isNaN(q6x) && !Number.isNaN(q6y) && !Number.isNaN(q6z);
+                    const q6IsParallel = q6AllNumbers && isClose(q6x * 4, q6y * 3) && isClose(q6x * (-2), q6z * 3);
+
+                    if (q6IsParallel && !(isClose(q6x, 0) && isClose(q6y, 0) && isClose(q6z, 0))) {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q6: Direction vector for the line is incorrect.');
+                    }
+
+                    const q7x = parseFloat(document.getElementById('exam-q7x').value);
+                    const q7y = parseFloat(document.getElementById('exam-q7y').value);
+                    if (!Number.isNaN(q7x) && !Number.isNaN(q7y) && isClose(q7x, 16 / 7) && isClose(q7y, 17 / 7)) {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q7: Cramer\'s rule solution is incorrect.');
+                    }
+
+                    const q8Det = parseFloat(document.getElementById('exam-q8-det').value);
+                    const q8InPlane = document.getElementById('exam-q8-inplane').value;
+                    const q8DetCorrect = !Number.isNaN(q8Det) && isClose(q8Det, 10);
+                    const q8InPlaneCorrect = q8InPlane === 'no';
+
+                    if (q8DetCorrect && q8InPlaneCorrect) {
+                        earned += 1;
+                    } else {
+                        wrong.push('Q8: Determinant or plane-membership conclusion is incorrect.');
+                    }
+
+                    examScore.textContent = `Score: ${earned}/${total}`;
+                    examScore.className = earned === total ? 'feedback success' : 'feedback error';
+                    examWrongList.innerHTML = '';
+
+                    wrong.forEach(function (item) {
+                        const li = document.createElement('li');
+                        li.textContent = item;
+                        examWrongList.appendChild(li);
+                    });
+                });
+            }
+
+            if (examReset) {
+                examReset.addEventListener('click', function () {
+                    ['exam-q1', 'exam-q2', 'exam-q4x', 'exam-q4y', 'exam-q5-triple', 'exam-q5-volume', 'exam-q6x', 'exam-q6y', 'exam-q6z', 'exam-q7x', 'exam-q7y', 'exam-q8-det'].forEach(function (id) {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            element.value = '';
+                        }
+                    });
+
+                    ['exam-q3', 'exam-q5-coplanar', 'exam-q8-inplane'].forEach(function (id) {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            element.selectedIndex = 0;
+                        }
+                    });
+
+                    clearExamOutput();
                 });
             }
         }());
