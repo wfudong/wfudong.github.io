@@ -24,6 +24,9 @@ A clean, responsive personal website hosted on GitHub Pages.
 3. **Customize `style.css`** - Modify colors, fonts, and layout to match your brand
 4. **Push to GitHub** - Commit and push changes to trigger deployment
 
+### Google Analytics
+Set your Google Analytics 4 Measurement ID in `analytics.js` by replacing `G-XXXXXXXXXX` with your real ID, for example `G-AB12C3D4E5`.
+
 ## Customization
 
 ### Colors
