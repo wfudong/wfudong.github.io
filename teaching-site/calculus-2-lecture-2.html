@@ -89,6 +89,7 @@
   </button>
   <ul class="dropdown-menu">
     <li><a href="test-1.html">Test 1 · Vectors Warm-up</a></li>
+    <li><a href="test-2.html">Test 2 · Geometry in R3</a></li>
   </ul>
 </li>
 <li class="nav-dropdown is-active">
@@ -167,6 +168,12 @@
 <li><a href="#strategy-3-parametrize-slices">Strategy 3: Parametrize Slices</a></li>
 </ul></li>
 <li><a href="#why-parametrization-matters-in-calculus">Why Parametrization Matters in Calculus</a></li>
+<li><a href="#computing-tangent-objects-and-arc-length">Computing Tangent Objects and Arc Length</a>
+<ul>
+<li><a href="#tangent-plane-to-a-surface">Tangent Plane to a Surface</a></li>
+<li><a href="#tangent-line-to-a-space-curve">Tangent Line to a Space Curve</a></li>
+<li><a href="#arc-length-of-a-parametrized-curve-in-mathbbr3">Arc Length of a Parametrized Curve in <span class="math inline">\(\mathbb{R}^3\)</span></a></li>
+</ul></li>
 <li><a href="#worked-examples">Worked Examples</a>
 <ul>
 <li><a href="#classify-and-sketch-x2y2-z21">Classify and Sketch <span class="math inline">\(x^2+y^2-z^2=1\)</span></a></li>
@@ -175,6 +182,8 @@
 </ul></li>
 <li><a href="#summary">Summary</a></li>
 <li><a href="#suggested-exercises">Suggested Exercises</a></li>
+<li><a href="#photo-problem-2-helix-tangent-direction-cosines">Photo Problem 2: Helix Tangent Direction Cosines</a></li>
+<li><a href="#photo-problem-3-dot-product-derivative-rule">Photo Problem 3: Dot-Product Derivative Rule</a></li>
 </ul>
 </nav>
 <article class="lecture-main">
@@ -400,6 +409,59 @@
 <li><p>Good parametrizations simplify arc length, surface area, and flux integrals.</p></li>
 </ul>
 <p>This is why analytic geometry in <span class="math inline">\(\mathbb{R}^3\)</span> is foundational rather than optional. It supplies the pictures and coordinate systems that multivariable calculus uses everywhere.</p>
+<h1 id="computing-tangent-objects-and-arc-length">Computing Tangent Objects and Arc Length</h1>
+<p>One major payoff of parametrizations is that they let us compute local linear approximations and geometric measurements directly.</p>
+<h2 id="tangent-plane-to-a-surface">Tangent Plane to a Surface</h2>
+<p>Suppose a surface is given explicitly by <span class="math inline">\(z=f(x,y)\)</span> and we want the tangent plane at <span class="math inline">\((x_0,y_0,z_0)\)</span> where <span class="math inline">\(z_0=f(x_0,y_0)\)</span>. The tangent plane equation is</p>
+<p><span class="math display">\[
+z-z_0=f_x(x_0,y_0)(x-x_0)+f_y(x_0,y_0)(y-y_0).
+\]</span></p>
+<p><strong>Example:</strong> For <span class="math inline">\(z=x^2+y^2\)</span> at <span class="math inline">\((1,1,2)\)</span>, we have <span class="math inline">\(f_x=2x\)</span>, <span class="math inline">\(f_y=2y\)</span>, so <span class="math inline">\(f_x(1,1)=2\)</span>, <span class="math inline">\(f_y(1,1)=2\)</span>. Therefore</p>
+<p><span class="math display">\[
+z-2=2(x-1)+2(y-1),
+\]</span></p>
+<p>or equivalently <span class="math inline">\(z=2x+2y-2\)</span>.</p>
+<p>If a surface is given implicitly by <span class="math inline">\(F(x,y,z)=0\)</span>, then <span class="math inline">\(\nabla F(x_0,y_0,z_0)\)</span> is normal to the tangent plane, so</p>
+<p><span class="math display">\[
+F_x(x_0,y_0,z_0)(x-x_0)+F_y(x_0,y_0,z_0)(y-y_0)+F_z(x_0,y_0,z_0)(z-z_0)=0.
+\]</span></p>
+<h2 id="tangent-line-to-a-space-curve">Tangent Line to a Space Curve</h2>
+<p>For a space curve <span class="math inline">\(\mathbf{r}(t)=\langle x(t),y(t),z(t)\rangle\)</span>, the derivative <span class="math inline">\(\mathbf{r}\,'(t)\)</span> is the tangent vector. At <span class="math inline">\(t=t_0\)</span>, the tangent line is</p>
+<p><span class="math display">\[
+\mathbf{L}(s)=\mathbf{r}(t_0)+s\,\mathbf{r}\,'(t_0).
+\]</span></p>
+<p><strong>Example:</strong> Let <span class="math inline">\(\mathbf{r}(t)=\langle t,\ t^2,\ t^3\rangle\)</span>. At <span class="math inline">\(t_0=1\)</span>,</p>
+<p><span class="math display">\[
+\mathbf{r}(1)=\langle 1,1,1\rangle,
+\qquad
+\mathbf{r}\,'(t)=\langle 1,2t,3t^2\rangle,
+\qquad
+\mathbf{r}\,'(1)=\langle 1,2,3\rangle.
+\]</span></p>
+<p>So the tangent line is</p>
+<p><span class="math display">\[
+\mathbf{L}(s)=\langle 1,1,1\rangle+s\langle 1,2,3\rangle,
+\]</span></p>
+<p>equivalently <span class="math inline">\(x=1+s\)</span>, <span class="math inline">\(y=1+2s\)</span>, <span class="math inline">\(z=1+3s\)</span>.</p>
+<h2 id="arc-length-of-a-parametrized-curve-in-mathbbr3">Arc Length of a Parametrized Curve in <span class="math inline">\(\mathbb{R}^3\)</span></h2>
+<p>If <span class="math inline">\(\mathbf{r}(t)=\langle x(t),y(t),z(t)\rangle\)</span> on <span class="math inline">\(a\le t\le b\)</span>, then the arc length is</p>
+<p><span class="math display">\[
+L=\int_a^b \lVert \mathbf{r}\,'(t) \rVert\,dt
+=\int_a^b \sqrt{(x'(t))^2+(y'(t))^2+(z'(t))^2}\,dt.
+\]</span></p>
+<p><strong>Example:</strong> For <span class="math inline">\(\mathbf{r}(t)=\langle 3\cos t,\ 3\sin t,\ 4t\rangle\)</span>, <span class="math inline">\(0\le t\le 2\pi\)</span>,</p>
+<p><span class="math display">\[
+\mathbf{r}\,'(t)=\langle -3\sin t,\ 3\cos t,\ 4\rangle,
+\quad
+\lVert\mathbf{r}\,'(t)\rVert=\sqrt{9\sin^2 t+9\cos^2 t+16}=5.
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+L=\int_0^{2\pi}5\,dt=10\pi.
+\]</span></p>
+<div class="tcolorbox">
+<p>Workflow to remember: first compute derivatives, then evaluate the relevant vector (normal, tangent, or speed), and finally plug into the plane, line, or integral formula.</p>
+</div>
 <h1 id="worked-examples">Worked Examples</h1>
 <h2 id="classify-and-sketch-x2y2-z21">Classify and Sketch <span class="math inline">\(x^2+y^2-z^2=1\)</span></h2>
 <p>Because one squared term has the opposite sign, we expect a hyperbolic surface. Solving for horizontal traces gives <span class="math display">\[x^2+y^2=1+z^2.\]</span> For each fixed <span class="math inline">\(z\)</span>, this is a circle of radius <span class="math inline">\(\sqrt{1+z^2}\)</span>. The radius is smallest when <span class="math inline">\(z=0\)</span>, so the surface narrows in the middle and widens as <span class="math inline">\(\left\lvert z \right\rvert\)</span> increases. Therefore the surface is a <strong>hyperboloid of one sheet</strong>.</p>
@@ -433,6 +495,102 @@ z^2-x^2-y^2=1.\]</span></p></li>
 <li><p>Parametrize the curve of intersection of the cylinder <span class="math inline">\(x^2+y^2=1\)</span> and the plane <span class="math inline">\(x+z=2\)</span>.</p></li>
 <li><p>Give a parametrization of the upper nappe of the cone <span class="math inline">\(x^2+y^2=z^2\)</span> with <span class="math inline">\(0\le z\le 3\)</span>.</p></li>
 </ol>
+<h1 id="photo-problem-2-helix-tangent-direction-cosines">Photo Problem 2: Helix Tangent Direction Cosines</h1>
+<p><strong>Problem statement (from the photo):</strong> For the helix</p>
+<p><span class="math display">\[
+x=R\cos t,
+\quad
+y=R\sin t,
+\quad
+z=bt,
+\qquad (R&gt;0,\ b&gt;0,\ 0\le t\le 2\pi),
+\]</span></p>
+<p>find the direction cosines of the tangent line at an arbitrary point, and prove the angle between the tangent and the <span class="math inline">\(z\)</span>-axis is constant.</p>
+<h2 id="solution-1">Solution</h2>
+<p>Write the curve as</p>
+<p><span class="math display">\[
+\mathbf{r}(t)=\langle R\cos t,\ R\sin t,\ bt\rangle.
+\]</span></p>
+<p>The tangent vector is</p>
+<p><span class="math display">\[
+\mathbf{r}\,'(t)=\langle -R\sin t,\ R\cos t,\ b\rangle.
+\]</span></p>
+<p>Its magnitude is</p>
+<p><span class="math display">\[
+\lVert\mathbf{r}\,'(t)\rVert
+=\sqrt{R^2\sin^2 t+R^2\cos^2 t+b^2}
+=\sqrt{R^2+b^2}.
+\]</span></p>
+<p>So the unit tangent vector is</p>
+<p><span class="math display">\[
+\mathbf{T}(t)=\frac{\mathbf{r}\,'(t)}{\lVert\mathbf{r}\,'(t)\rVert}
+=\left\langle
+\frac{-R\sin t}{\sqrt{R^2+b^2}},
+\frac{R\cos t}{\sqrt{R^2+b^2}},
+\frac{b}{\sqrt{R^2+b^2}}
+\right\rangle.
+\]</span></p>
+<p>Therefore the direction cosines <span class="math inline">\((\cos\alpha,\cos\beta,\cos\gamma)\)</span> of the tangent line are</p>
+<p><span class="math display">\[
+\cos\alpha=\frac{-R\sin t}{\sqrt{R^2+b^2}},
+\qquad
+\cos\beta=\frac{R\cos t}{\sqrt{R^2+b^2}},
+\qquad
+\cos\gamma=\frac{b}{\sqrt{R^2+b^2}}.
+\]</span></p>
+<p>Let <span class="math inline">\(\theta\)</span> be the angle between the tangent line and the <span class="math inline">\(z\)</span>-axis (unit vector <span class="math inline">\(\mathbf{k}=\langle 0,0,1\rangle\)</span>). Then</p>
+<p><span class="math display">\[
+\cos\theta=\mathbf{T}(t)\cdot\mathbf{k}=\frac{b}{\sqrt{R^2+b^2}},
+\]</span></p>
+<p>which is independent of <span class="math inline">\(t\)</span>. Hence <span class="math inline">\(\theta\)</span> is constant along the curve.</p>
+<h2 id="mathematica-visual-check-1">Mathematica Visual Check</h2>
+<p>The plot below shows the helix with sample tangent arrows and a second graph of <span class="math inline">\(\theta(t)\)</span> versus <span class="math inline">\(t\)</span>. The angle graph is a horizontal line, confirming constancy.</p>
+<figure>
+<img src="assets/lecture-2/problem2_helix_tangent_angle.png" style="width:90.0%" alt="Mathematica visualization of helix tangent vectors and the constant angle between tangent direction and the z-axis." /><figcaption aria-hidden="true">Mathematica verification of Problem 2: tangent direction on a helix and constant angle with the <span class="math inline">\(z\)</span>-axis.</figcaption>
+</figure>
+<h1 id="photo-problem-3-dot-product-derivative-rule">Photo Problem 3: Dot-Product Derivative Rule</h1>
+<p><strong>Problem statement (from the photo):</strong> Let <span class="math inline">\(\mathbf{a}=\mathbf{a}(t)\)</span> and <span class="math inline">\(\mathbf{b}=\mathbf{b}(t)\)</span> be differentiable vector-valued functions on <span class="math inline">\((\alpha,\beta)\)</span>. Prove</p>
+<p><span class="math display">\[
+\frac{d}{dt}\big(\mathbf{a}(t)\cdot\mathbf{b}(t)\big)
+=
+\mathbf{a}'(t)\cdot\mathbf{b}(t)
++
+\mathbf{a}(t)\cdot\mathbf{b}'(t).
+\]</span></p>
+<h2 id="solution">Solution</h2>
+<p>Write the vectors in components:</p>
+<p><span class="math display">\[
+\mathbf{a}(t)=\langle a_1(t),a_2(t),a_3(t)\rangle,
+\qquad
+\mathbf{b}(t)=\langle b_1(t),b_2(t),b_3(t)\rangle.
+\]</span></p>
+<p>Then</p>
+<p><span class="math display">\[
+\mathbf{a}(t)\cdot\mathbf{b}(t)=a_1(t)b_1(t)+a_2(t)b_2(t)+a_3(t)b_3(t).
+\]</span></p>
+<p>Differentiate term by term and apply the one-variable product rule to each product:</p>
+<p><span class="math display">\[
+\frac{d}{dt}\big(\mathbf{a}(t)\cdot\mathbf{b}(t)\big)
+=\sum_{i=1}^3 \frac{d}{dt}\big(a_i(t)b_i(t)\big)
+=\sum_{i=1}^3\big(a_i'(t)b_i(t)+a_i(t)b_i'(t)\big).
+\]</span></p>
+<p>Group the terms:</p>
+<p><span class="math display">\[
+\sum_{i=1}^3 a_i'(t)b_i(t)+\sum_{i=1}^3 a_i(t)b_i'(t)
+=\mathbf{a}'(t)\cdot\mathbf{b}(t)+\mathbf{a}(t)\cdot\mathbf{b}'(t).
+\]</span></p>
+<p>This proves the identity.</p>
+<h2 id="mathematica-visual-check">Mathematica Visual Check</h2>
+<p>For a concrete example, let</p>
+<p><span class="math display">\[
+\mathbf{a}(t)=\langle\cos t,\sin(2t),t/2\rangle,
+\qquad
+\mathbf{b}(t)=\langle t^2,e^{-t/3},\sin t\rangle.
+\]</span></p>
+<p>The Mathematica plot below overlays <span class="math inline">\(\dfrac{d}{dt}(\mathbf{a}\cdot\mathbf{b})\)</span> and <span class="math inline">\(\mathbf{a}'\cdot\mathbf{b}+\mathbf{a}\cdot\mathbf{b}'\)</span>, and also shows their difference. The two curves coincide, and the difference stays at zero (up to numerical precision).</p>
+<figure>
+<img src="assets/lecture-2/problem3_dot_product_rule.png" style="width:90.0%" alt="Mathematica verification plot for the dot-product derivative rule: the two expressions overlap and their difference is zero." /><figcaption aria-hidden="true">Mathematica verification of Problem 3: both sides of the dot-product derivative rule match for a sample pair of vector functions.</figcaption>
+</figure>
 </div>
 </article>
 </div>

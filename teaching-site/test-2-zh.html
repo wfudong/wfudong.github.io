@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 2 - 第二讲互动练习</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <script defer src="../analytics.js"></script>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="site-shell">
+        <nav class="navbar" aria-label="Primary">
+            <a href="index-zh.html" class="logo">GBU Calculus Hub</a>
+            <ul class="nav-links">
+                <li><a href="index-zh.html">首页</a></li>
+                <li><a href="calculus-2-zh.html">课程</a></li>
+                <li class="nav-dropdown is-active">
+                    <button class="nav-trigger" type="button" aria-haspopup="true">
+                        测试
+                        <span class="caret" aria-hidden="true">▾</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="test-1-zh.html">Test 1 · 第一讲练习</a></li>
+                        <li><a href="test-2-zh.html" aria-current="page">Test 2 · 第二讲练习</a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown">
+                    <button class="nav-trigger" type="button" aria-haspopup="true">
+                        讲义
+                        <span class="caret" aria-hidden="true">▾</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="calculus-2-lecture-1-zh.html">讲义 1 · 欧氏空间中的向量</a></li>
+                        <li><a href="calculus-2-lecture-2-zh.html">讲义 2 · 三维解析几何</a></li>
+                    </ul>
+                </li>
+                <li><a href="test-2.html" class="lang-switch">EN</a></li>
+            </ul>
+        </nav>
+
+        <section class="content">
+            <div class="container">
+                <h2>Test 2</h2>
+                <p>本页用于第二讲互动练习：二次曲面识别、截线、曲线/曲面参数化、切平面与切线、三维弧长计算。</p>
+
+                <ol class="interactive-list" style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.5rem;">
+                    <li>
+                        <div class="course-item" style="cursor: default;">
+                            <h4>Exercise 1: Classify a Quadric</h4>
+                            <p>Classify $x^2 + y^2 - z^2 = 1$.</p>
+                            <select id="ex1" style="max-width: 320px;">
+                                <option value="">Select</option>
+                                <option value="ellipsoid">Ellipsoid</option>
+                                <option value="one-sheet">Hyperboloid of one sheet</option>
+                                <option value="two-sheets">Hyperboloid of two sheets</option>
+                                <option value="cone">Elliptic cone</option>
+                            </select>
+                            <button id="check-ex1" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">Check Exercise 1</button>
+                            <p id="fb-ex1" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
+                            <details><summary>Hint</summary><p style="margin-top: 0.6rem;">Two plus signs and one minus sign with right side 1 usually gives a hyperboloid.</p></details>
+                            <details style="margin-top: 0.6rem;"><summary>Solution</summary><p style="margin-top: 0.6rem;">It is a hyperboloid of one sheet.</p></details>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="course-item" style="cursor: default;">
+                            <h4>Exercise 2: Horizontal Trace</h4>
+                            <p>For $z = x^2 + y^2$, the trace at $z=9$ is a circle. Enter its radius.</p>
+                            <input id="ex2" type="number" step="any" placeholder="radius" style="max-width: 240px;">
+                            <button id="check-ex2" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">Check Exercise 2</button>
+                            <p id="fb-ex2" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
+                            <details><summary>Hint</summary><p style="margin-top: 0.6rem;">Set $z=9$ so $x^2+y^2=9$.</p></details>
+                            <details style="margin-top: 0.6rem;"><summary>Solution</summary><p style="margin-top: 0.6rem;">Radius is $3$.</p></details>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="course-item" style="cursor: default;">
+                            <h4>Exercise 3: Parametrize an Intersection Curve</h4>
+                            <p>The cylinder $x^2+y^2=4$ intersects the plane $z=x+1$. If $x=2\cos t$ and $y=2\sin t$, which $z(t)$ is correct?</p>
+                            <select id="ex3" style="max-width: 340px;">
+                                <option value="">Select</option>
+                                <option value="a">$z=2\sin t+1$</option>
+                                <option value="b">$z=2\cos t+1$</option>
+                                <option value="c">$z=\cos t+\sin t$</option>
+                            </select>
+                            <button id="check-ex3" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">Check Exercise 3</button>
+                            <p id="fb-ex3" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
+                            <details><summary>Hint</summary><p style="margin-top: 0.6rem;">Substitute $x=2\cos t$ into $z=x+1$.</p></details>
+                            <details style="margin-top: 0.6rem;"><summary>Solution</summary><p style="margin-top: 0.6rem;">$z(t)=2\cos t+1$.</p></details>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="course-item" style="cursor: default;">
+                            <h4>Exercise 4: Tangent Plane (Graph Form)</h4>
+                            <p>For $z=x^2+y^2$ at $(1,2,5)$, enter the tangent plane coefficients for $z=ax+by+c$.</p>
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 0.8rem;">
+                                <input id="ex4a" type="number" step="any" placeholder="a" style="max-width: 120px;">
+                                <input id="ex4b" type="number" step="any" placeholder="b" style="max-width: 120px;">
+                                <input id="ex4c" type="number" step="any" placeholder="c" style="max-width: 120px;">
+                            </div>
+                            <button id="check-ex4" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">Check Exercise 4</button>
+                            <p id="fb-ex4" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
+                            <details><summary>Hint</summary><p style="margin-top: 0.6rem;">$f_x=2x$, $f_y=2y$ at $(1,2)$.</p></details>
+                            <details style="margin-top: 0.6rem;"><summary>Solution</summary><p style="margin-top: 0.6rem;">$z=2x+4y-5$.</p></details>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="course-item" style="cursor: default;">
+                            <h4>Exercise 5: Tangent Line Direction</h4>
+                            <p>For $\mathbf r(t)=\langle t,t^2,t^3\rangle$, enter a direction vector of the tangent line at $t=1$.</p>
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 0.8rem;">
+                                <input id="ex5x" type="number" step="any" placeholder="d_x" style="max-width: 120px;">
+                                <input id="ex5y" type="number" step="any" placeholder="d_y" style="max-width: 120px;">
+                                <input id="ex5z" type="number" step="any" placeholder="d_z" style="max-width: 120px;">
+                            </div>
+                            <button id="check-ex5" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">Check Exercise 5</button>
+                            <p id="fb-ex5" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
+                            <details><summary>Hint</summary><p style="margin-top: 0.6rem;">Differentiate first, then evaluate at $t=1$.</p></details>
+                            <details style="margin-top: 0.6rem;"><summary>Solution</summary><p style="margin-top: 0.6rem;">$\mathbf r'(t)=\langle 1,2t,3t^2\rangle$, so at $t=1$ direction is $\langle 1,2,3\rangle$.</p></details>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="course-item" style="cursor: default;">
+                            <h4>Exercise 6: Arc Length in 3D</h4>
+                            <p>For $\mathbf r(t)=\langle 3\cos t,3\sin t,4t\rangle$, $0\le t\le2\pi$, choose the arc length.</p>
+                            <select id="ex6" style="max-width: 320px;">
+                                <option value="">Select</option>
+                                <option value="a">$6\pi$</option>
+                                <option value="b">$8\pi$</option>
+                                <option value="c">$10\pi$</option>
+                            </select>
+                            <button id="check-ex6" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">Check Exercise 6</button>
+                            <p id="fb-ex6" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
+                            <details><summary>Hint</summary><p style="margin-top: 0.6rem;">Speed is constant: $\|\mathbf r'(t)\|=5$.</p></details>
+                            <details style="margin-top: 0.6rem;"><summary>Solution</summary><p style="margin-top: 0.6rem;">$L=\int_0^{2\pi}5\,dt=10\pi$.</p></details>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="course-item" style="cursor: default;">
+                            <h4>Exercise 7: Tangent Plane (Implicit Form)</h4>
+                            <p>For the sphere $x^2+y^2+z^2=14$ at $(1,2,3)$, choose the tangent plane.</p>
+                            <select id="ex7" style="max-width: 360px;">
+                                <option value="">Select</option>
+                                <option value="a">$x+2y+3z=14$</option>
+                                <option value="b">$x+2y+3z=6$</option>
+                                <option value="c">$2x+2y+2z=14$</option>
+                            </select>
+                            <button id="check-ex7" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">Check Exercise 7</button>
+                            <p id="fb-ex7" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
+                            <details><summary>Hint</summary><p style="margin-top: 0.6rem;">Use gradient normal $\nabla F=(2x,2y,2z)$.</p></details>
+                            <details style="margin-top: 0.6rem;"><summary>Solution</summary><p style="margin-top: 0.6rem;">Plane: $x+2y+3z=14$.</p></details>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="course-item" style="cursor: default;">
+                            <h4>Exercise 8: Recognize the Saddle Surface</h4>
+                            <p>Classify $z=x^2-y^2$.</p>
+                            <select id="ex8" style="max-width: 320px;">
+                                <option value="">Select</option>
+                                <option value="a">Elliptic paraboloid</option>
+                                <option value="b">Hyperbolic paraboloid</option>
+                                <option value="c">Elliptic cone</option>
+                            </select>
+                            <button id="check-ex8" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">Check Exercise 8</button>
+                            <p id="fb-ex8" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
+                            <details><summary>Hint</summary><p style="margin-top: 0.6rem;">Opposite signs in $x^2$ and $y^2$ produce a saddle.</p></details>
+                            <details style="margin-top: 0.6rem;"><summary>Solution</summary><p style="margin-top: 0.6rem;">Hyperbolic paraboloid.</p></details>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="course-item" style="cursor: default;">
+                            <h4>Exercise 9: Surface Parametrization</h4>
+                            <p>Choose a correct parametrization of the sphere $x^2+y^2+z^2=4$.</p>
+                            <select id="ex9" style="max-width: 390px;">
+                                <option value="">Select</option>
+                                <option value="a">$\langle 2\sin\phi\cos\theta,2\sin\phi\sin\theta,2\cos\phi\rangle$</option>
+                                <option value="b">$\langle 2\cos\phi,2\sin\phi,\theta\rangle$</option>
+                                <option value="c">$\langle 2u,2v,4-u^2-v^2\rangle$</option>
+                            </select>
+                            <button id="check-ex9" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">Check Exercise 9</button>
+                            <p id="fb-ex9" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
+                            <details><summary>Hint</summary><p style="margin-top: 0.6rem;">Use spherical-angle coordinates.</p></details>
+                            <details style="margin-top: 0.6rem;"><summary>Solution</summary><p style="margin-top: 0.6rem;">Option (a) is correct.</p></details>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="course-item" style="cursor: default;">
+                            <h4>Exercise 10: Helix Tangent Angle</h4>
+                            <p>For $\mathbf r(t)=\langle R\cos t,R\sin t,bt\rangle$ ($R,b&gt;0$), choose $\cos\theta$ where $\theta$ is the angle between the tangent and the $z$-axis.</p>
+                            <select id="ex10" style="max-width: 390px;">
+                                <option value="">Select</option>
+                                <option value="a">$\dfrac{R}{\sqrt{R^2+b^2}}$</option>
+                                <option value="b">$\dfrac{b}{\sqrt{R^2+b^2}}$</option>
+                                <option value="c">$\dfrac{Rb}{R^2+b^2}$</option>
+                            </select>
+                            <button id="check-ex10" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">Check Exercise 10</button>
+                            <p id="fb-ex10" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
+                            <details><summary>Hint</summary><p style="margin-top: 0.6rem;">Take unit tangent and dot with $\mathbf k$.</p></details>
+                            <details style="margin-top: 0.6rem;"><summary>Solution</summary><p style="margin-top: 0.6rem;">$\cos\theta=\dfrac{b}{\sqrt{R^2+b^2}}$, constant in $t$.</p></details>
+                        </div>
+                    </li>
+                </ol>
+
+                <section class="course-item" style="margin-top: 2rem; cursor: default;">
+                    <h3 style="margin-top: 0;">第二讲测验（自动评分）</h3>
+                    <p style="margin-bottom: 0.9rem;">完成后点击提交，页面将显示总分以及需要回顾的题目。</p>
+
+                    <ol style="display: flex; flex-direction: column; gap: 1rem; padding-left: 1.2rem; margin: 0;">
+                        <li>
+                            <p style="margin: 0 0 0.5rem;">Classify $\dfrac{x^2}{4}+\dfrac{y^2}{9}-\dfrac{z^2}{16}=1$.</p>
+                            <select id="exam-q1" style="max-width: 360px;">
+                                <option value="">Select</option>
+                                <option value="a">Ellipsoid</option>
+                                <option value="b">Hyperboloid of one sheet</option>
+                                <option value="c">Hyperboloid of two sheets</option>
+                            </select>
+                        </li>
+                        <li>
+                            <p style="margin: 0 0 0.5rem;">For $z=x^2+y^2$, find the radius of the trace at $z=16$.</p>
+                            <input id="exam-q2" type="number" step="any" placeholder="radius" style="max-width: 220px;">
+                        </li>
+                        <li>
+                            <p style="margin: 0 0 0.5rem;">For intersection of $x^2+y^2=1$ and $z=x-2$, with $x=\cos t$, choose $z(t)$.</p>
+                            <select id="exam-q3" style="max-width: 320px;">
+                                <option value="">Select</option>
+                                <option value="a">$z=\sin t-2$</option>
+                                <option value="b">$z=\cos t-2$</option>
+                                <option value="c">$z=\cos t+2$</option>
+                            </select>
+                        </li>
+                        <li>
+                            <p style="margin: 0 0 0.5rem;">Tangent plane to $z=x^2+y^2$ at $(1,1,2)$ has form $z=ax+by+c$. Enter $(a,b,c)$.</p>
+                            <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; max-width: 420px;">
+                                <input id="exam-q4a" type="number" step="any" placeholder="a">
+                                <input id="exam-q4b" type="number" step="any" placeholder="b">
+                                <input id="exam-q4c" type="number" step="any" placeholder="c">
+                            </div>
+                        </li>
+                        <li>
+                            <p style="margin: 0 0 0.5rem;"><strong>Hard problem:</strong> For $\mathbf r(t)=\langle 2\cos t,2\sin t,t\rangle$, $t_0=\pi/2$.</p>
+                            <div style="display: flex; flex-direction: column; gap: 0.8rem; max-width: 500px;">
+                                <input id="exam-q5px" type="number" step="any" placeholder="Point x-coordinate">
+                                <input id="exam-q5py" type="number" step="any" placeholder="Point y-coordinate">
+                                <input id="exam-q5pz" type="number" step="any" placeholder="Point z-coordinate">
+                                <input id="exam-q5dx" type="number" step="any" placeholder="Direction x-component">
+                                <input id="exam-q5dy" type="number" step="any" placeholder="Direction y-component">
+                                <input id="exam-q5dz" type="number" step="any" placeholder="Direction z-component">
+                            </div>
+                        </li>
+                        <li>
+                            <p style="margin: 0 0 0.5rem;">Arc length of $\mathbf r(t)=\langle 5\cos t,5\sin t,12t\rangle$, $0\le t\le\pi$, is:</p>
+                            <select id="exam-q6" style="max-width: 320px;">
+                                <option value="">Select</option>
+                                <option value="a">$13\pi$</option>
+                                <option value="b">$12\pi$</option>
+                                <option value="c">$10\pi$</option>
+                            </select>
+                        </li>
+                        <li>
+                            <p style="margin: 0 0 0.5rem;">Tangent plane to $x^2+y^2+z^2=9$ at $(2,1,2)$ is:</p>
+                            <select id="exam-q7" style="max-width: 360px;">
+                                <option value="">Select</option>
+                                <option value="a">$2x+y+2z=9$</option>
+                                <option value="b">$x+y+z=9$</option>
+                                <option value="c">$2x+y+2z=4$</option>
+                            </select>
+                        </li>
+                        <li>
+                            <p style="margin: 0 0 0.5rem;">Choose a valid parametrization of $z=4-x^2-y^2$.</p>
+                            <select id="exam-q8" style="max-width: 420px;">
+                                <option value="">Select</option>
+                                <option value="a">$\langle u,v,4-u^2-v^2\rangle$</option>
+                                <option value="b">$\langle 4-u^2-v^2,u,v\rangle$</option>
+                                <option value="c">$\langle u,v,u^2+v^2\rangle$</option>
+                            </select>
+                        </li>
+                    </ol>
+
+                    <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.2rem;">
+                        <button id="exam-submit" class="btn-primary" style="max-width: 200px;">提交测验</button>
+                        <button id="exam-reset" class="btn-secondary" type="button" style="max-width: 200px;">重置测验</button>
+                    </div>
+
+                    <p id="exam-score" class="feedback" style="margin-top: 0.9rem;" aria-live="polite"></p>
+                    <ul id="exam-wrong-list" style="margin: 0.3rem 0 0; padding-left: 1.2rem;"></ul>
+                </section>
+
+                <div class="quick-links" style="margin-top: 1.4rem;">
+                    <a href="calculus-2-zh.html" class="btn-secondary">返回课程大纲</a>
+                    <a href="calculus-2-lecture-2-zh.html" class="btn-secondary">回顾第二讲</a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 GBU Calculus Hub · 独立教学平台</p>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const isClose = (a, b, tol = 1e-6) => Math.abs(a - b) < tol;
+            const setFeedback = function (id, message, color) {
+                const node = document.getElementById(id);
+                if (!node) return;
+                node.textContent = message;
+                node.style.color = color;
+            };
+
+            document.getElementById('check-ex1')?.addEventListener('click', function () {
+                const v = document.getElementById('ex1').value;
+                if (!v) return setFeedback('fb-ex1', 'Select an option first.', '#d9534f');
+                setFeedback('fb-ex1', v === 'one-sheet' ? 'Correct.' : 'Try again: this is a one-sheet hyperboloid.', v === 'one-sheet' ? '#2a7b4f' : '#d9534f');
+            });
+
+            document.getElementById('check-ex2')?.addEventListener('click', function () {
+                const v = parseFloat(document.getElementById('ex2').value);
+                if (Number.isNaN(v)) return setFeedback('fb-ex2', 'Enter a radius.', '#d9534f');
+                setFeedback('fb-ex2', isClose(v, 3) ? 'Correct.' : 'Not yet. Radius should satisfy r^2 = 9.', isClose(v, 3) ? '#2a7b4f' : '#d9534f');
+            });
+
+            document.getElementById('check-ex3')?.addEventListener('click', function () {
+                const v = document.getElementById('ex3').value;
+                if (!v) return setFeedback('fb-ex3', 'Select an option first.', '#d9534f');
+                setFeedback('fb-ex3', v === 'b' ? 'Correct.' : 'Check substitution into z = x + 1.', v === 'b' ? '#2a7b4f' : '#d9534f');
+            });
+
+            document.getElementById('check-ex4')?.addEventListener('click', function () {
+                const a = parseFloat(document.getElementById('ex4a').value);
+                const b = parseFloat(document.getElementById('ex4b').value);
+                const c = parseFloat(document.getElementById('ex4c').value);
+                if ([a, b, c].some(Number.isNaN)) return setFeedback('fb-ex4', 'Enter all three coefficients.', '#d9534f');
+                const ok = isClose(a, 2) && isClose(b, 4) && isClose(c, -5);
+                setFeedback('fb-ex4', ok ? 'Correct.' : 'Try again. Use z - 5 = 2(x-1) + 4(y-2).', ok ? '#2a7b4f' : '#d9534f');
+            });
+
+            document.getElementById('check-ex5')?.addEventListener('click', function () {
+                const x = parseFloat(document.getElementById('ex5x').value);
+                const y = parseFloat(document.getElementById('ex5y').value);
+                const z = parseFloat(document.getElementById('ex5z').value);
+                if ([x, y, z].some(Number.isNaN)) return setFeedback('fb-ex5', 'Enter all three components.', '#d9534f');
+                const parallel = isClose(x * 2, y) && isClose(x * 3, z) && !isClose(x, 0);
+                setFeedback('fb-ex5', parallel ? 'Correct direction.' : 'Direction must be parallel to <1,2,3>.', parallel ? '#2a7b4f' : '#d9534f');
+            });
+
+            document.getElementById('check-ex6')?.addEventListener('click', function () {
+                const v = document.getElementById('ex6').value;
+                if (!v) return setFeedback('fb-ex6', 'Select an option first.', '#d9534f');
+                setFeedback('fb-ex6', v === 'c' ? 'Correct.' : 'Speed is 5, then integrate over length 2pi.', v === 'c' ? '#2a7b4f' : '#d9534f');
+            });
+
+            document.getElementById('check-ex7')?.addEventListener('click', function () {
+                const v = document.getElementById('ex7').value;
+                if (!v) return setFeedback('fb-ex7', 'Select an option first.', '#d9534f');
+                setFeedback('fb-ex7', v === 'a' ? 'Correct.' : 'Use normal vector (1,2,3) at that point.', v === 'a' ? '#2a7b4f' : '#d9534f');
+            });
+
+            document.getElementById('check-ex8')?.addEventListener('click', function () {
+                const v = document.getElementById('ex8').value;
+                if (!v) return setFeedback('fb-ex8', 'Select an option first.', '#d9534f');
+                setFeedback('fb-ex8', v === 'b' ? 'Correct.' : 'This equation is the saddle surface.', v === 'b' ? '#2a7b4f' : '#d9534f');
+            });
+
+            document.getElementById('check-ex9')?.addEventListener('click', function () {
+                const v = document.getElementById('ex9').value;
+                if (!v) return setFeedback('fb-ex9', 'Select an option first.', '#d9534f');
+                setFeedback('fb-ex9', v === 'a' ? 'Correct.' : 'Pick the spherical-angle parametrization.', v === 'a' ? '#2a7b4f' : '#d9534f');
+            });
+
+            document.getElementById('check-ex10')?.addEventListener('click', function () {
+                const v = document.getElementById('ex10').value;
+                if (!v) return setFeedback('fb-ex10', 'Select an option first.', '#d9534f');
+                setFeedback('fb-ex10', v === 'b' ? 'Correct.' : 'Dot unit tangent with k-hat.', v === 'b' ? '#2a7b4f' : '#d9534f');
+            });
+
+            const examSubmit = document.getElementById('exam-submit');
+            const examReset = document.getElementById('exam-reset');
+            const examScore = document.getElementById('exam-score');
+            const examWrongList = document.getElementById('exam-wrong-list');
+
+            const clearExamOutput = function () {
+                examScore.textContent = '';
+                examScore.className = 'feedback';
+                examWrongList.innerHTML = '';
+            };
+
+            examSubmit?.addEventListener('click', function () {
+                const wrong = [];
+                let earned = 0;
+                const total = 10;
+
+                const q1 = document.getElementById('exam-q1').value;
+                if (q1 === 'b') earned += 1; else wrong.push('Q1: Quadric classification is incorrect.');
+
+                const q2 = parseFloat(document.getElementById('exam-q2').value);
+                if (!Number.isNaN(q2) && isClose(q2, 4)) earned += 1; else wrong.push('Q2: Radius is incorrect.');
+
+                const q3 = document.getElementById('exam-q3').value;
+                if (q3 === 'b') earned += 1; else wrong.push('Q3: z(t) is incorrect.');
+
+                const q4a = parseFloat(document.getElementById('exam-q4a').value);
+                const q4b = parseFloat(document.getElementById('exam-q4b').value);
+                const q4c = parseFloat(document.getElementById('exam-q4c').value);
+                if (![q4a, q4b, q4c].some(Number.isNaN) && isClose(q4a, 2) && isClose(q4b, 2) && isClose(q4c, -2)) {
+                    earned += 1;
+                } else {
+                    wrong.push('Q4: Tangent plane coefficients are incorrect.');
+                }
+
+                const q5px = parseFloat(document.getElementById('exam-q5px').value);
+                const q5py = parseFloat(document.getElementById('exam-q5py').value);
+                const q5pz = parseFloat(document.getElementById('exam-q5pz').value);
+                const q5dx = parseFloat(document.getElementById('exam-q5dx').value);
+                const q5dy = parseFloat(document.getElementById('exam-q5dy').value);
+                const q5dz = parseFloat(document.getElementById('exam-q5dz').value);
+
+                const pointCorrect = ![q5px, q5py, q5pz].some(Number.isNaN) && isClose(q5px, 0) && isClose(q5py, 2) && isClose(q5pz, Math.PI / 2);
+                const dirParallel = ![q5dx, q5dy, q5dz].some(Number.isNaN) && !isClose(q5dx, 0) && isClose(q5dy, 0) && isClose(q5dz / q5dx, -1 / 2);
+                const dirParallelAlt = ![q5dx, q5dy, q5dz].some(Number.isNaN) && !isClose(q5dz, 0) && isClose(q5dy, 0) && isClose(q5dx / q5dz, -2);
+
+                if (pointCorrect) earned += 1; else wrong.push('Q5a (Hard): Point on the curve at t = pi/2 is incorrect.');
+                if (dirParallel || dirParallelAlt) earned += 1; else wrong.push('Q5b (Hard): Tangent direction is not parallel to <-2,0,1>.');
+                if (pointCorrect && (dirParallel || dirParallelAlt)) earned += 1; else wrong.push('Q5c (Hard): Full tangent-line data is incomplete.');
+
+                const q6 = document.getElementById('exam-q6').value;
+                if (q6 === 'a') earned += 1; else wrong.push('Q6: Arc length result is incorrect.');
+
+                const q7 = document.getElementById('exam-q7').value;
+                if (q7 === 'a') earned += 1; else wrong.push('Q7: Implicit tangent plane is incorrect.');
+
+                const q8 = document.getElementById('exam-q8').value;
+                if (q8 === 'a') earned += 1; else wrong.push('Q8: Surface parametrization is incorrect.');
+
+                examScore.textContent = `Score: ${earned}/${total}`;
+                examScore.className = earned === total ? 'feedback success' : 'feedback error';
+                examWrongList.innerHTML = '';
+
+                wrong.forEach(function (item) {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    examWrongList.appendChild(li);
+                });
+            });
+
+            examReset?.addEventListener('click', function () {
+                [
+                    'exam-q2', 'exam-q4a', 'exam-q4b', 'exam-q4c',
+                    'exam-q5px', 'exam-q5py', 'exam-q5pz', 'exam-q5dx', 'exam-q5dy', 'exam-q5dz'
+                ].forEach(function (id) {
+                    const element = document.getElementById(id);
+                    if (element) element.value = '';
+                });
+
+                ['exam-q1', 'exam-q3', 'exam-q6', 'exam-q7', 'exam-q8'].forEach(function (id) {
+                    const element = document.getElementById(id);
+                    if (element) element.selectedIndex = 0;
+                });
+
+                clearExamOutput();
+            });
+        }());
+    </script>
+</body>
+</html>
