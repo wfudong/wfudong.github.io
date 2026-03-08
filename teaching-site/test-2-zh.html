@@ -53,10 +53,10 @@
                 
                 <h2>练习 2：三维几何</h2>
                 <p><strong>预计时间：</strong>40–50 分钟</p>
-                <p><strong>Focus:</strong> Practice the core skills from Lecture 2: quadric recognition, traces, parametrized curves/surfaces, tangent objects, and arc length in $\mathbb{R}^3$.</p>
+                <p><strong>重点：</strong>练习第二讲的核心技能：二次曲面识别、截线、参数化曲线/曲面、切线对象和 $\mathbb{R}^3$ 中的弧长.</p>
                 
                 <div class="section-panel" style="margin-bottom: 2rem;">
-                    <h3 style="margin-top: 0;">你将练习的内容'll Practice</h3>
+                    <h3 style="margin-top: 0;">你将练习的内容</h3>
                     <ul style="margin-top: 0.8rem;">
                         <li>从方程分类二次曲面</li>
                         <li>寻找和解释截线和等值线</li>
@@ -72,11 +72,11 @@
                             <h4>练习 1：二次曲面分类</h4>
                             <p>对曲面 $x^2 + y^2 - z^2 = 1$ 进行分类。</p>
                             <select id="ex1" style="max-width: 320px;">
-                                <option value="">请选择</option>
-                                <option value="ellipsoid">椭球面</option>
-                                <option value="one-sheet">单叶双曲面</option>
-                                <option value="two-sheets">双叶双曲面</option>
-                                <option value="cone">椭圆锥面</option>
+                                <option value="">Select</option>
+                                <option value="ellipsoid">Ellipsoid</option>
+                                <option value="one-sheet">Hyperboloid of one sheet</option>
+                                <option value="two-sheets">Hyperboloid of two sheets</option>
+                                <option value="cone">Elliptic cone</option>
                             </select>
                             <button id="check-ex1" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">检查练习 1</button>
                             <p id="fb-ex1" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
@@ -100,16 +100,16 @@
                     <li>
                         <div class="course-item" style="cursor: default;">
                             <h4>练习 3：交线参数化</h4>
-                            <p>The cylinder $x^2+y^2=4$ intersects the plane $z=x+1$. If $x=2\cos t$ and $y=2\sin t$, which $z(t)$ is correct?</p>
+                            <p>圆柱面 $x^2+y^2=4$ 与平面 $z=x+1$ 相交。若 $x=2\cos t$，$y=2\sin t$，哪个 $z(t)$ 是正确的？</p>
                             <select id="ex3" style="max-width: 340px;">
-                                <option value="">请选择</option>
+                                <option value="">Select</option>
                                 <option value="a">$z=2\sin t+1$</option>
                                 <option value="b">$z=2\cos t+1$</option>
                                 <option value="c">$z=\cos t+\sin t$</option>
                             </select>
                             <button id="check-ex3" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">检查练习 3</button>
                             <p id="fb-ex3" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
-                            <details><summary>提示</summary><p style="margin-top: 0.6rem;">Substitute $x=2\cos t$ into $z=x+1$.</p></details>
+                            <details><summary>提示</summary><p style="margin-top: 0.6rem;">将 $x=2\cos t$ 代入 $z=x+1$。</p></details>
                             <details style="margin-top: 0.6rem;"><summary>解答</summary><p style="margin-top: 0.6rem;">$z(t)=2\cos t+1$.</p></details>
                         </div>
                     </li>
@@ -125,15 +125,15 @@
                             </div>
                             <button id="check-ex4" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">检查练习 4</button>
                             <p id="fb-ex4" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
-                            <details><summary>提示</summary><p style="margin-top: 0.6rem;">$f_x=2x$，$f_y=2y$ 在点 $(1,2)$ 处。</p></details>
-                            <details style="margin-top: 0.6rem;"><summary>解答</summary><p style="margin-top: 0.6rem;">$z=2x+4y-5$。</p></details>
+                            <details><summary>提示</summary><p style="margin-top: 0.6rem;">$f_x=2x$, $f_y=2y$ at $(1,2)$.</p></details>
+                            <details style="margin-top: 0.6rem;"><summary>解答</summary><p style="margin-top: 0.6rem;">$z=2x+4y-5$.</p></details>
                         </div>
                     </li>
 
                     <li>
                         <div class="course-item" style="cursor: default;">
                             <h4>练习 5：切线方向</h4>
-                            <p>For $\mathbf r(t)=\langle t,t^2,t^3\rangle$, enter a direction vector of the tangent line at $t=1$.</p>
+                            <p>对于曲线 $\mathbf r(t)=\langle t,t^2,t^3\rangle$，输入在 $t=1$ 处切线的方向向量。</p>
                             <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 0.8rem;">
                                 <input id="ex5x" type="number" step="any" placeholder="d_x" style="max-width: 120px;">
                                 <input id="ex5y" type="number" step="any" placeholder="d_y" style="max-width: 120px;">
@@ -148,15 +148,15 @@
 
                     <li>
                         <div class="course-item" style="cursor: default;">
-                            <h4>Exercise 6: Arc Length in 3D</h4>
-                            <p>For $\mathbf r(t)=\langle 3\cos t,3\sin t,4t\rangle$, $0\le t\le2\pi$, choose the arc length.</p>
+                            <h4>练习 6：三维弧长</h4>
+                            <p>对于曲线 $\mathbf r(t)=\langle 3\cos t,3\sin t,4t\rangle$，$0\le t\le2\pi$，选择弧长。</p>
                             <select id="ex6" style="max-width: 320px;">
-                                <option value="">请选择</option>
+                                <option value="">Select</option>
                                 <option value="a">$6\pi$</option>
                                 <option value="b">$8\pi$</option>
                                 <option value="c">$10\pi$</option>
                             </select>
-                            <button id="check-ex6" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">Check Exercise 6</button>
+                            <button id="check-ex6" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">检查练习 6</button>
                             <p id="fb-ex6" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
                             <details><summary>提示</summary><p style="margin-top: 0.6rem;">Speed is constant: $\|\mathbf r'(t)\|=5$.</p></details>
                             <details style="margin-top: 0.6rem;"><summary>解答</summary><p style="margin-top: 0.6rem;">$L=\int_0^{2\pi}5\,dt=10\pi$.</p></details>
@@ -165,102 +165,102 @@
 
                     <li>
                         <div class="course-item" style="cursor: default;">
-                            <h4>Exercise 7: Tangent Plane (Implicit Form)</h4>
-                            <p>For the sphere $x^2+y^2+z^2=14$ at $(1,2,3)$, choose the tangent plane.</p>
+                            <h4>练习 7：切平面（隐式形式）</h4>
+                            <p>对于球面 $x^2+y^2+z^2=14$ 在点 $(1,2,3)$ 处，选择切平面。</p>
                             <select id="ex7" style="max-width: 360px;">
-                                <option value="">请选择</option>
+                                <option value="">Select</option>
                                 <option value="a">$x+2y+3z=14$</option>
                                 <option value="b">$x+2y+3z=6$</option>
                                 <option value="c">$2x+2y+2z=14$</option>
                             </select>
-                            <button id="check-ex7" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">Check Exercise 7</button>
+                            <button id="check-ex7" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">检查练习 7</button>
                             <p id="fb-ex7" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
-                            <details><summary>提示</summary><p style="margin-top: 0.6rem;">Use gradient normal $\nabla F=(2x,2y,2z)$.</p></details>
-                            <details style="margin-top: 0.6rem;"><summary>解答</summary><p style="margin-top: 0.6rem;">Plane: $x+2y+3z=14$.</p></details>
+                            <details><summary>提示</summary><p style="margin-top: 0.6rem;">使用梯度法向量 $\nabla F=(2x,2y,2z)$。</p></details>
+                            <details style="margin-top: 0.6rem;"><summary>解答</summary><p style="margin-top: 0.6rem;">平面：$x+2y+3z=14$。</p></details>
                         </div>
                     </li>
 
                     <li>
                         <div class="course-item" style="cursor: default;">
-                            <h4>Exercise 8: Recognize the Saddle Surface</h4>
-                            <p>Classify $z=x^2-y^2$.</p>
+                            <h4>练习 8：识别马鞍面</h4>
+                            <p>对曲面 $z=x^2-y^2$ 进行分类。</p>
                             <select id="ex8" style="max-width: 320px;">
-                                <option value="">请选择</option>
+                                <option value="">Select</option>
                                 <option value="a">Elliptic paraboloid</option>
                                 <option value="b">Hyperbolic paraboloid</option>
-                                <option value="c">椭圆锥面</option>
+                                <option value="c">Elliptic cone</option>
                             </select>
-                            <button id="check-ex8" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">Check Exercise 8</button>
+                            <button id="check-ex8" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">检查练习 8</button>
                             <p id="fb-ex8" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
-                            <details><summary>提示</summary><p style="margin-top: 0.6rem;">Opposite signs in $x^2$ and $y^2$ produce a saddle.</p></details>
-                            <details style="margin-top: 0.6rem;"><summary>解答</summary><p style="margin-top: 0.6rem;">Hyperbolic paraboloid.</p></details>
+                            <details><summary>提示</summary><p style="margin-top: 0.6rem;">$x^2$ 和 $y^2$ 符号相反会产生马鞍。</p></details>
+                            <details style="margin-top: 0.6rem;"><summary>解答</summary><p style="margin-top: 0.6rem;">双曲抛物面。</p></details>
                         </div>
                     </li>
 
                     <li>
                         <div class="course-item" style="cursor: default;">
-                            <h4>Exercise 9: Surface Parametrization</h4>
-                            <p>Choose a correct parametrization of the sphere $x^2+y^2+z^2=4$.</p>
+                            <h4>练习 9：曲面参数化</h4>
+                            <p>选择球面 $x^2+y^2+z^2=4$ 的正确参数化。</p>
                             <select id="ex9" style="max-width: 390px;">
-                                <option value="">请选择</option>
+                                <option value="">Select</option>
                                 <option value="a">$\langle 2\sin\phi\cos\theta,2\sin\phi\sin\theta,2\cos\phi\rangle$</option>
                                 <option value="b">$\langle 2\cos\phi,2\sin\phi,\theta\rangle$</option>
                                 <option value="c">$\langle 2u,2v,4-u^2-v^2\rangle$</option>
                             </select>
-                            <button id="check-ex9" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">Check Exercise 9</button>
+                            <button id="check-ex9" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">检查练习 9</button>
                             <p id="fb-ex9" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
-                            <details><summary>提示</summary><p style="margin-top: 0.6rem;">Use spherical-angle coordinates.</p></details>
-                            <details style="margin-top: 0.6rem;"><summary>解答</summary><p style="margin-top: 0.6rem;">Option (a) is correct.</p></details>
+                            <details><summary>提示</summary><p style="margin-top: 0.6rem;">使用球坐标参数。</p></details>
+                            <details style="margin-top: 0.6rem;"><summary>解答</summary><p style="margin-top: 0.6rem;">选项 (a) 正确。</p></details>
                         </div>
                     </li>
 
                     <li>
                         <div class="course-item" style="cursor: default;">
-                            <h4>Exercise 10: Helix Tangent Angle</h4>
-                            <p>For $\mathbf r(t)=\langle R\cos t,R\sin t,bt\rangle$ ($R,b&gt;0$), choose $\cos\theta$ where $\theta$ is the angle between the tangent and the $z$-axis.</p>
+                            <h4>练习 10：螺旋线切线角度</h4>
+                            <p>对于螺旋线 $\mathbf r(t)=\langle R\cos t,R\sin t,bt\rangle$（$R,b（$R,b（$R,bFor $\mathbf r(t)=\langle R\cos t,R\sin t,bt\rangle$ ($R,b&gt;0$), choose $\cos\theta$ where $\theta$ is the angle between the tangent and the $z$-axis.gt;0$）gt;0$）gt;0$），选择 $\cos\theta$，其中 $\theta$ 是切线与 $z$ 轴的夹角。</p>
                             <select id="ex10" style="max-width: 390px;">
-                                <option value="">请选择</option>
+                                <option value="">Select</option>
                                 <option value="a">$\dfrac{R}{\sqrt{R^2+b^2}}$</option>
                                 <option value="b">$\dfrac{b}{\sqrt{R^2+b^2}}$</option>
                                 <option value="c">$\dfrac{Rb}{R^2+b^2}$</option>
                             </select>
                             <button id="check-ex10" class="btn-primary" style="max-width: 220px; margin-top: 0.8rem;">检查练习 10</button>
                             <p id="fb-ex10" style="min-height: 1.2rem; font-weight: 600; margin-top: 0.6rem;" aria-live="polite"></p>
-                            <details><summary>提示</summary><p style="margin-top: 0.6rem;">Take unit tangent and dot with $\mathbf k$.</p></details>
+                            <details><summary>提示</summary><p style="margin-top: 0.6rem;">取单位切向量并与 $\mathbf k$ 点乘。</p></details>
                             <details style="margin-top: 0.6rem;"><summary>解答</summary><p style="margin-top: 0.6rem;">$\cos\theta=\dfrac{b}{\sqrt{R^2+b^2}}$, constant in $t$.</p></details>
                         </div>
                     </li>
                 </ol>
 
                 <section class="course-item" style="margin-top: 2rem; cursor: default;">
-                    <h3 style="margin-top: 0;">Lecture 2 Exam (Auto-Scored)</h3>
-                    <p style="margin-bottom: 0.9rem;">Submit once to see your score and which questions need review.</p>
+                    <h3 style="margin-top: 0;">第二讲测验（自动评分）</h3>
+                    <p style="margin-bottom: 0.9rem;">完成后点击提交，页面将显示总分以及需要回顾的题目。</p>
 
                     <ol style="display: flex; flex-direction: column; gap: 1rem; padding-left: 1.2rem; margin: 0;">
                         <li>
-                            <p style="margin: 0 0 0.5rem;">Classify $\dfrac{x^2}{4}+\dfrac{y^2}{9}-\dfrac{z^2}{16}=1$.</p>
+                            <p style="margin: 0 0 0.5rem;">对曲面 $\dfrac{x^2}{4}+\dfrac{y^2}{9}-\dfrac{z^2}{16}=1$ 进行分类。</p>
                             <select id="exam-q1" style="max-width: 360px;">
-                                <option value="">请选择</option>
-                                <option value="a">椭球面</option>
-                                <option value="b">单叶双曲面</option>
-                                <option value="c">双叶双曲面</option>
+                                <option value="">Select</option>
+                                <option value="a">Ellipsoid</option>
+                                <option value="b">Hyperboloid of one sheet</option>
+                                <option value="c">Hyperboloid of two sheets</option>
                             </select>
                         </li>
                         <li>
-                            <p style="margin: 0 0 0.5rem;">For $z=x^2+y^2$, find the radius of the trace at $z=16$.</p>
+                            <p style="margin: 0 0 0.5rem;">对于曲面 $z=x^2+y^2$，求 $z=16$ 处截线的半径。</p>
                             <input id="exam-q2" type="number" step="any" placeholder="半径" style="max-width: 220px;">
                         </li>
                         <li>
-                            <p style="margin: 0 0 0.5rem;">For intersection of $x^2+y^2=1$ and $z=x-2$, with $x=\cos t$, choose $z(t)$.</p>
+                            <p style="margin: 0 0 0.5rem;">对于 $x^2+y^2=1$ 与 $z=x-2$ 的交线，若 $x=\cos t$，选择 $z(t)$。</p>
                             <select id="exam-q3" style="max-width: 320px;">
-                                <option value="">请选择</option>
+                                <option value="">Select</option>
                                 <option value="a">$z=\sin t-2$</option>
                                 <option value="b">$z=\cos t-2$</option>
                                 <option value="c">$z=\cos t+2$</option>
                             </select>
                         </li>
                         <li>
-                            <p style="margin: 0 0 0.5rem;">Tangent plane to $z=x^2+y^2$ at $(1,1,2)$ has form $z=ax+by+c$. Enter $(a,b,c)$.</p>
+                            <p style="margin: 0 0 0.5rem;">曲面 $z=x^2+y^2$ 在点 $(1,1,2)$ 处的切平面形式为 $z=ax+by+c$。输入 $(a,b,c)$。</p>
                             <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; max-width: 420px;">
                                 <input id="exam-q4a" type="number" step="any" placeholder="a">
                                 <input id="exam-q4b" type="number" step="any" placeholder="b">
@@ -268,38 +268,38 @@
                             </div>
                         </li>
                         <li>
-                            <p style="margin: 0 0 0.5rem;"><strong>Hard problem:</strong> For $\mathbf r(t)=\langle 2\cos t,2\sin t,t\rangle$, $t_0=\pi/2$.</p>
+                            <p style="margin: 0 0 0.5rem;"><strong>难题：</strong>对于曲线 $\mathbf r(t)=\langle 2\cos t,2\sin t,t\rangle$，$t_0=\pi/2$。</p>
                             <div style="display: flex; flex-direction: column; gap: 0.8rem; max-width: 500px;">
-                                <input id="exam-q5px" type="number" step="any" placeholder="Point x-coordinate">
-                                <input id="exam-q5py" type="number" step="any" placeholder="Point y-coordinate">
-                                <input id="exam-q5pz" type="number" step="any" placeholder="Point z-coordinate">
-                                <input id="exam-q5dx" type="number" step="any" placeholder="Direction x-component">
-                                <input id="exam-q5dy" type="number" step="any" placeholder="Direction y-component">
-                                <input id="exam-q5dz" type="number" step="any" placeholder="Direction z-component">
+                                <input id="exam-q5px" type="number" step="any" placeholder="点的 x 坐标">
+                                <input id="exam-q5py" type="number" step="any" placeholder="点的 y 坐标">
+                                <input id="exam-q5pz" type="number" step="any" placeholder="点的 z 坐标">
+                                <input id="exam-q5dx" type="number" step="any" placeholder="方向 x 分量">
+                                <input id="exam-q5dy" type="number" step="any" placeholder="方向 y 分量">
+                                <input id="exam-q5dz" type="number" step="any" placeholder="方向 z 分量">
                             </div>
                         </li>
                         <li>
-                            <p style="margin: 0 0 0.5rem;">Arc length of $\mathbf r(t)=\langle 5\cos t,5\sin t,12t\rangle$, $0\le t\le\pi$, is:</p>
+                            <p style="margin: 0 0 0.5rem;">曲线 $\mathbf r(t)=\langle 5\cos t,5\sin t,12t\rangle$，$0\le t\le\pi$ 的弧长为：</p>
                             <select id="exam-q6" style="max-width: 320px;">
-                                <option value="">请选择</option>
+                                <option value="">Select</option>
                                 <option value="a">$13\pi$</option>
                                 <option value="b">$12\pi$</option>
                                 <option value="c">$10\pi$</option>
                             </select>
                         </li>
                         <li>
-                            <p style="margin: 0 0 0.5rem;">Tangent plane to $x^2+y^2+z^2=9$ at $(2,1,2)$ is:</p>
+                            <p style="margin: 0 0 0.5rem;">球面 $x^2+y^2+z^2=9$ 在点 $(2,1,2)$ 处的切平面为：</p>
                             <select id="exam-q7" style="max-width: 360px;">
-                                <option value="">请选择</option>
+                                <option value="">Select</option>
                                 <option value="a">$2x+y+2z=9$</option>
                                 <option value="b">$x+y+z=9$</option>
                                 <option value="c">$2x+y+2z=4$</option>
                             </select>
                         </li>
                         <li>
-                            <p style="margin: 0 0 0.5rem;">Choose a valid parametrization of $z=4-x^2-y^2$.</p>
+                            <p style="margin: 0 0 0.5rem;">选择曲面 $z=4-x^2-y^2$ 的有效参数化。</p>
                             <select id="exam-q8" style="max-width: 420px;">
-                                <option value="">请选择</option>
+                                <option value="">Select</option>
                                 <option value="a">$\langle u,v,4-u^2-v^2\rangle$</option>
                                 <option value="b">$\langle 4-u^2-v^2,u,v\rangle$</option>
                                 <option value="c">$\langle u,v,u^2+v^2\rangle$</option>
@@ -308,8 +308,8 @@
                     </ol>
 
                     <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.2rem;">
-                        <button id="exam-submit" class="btn-primary" style="max-width: 200px;">Submit Exam</button>
-                        <button id="exam-reset" class="btn-secondary" type="button" style="max-width: 200px;">Reset Exam</button>
+                        <button id="exam-submit" class="btn-primary" style="max-width: 200px;">提交测验</button>
+                        <button id="exam-reset" class="btn-secondary" type="button" style="max-width: 200px;">重置测验</button>
                     </div>
 
                     <p id="exam-score" class="feedback" style="margin-top: 0.9rem;" aria-live="polite"></p>
@@ -318,7 +318,7 @@
 
                 <div class="quick-links" style="margin-top: 1.4rem;">
                     <a href="calculus-2.html" class="btn-secondary">Back to Course Syllabus</a>
-                    <a href="calculus-2-lecture-2.html" class="btn-secondary">Review Lecture 2</a>
+                    <a href="calculus-2-lecture-2.html" class="btn-secondary">回顾第二讲</a>
                 </div>
             </div>
         </section>
@@ -340,68 +340,68 @@
 
             document.getElementById('check-ex1')?.addEventListener('click', function () {
                 const v = document.getElementById('ex1').value;
-                if (!v) return setFeedback('fb-ex1', 'Select an option first.', '#d9534f');
-                setFeedback('fb-ex1', v === 'one-sheet' ? 'Correct.' : 'Try again: this is a one-sheet hyperboloid.', v === 'one-sheet' ? '#2a7b4f' : '#d9534f');
+                if (!v) return setFeedback('fb-ex1', '请先选择一个选项。', '#d9534f');
+                setFeedback('fb-ex1', v === 'one-sheet' ? '正确。' : '再试一次：这是单叶双曲面。', v === 'one-sheet' ? '#2a7b4f' : '#d9534f');
             });
 
             document.getElementById('check-ex2')?.addEventListener('click', function () {
                 const v = parseFloat(document.getElementById('ex2').value);
-                if (Number.isNaN(v)) return setFeedback('fb-ex2', 'Enter a radius.', '#d9534f');
-                setFeedback('fb-ex2', isClose(v, 3) ? 'Correct.' : 'Not yet. Radius should satisfy r^2 = 9.', isClose(v, 3) ? '#2a7b4f' : '#d9534f');
+                if (Number.isNaN(v)) return setFeedback('fb-ex2', '请输入半径。', '#d9534f');
+                setFeedback('fb-ex2', isClose(v, 3) ? '正确。' : '还不对。半径应满足 r^2 = 9。', isClose(v, 3) ? '#2a7b4f' : '#d9534f');
             });
 
             document.getElementById('check-ex3')?.addEventListener('click', function () {
                 const v = document.getElementById('ex3').value;
-                if (!v) return setFeedback('fb-ex3', 'Select an option first.', '#d9534f');
-                setFeedback('fb-ex3', v === 'b' ? 'Correct.' : 'Check substitution into z = x + 1.', v === 'b' ? '#2a7b4f' : '#d9534f');
+                if (!v) return setFeedback('fb-ex3', '请先选择一个选项。', '#d9534f');
+                setFeedback('fb-ex3', v === 'b' ? '正确。' : '检查代入 z = x + 1 的过程。', v === 'b' ? '#2a7b4f' : '#d9534f');
             });
 
             document.getElementById('check-ex4')?.addEventListener('click', function () {
                 const a = parseFloat(document.getElementById('ex4a').value);
                 const b = parseFloat(document.getElementById('ex4b').value);
                 const c = parseFloat(document.getElementById('ex4c').value);
-                if ([a, b, c].some(Number.isNaN)) return setFeedback('fb-ex4', 'Enter all three coefficients.', '#d9534f');
+                if ([a, b, c].some(Number.isNaN)) return setFeedback('fb-ex4', '请输入全部三个系数。', '#d9534f');
                 const ok = isClose(a, 2) && isClose(b, 4) && isClose(c, -5);
-                setFeedback('fb-ex4', ok ? 'Correct.' : 'Try again. Use z - 5 = 2(x-1) + 4(y-2).', ok ? '#2a7b4f' : '#d9534f');
+                setFeedback('fb-ex4', ok ? '正确。' :  '再试一次。使用 z - 5 = 2(x-1) + 4(y-2)。', ok ? '#2a7b4f' : '#d9534f');
             });
 
             document.getElementById('check-ex5')?.addEventListener('click', function () {
                 const x = parseFloat(document.getElementById('ex5x').value);
                 const y = parseFloat(document.getElementById('ex5y').value);
                 const z = parseFloat(document.getElementById('ex5z').value);
-                if ([x, y, z].some(Number.isNaN)) return setFeedback('fb-ex5', 'Enter all three components.', '#d9534f');
+                if ([x, y, z].some(Number.isNaN)) return setFeedback('fb-ex5', '请输入全部三个分量。', '#d9534f');
                 const parallel = isClose(x * 2, y) && isClose(x * 3, z) && !isClose(x, 0);
-                setFeedback('fb-ex5', parallel ? 'Correct direction.' : 'Direction must be parallel to <1,2,3>.', parallel ? '#2a7b4f' : '#d9534f');
+                setFeedback('fb-ex5', parallel ? 'Correct direction.' : 'Direction must be 与 <1,2,3> 平行。', parallel ? '#2a7b4f' : '#d9534f');
             });
 
             document.getElementById('check-ex6')?.addEventListener('click', function () {
                 const v = document.getElementById('ex6').value;
-                if (!v) return setFeedback('fb-ex6', 'Select an option first.', '#d9534f');
-                setFeedback('fb-ex6', v === 'c' ? 'Correct.' : 'Speed is 5, then integrate over length 2pi.', v === 'c' ? '#2a7b4f' : '#d9534f');
+                if (!v) return setFeedback('fb-ex6', '请先选择一个选项。', '#d9534f');
+                setFeedback('fb-ex6', v === 'c' ? '正确。' : 'Speed is 5, then integrate over length 2pi.', v === 'c' ? '#2a7b4f' : '#d9534f');
             });
 
             document.getElementById('check-ex7')?.addEventListener('click', function () {
                 const v = document.getElementById('ex7').value;
-                if (!v) return setFeedback('fb-ex7', 'Select an option first.', '#d9534f');
-                setFeedback('fb-ex7', v === 'a' ? 'Correct.' : 'Use normal vector (1,2,3) at that point.', v === 'a' ? '#2a7b4f' : '#d9534f');
+                if (!v) return setFeedback('fb-ex7', '请先选择一个选项。', '#d9534f');
+                setFeedback('fb-ex7', v === 'a' ? '正确。' : 'Use normal vector (1,2,3) at that point.', v === 'a' ? '#2a7b4f' : '#d9534f');
             });
 
             document.getElementById('check-ex8')?.addEventListener('click', function () {
                 const v = document.getElementById('ex8').value;
-                if (!v) return setFeedback('fb-ex8', 'Select an option first.', '#d9534f');
-                setFeedback('fb-ex8', v === 'b' ? 'Correct.' : 'This equation is the saddle surface.', v === 'b' ? '#2a7b4f' : '#d9534f');
+                if (!v) return setFeedback('fb-ex8', '请先选择一个选项。', '#d9534f');
+                setFeedback('fb-ex8', v === 'b' ? '正确。' : 'This equation is the saddle surface.', v === 'b' ? '#2a7b4f' : '#d9534f');
             });
 
             document.getElementById('check-ex9')?.addEventListener('click', function () {
                 const v = document.getElementById('ex9').value;
-                if (!v) return setFeedback('fb-ex9', 'Select an option first.', '#d9534f');
-                setFeedback('fb-ex9', v === 'a' ? 'Correct.' : 'Pick the spherical-angle parametrization.', v === 'a' ? '#2a7b4f' : '#d9534f');
+                if (!v) return setFeedback('fb-ex9', '请先选择一个选项。', '#d9534f');
+                setFeedback('fb-ex9', v === 'a' ? '正确。' : 'Pick the spherical-angle parametrization.', v === 'a' ? '#2a7b4f' : '#d9534f');
             });
 
             document.getElementById('check-ex10')?.addEventListener('click', function () {
                 const v = document.getElementById('ex10').value;
-                if (!v) return setFeedback('fb-ex10', 'Select an option first.', '#d9534f');
-                setFeedback('fb-ex10', v === 'b' ? 'Correct.' : 'Dot unit tangent with k-hat.', v === 'b' ? '#2a7b4f' : '#d9534f');
+                if (!v) return setFeedback('fb-ex10', '请先选择一个选项。', '#d9534f');
+                setFeedback('fb-ex10', v === 'b' ? '正确。' : 'Dot unit tangent with k-hat.', v === 'b' ? '#2a7b4f' : '#d9534f');
             });
 
             const examSubmit = document.getElementById('exam-submit');
@@ -421,13 +421,13 @@
                 const total = 10;
 
                 const q1 = document.getElementById('exam-q1').value;
-                if (q1 === 'b') earned += 1; else wrong.push('Q1: Quadric classification is incorrect.');
+                if (q1 === 'b') earned += 1; else wrong.push('第1题：二次曲面分类错误。');
 
                 const q2 = parseFloat(document.getElementById('exam-q2').value);
-                if (!Number.isNaN(q2) && isClose(q2, 4)) earned += 1; else wrong.push('Q2: Radius is incorrect.');
+                if (!Number.isNaN(q2) && isClose(q2, 4)) earned += 1; else wrong.push('第2题：半径错误。');
 
                 const q3 = document.getElementById('exam-q3').value;
-                if (q3 === 'b') earned += 1; else wrong.push('Q3: z(t) is incorrect.');
+                if (q3 === 'b') earned += 1; else wrong.push('第3题：z(t) 错误。');
 
                 const q4a = parseFloat(document.getElementById('exam-q4a').value);
                 const q4b = parseFloat(document.getElementById('exam-q4b').value);
@@ -435,7 +435,7 @@
                 if (![q4a, q4b, q4c].some(Number.isNaN) && isClose(q4a, 2) && isClose(q4b, 2) && isClose(q4c, -2)) {
                     earned += 1;
                 } else {
-                    wrong.push('Q4: Tangent plane coefficients are incorrect.');
+                    wrong.push('第4题：切平面系数错误。');
                 }
 
                 const q5px = parseFloat(document.getElementById('exam-q5px').value);
@@ -449,20 +449,20 @@
                 const dirParallel = ![q5dx, q5dy, q5dz].some(Number.isNaN) && !isClose(q5dx, 0) && isClose(q5dy, 0) && isClose(q5dz / q5dx, -1 / 2);
                 const dirParallelAlt = ![q5dx, q5dy, q5dz].some(Number.isNaN) && !isClose(q5dz, 0) && isClose(q5dy, 0) && isClose(q5dx / q5dz, -2);
 
-                if (pointCorrect) earned += 1; else wrong.push('Q5a (Hard): Point on the curve at t = pi/2 is incorrect.');
-                if (dirParallel || dirParallelAlt) earned += 1; else wrong.push('Q5b (Hard): Tangent direction is not parallel to <-2,0,1>.');
-                if (pointCorrect && (dirParallel || dirParallelAlt)) earned += 1; else wrong.push('Q5c (Hard): Full tangent-line data is incomplete.');
+                if (pointCorrect) earned += 1; else wrong.push('第5a题（难题）：t = π/2 处的曲线点错误。');
+                if (dirParallel || dirParallelAlt) earned += 1; else wrong.push('第5b题（难题）：切线方向不与 <-2,0,1> 平行。');
+                if (pointCorrect && (dirParallel || dirParallelAlt)) earned += 1; else wrong.push('第5c题（难题）：完整切线数据不完整。');
 
                 const q6 = document.getElementById('exam-q6').value;
-                if (q6 === 'a') earned += 1; else wrong.push('Q6: Arc length result is incorrect.');
+                if (q6 === 'a') earned += 1; else wrong.push('第6题：弧长结果错误。');
 
                 const q7 = document.getElementById('exam-q7').value;
-                if (q7 === 'a') earned += 1; else wrong.push('Q7: Implicit tangent plane is incorrect.');
+                if (q7 === 'a') earned += 1; else wrong.push('第7题：隐式切平面错误。');
 
                 const q8 = document.getElementById('exam-q8').value;
-                if (q8 === 'a') earned += 1; else wrong.push('Q8: Surface parametrization is incorrect.');
+                if (q8 === 'a') earned += 1; else wrong.push('第8题：曲面参数化错误。');
 
-                examScore.textContent = `Score: ${earned}/${total}`;
+                examScore.textContent = `得分：${earned}/${total}`;
                 examScore.className = earned === total ? 'feedback success' : 'feedback error';
                 examWrongList.innerHTML = '';
 
