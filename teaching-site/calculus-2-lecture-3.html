@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Lecture 3: Functions of Two Variables, Limits, Continuity, and Derivatives</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/lecture-notes.css">
+  <script defer src="../analytics.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const toc = document.getElementById('TOC');
+      const floatingToggle = document.querySelector('.outline-toggle');
+      const body = document.body;
+      let userPinned = false;
+
+      const updateFloatingToggle = function () {
+        if (!floatingToggle) return;
+        const collapsed = body.classList.contains('outline-hidden');
+        floatingToggle.textContent = collapsed ? 'Show Outline' : 'Hide Outline';
+        floatingToggle.setAttribute('aria-expanded', String(!collapsed));
+      };
+
+      const applyResponsiveState = function () {
+        if (userPinned) return;
+        const shouldCollapse = window.innerWidth <= 1100;
+        body.classList.toggle('outline-hidden', shouldCollapse);
+        updateFloatingToggle();
+      };
+
+      applyResponsiveState();
+      window.addEventListener('resize', applyResponsiveState);
+
+      floatingToggle?.addEventListener('click', function () {
+        userPinned = true;
+        body.classList.toggle('outline-hidden');
+        updateFloatingToggle();
+      });
+
+      if (toc) {
+        const topSections = toc.querySelectorAll(':scope > ul > li');
+        topSections.forEach(function (section) {
+          const nestedList = section.querySelector(':scope > ul');
+          if (!nestedList) return;
+
+          const anchor = section.querySelector(':scope > a');
+          const sectionToggle = document.createElement('button');
+          sectionToggle.type = 'button';
+          sectionToggle.className = 'toc-section-toggle';
+          sectionToggle.setAttribute('aria-expanded', 'false');
+          sectionToggle.textContent = '▸';
+
+          if (anchor) {
+            anchor.insertAdjacentElement('afterend', sectionToggle);
+          } else {
+            section.insertBefore(sectionToggle, nestedList);
+          }
+
+          nestedList.hidden = true;
+
+          sectionToggle.addEventListener('click', function (event) {
+            event.preventDefault();
+            const expanded = nestedList.hidden;
+            nestedList.hidden = !expanded;
+            sectionToggle.setAttribute('aria-expanded', String(expanded));
+            sectionToggle.textContent = expanded ? '▾' : '▸';
+          });
+        });
+      }
+    });
+  </script>
+</head>
+<body class="lecture-page">
+<div class="site-shell" style="padding-top: 1rem;">
+<nav class="navbar" aria-label="Primary">
+<a href="index.html" class="logo">GBU Calculus Hub</a>
+<ul class="nav-links">
+<li><a href="index.html">Home</a></li>
+<li><a href="calculus-2.html">Course</a></li>
+<li class="nav-dropdown">
+  <button class="nav-trigger" type="button" aria-haspopup="true">
+    Practice
+    <span class="caret" aria-hidden="true">▾</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="test-1.html">Practice 1 · Vectors Warm-up</a></li>
+    <li><a href="test-2.html">Practice 2 · Geometry in R3</a></li>
+    <li><a href="test-3.html">Practice 3 · Limits and Derivatives</a></li>
+  </ul>
+</li>
+<li class="nav-dropdown is-active">
+  <button class="nav-trigger" type="button" aria-haspopup="true">
+    Lecture Notes
+    <span class="caret" aria-hidden="true">▾</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="calculus-2-lecture-1.html">Lecture 1 · Vectors in Euclidean Space</a></li>
+    <li><a href="calculus-2-lecture-2.html">Lecture 2 · Analytic Geometry in R3</a></li>
+    <li><a href="calculus-2-lecture-3.html" aria-current="page">Lecture 3 · Functions, Limits, Continuity, Derivatives</a></li>
+  </ul>
+</li>
+<li><a href="calculus-2-lecture-3-zh.html" class="lang-switch">中文</a></li>
+</ul>
+</nav>
+<header id="title-block-header">
+<h1 class="title">Lecture 3: Functions of Two Variables, Limits, Continuity, and Derivatives</h1>
+</header>
+<div class="lecture-layout">
+<nav id="TOC" role="doc-toc">
+<a href="calculus-2.html" class="toc-syllabus">← Back to Course Syllabus</a>
+<ul>
+<li><a href="#lecture-scope-and-goals">Lecture Scope and Goals</a></li>
+<li><a href="#functions-in-higher-dimension-focus-on-mathbbr2tomathbbr">Functions in Higher Dimension: Focus on <span class="math inline">\(\mathbb{R}^2\to\mathbb{R}\)</span></a>
+<ul>
+<li><a href="#domain-and-graph">Domain and Graph</a></li>
+</ul></li>
+<li><a href="#distance-open-sets-and-neighborhoods-in-mathbbr2">Distance, Open Sets, and Neighborhoods in <span class="math inline">\(\mathbb{R}^2\)</span></a>
+<ul>
+<li><a href="#open-ball-in-mathbbr2">Open Ball in <span class="math inline">\(\mathbb{R}^2\)</span></a></li>
+<li><a href="#open-set">Open Set</a></li>
+</ul></li>
+<li><a href="#limits-of-functions-of-two-variables">Limits of Functions of Two Variables</a>
+<ul>
+<li><a href="#definition-varepsilondelta">Definition (<span class="math inline">\(\varepsilon\)</span>–<span class="math inline">\(\delta\)</span>)</a></li>
+<li><a href="#equivalent-sequential-criterion">Equivalent Sequential Criterion</a></li>
+<li><a href="#worked-examples">Worked Examples</a></li>
+</ul></li>
+<li><a href="#continuity-of-two-variable-functions">Continuity of Two-Variable Functions</a>
+<ul>
+<li><a href="#quick-review-continuity-in-one-variable">Quick Review: Continuity in One Variable</a></li>
+<li><a href="#comparison-with-two-variables">Comparison with Two Variables</a></li>
+<li><a href="#pointwise-definition">Pointwise Definition</a></li>
+<li><a href="#computation-rules">Computation Rules</a></li>
+<li><a href="#theorem-continuity-of-composition-different-combinations">Theorem: Continuity of Composition (Different Combinations)</a></li>
+<li><a href="#topological-open-set-view">Topological (Open Set) View</a></li>
+<li><a href="#examples-of-continuity">Examples of Continuity</a></li>
+</ul></li>
+<li><a href="#derivative-in-two-variables-best-linear-approximation">Derivative in Two Variables: Best Linear Approximation</a>
+<ul>
+<li><a href="#partial-derivatives-first-step-toward-derivatives">Partial Derivatives: First Step Toward Derivatives</a></li>
+<li><a href="#definition-of-differentiability-at-a-point">Definition of Differentiability at a Point</a></li>
+<li><a href="#coordinate-form">Coordinate Form</a></li>
+<li><a href="#tangent-plane-formula">Tangent Plane Formula</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#a-useful-sufficient-condition">A Useful Sufficient Condition</a></li>
+<li><a href="#higher-order-partial-derivatives-order-can-matter">Higher-Order Partial Derivatives (Order Can Matter)</a></li>
+<li><a href="#more-examples-how-to-judge-differentiability-quickly">More Examples: How to Judge Differentiability Quickly</a></li>
+</ul></li>
+<li><a href="#mini-workflow-for-students">Mini Workflow for Students</a></li>
+<li><a href="#practice-set-in-class-or-homework">Practice Set (In-Class or Homework)</a></li>
+</ul>
+</nav>
+<article class="lecture-main">
+<button class="outline-toggle" type="button" aria-expanded="true" aria-controls="TOC">Hide Outline</button>
+<nav style="margin-bottom: 1.5rem; font-size: 0.95rem;">
+    <a href="index.html">Home</a> / <a href="calculus-2.html">Course</a> / <span aria-current="page">Lecture 3</span>
+</nav>
+<div class="lecture-content">
+<h1 id="learning-outcomes">Learning Outcomes</h1>
+<p><strong>By the end of this lecture, you will be able to:</strong></p>
+<ul style="margin-bottom: 1.5rem;">
+<li>Determine whether a multivariable limit exists using path analysis and algebraic simplification</li>
+<li>Interpret continuity of <span class="math inline">\(f(x,y)\)</span> geometrically from graphs and level sets</li>
+<li>Compute first-order partial derivatives and explain their directional meaning along coordinate axes</li>
+<li>Construct linear approximations and tangent-plane formulas near a base point</li>
+<li>Distinguish partial differentiability from full differentiability</li>
+<li>Apply the multivariable chain rule to composed mappings</li>
+</ul>
+
+<h1 id="lecture-scope-and-goals-5-min">Lecture Scope and Goals (5 min)</h1>
+<p>This 140-minute lecture moves from geometry to calculus: after identifying surfaces and parametrizations in Lecture 2, we now study <strong>local change</strong>. The key question is: how does a function of several variables behave near a point?</p>
+<ul>
+<li>Understand limits in two or three variables,</li>
+<li>build partial derivatives as local rates of change,</li>
+<li>preview tangent planes through linearization,</li>
+<li>prepare for gradient, directional derivative, and optimization in the next lecture.</li>
+</ul>
+
+<h1 id="lecture-scope-and-goals">Lecture Scope and Goals</h1>
+<p>In this lecture, we focus on functions of two variables and the transition from one-variable calculus ideas to higher dimensions. The main goals are:</p>
+<ul>
+<li><p>understand what a function <span class="math inline">\(f:\mathbb{R}^2\to\mathbb{R}\)</span> means geometrically and analytically,</p></li>
+<li><p>define and compute limits of two-variable functions,</p></li>
+<li><p>study continuity from computational and topological viewpoints,</p></li>
+<li><p>introduce the derivative as a best linear approximation in two variables,</p></li>
+<li><p>identify common pitfalls when handling multivariable limits.</p></li>
+</ul>
+<div class="tcolorbox">
+<p>In one variable, approaching a point means moving from left or right. In two variables, there are infinitely many directions and curves of approach. This is why limits, continuity, and derivatives require more careful definitions.</p>
+</div>
+<h1 id="functions-in-higher-dimension-focus-on-mathbbr2tomathbbr">Functions in Higher Dimension: Focus on <span class="math inline">\(\mathbb{R}^2\to\mathbb{R}\)</span></h1>
+<p>A function of two variables is a rule <span class="math display">\[f:D\subseteq\mathbb{R}^2\to\mathbb{R},\qquad (x,y)\mapsto f(x,y).\]</span></p>
+<h2 id="domain-and-graph">Domain and Graph</h2>
+<ul>
+<li><p>The <strong>domain</strong> <span class="math inline">\(D\)</span> is the set of input points <span class="math inline">\((x,y)\)</span> where <span class="math inline">\(f\)</span> is defined.</p></li>
+<li><p>The <strong>graph</strong> is the surface in <span class="math inline">\(\mathbb{R}^3\)</span>: <span class="math display">\[z=f(x,y).\]</span></p></li>
+<li><p><strong>Level curves</strong> are planar traces: <span class="math display">\[f(x,y)=c.\]</span></p></li>
+</ul>
+<h4 id="example-1-polynomial.">Example 1 (polynomial).</h4>
+<p><span class="math display">\[f(x,y)=x^2+xy+y^2.\]</span> Domain: all of <span class="math inline">\(\mathbb{R}^2\)</span>. Level curves <span class="math inline">\(x^2+xy+y^2=c\)</span> are ellipses (for <span class="math inline">\(c&gt;0\)</span>).</p>
+<h4 id="example-2-restricted-domain.">Example 2 (restricted domain).</h4>
+<p><span class="math display">\[f(x,y)=\sqrt{1-x^2-y^2}.\]</span> Domain: disk <span class="math inline">\(x^2+y^2\le 1\)</span>. The graph is the upper hemisphere of radius <span class="math inline">\(1\)</span>.</p>
+<h4 id="example-3-quotient.">Example 3 (quotient).</h4>
+<p><span class="math display">\[f(x,y)=\frac{x^2-y^2}{x^2+y^2}.\]</span> Domain: <span class="math inline">\(\mathbb{R}^2\setminus\{(0,0)\}\)</span>.</p>
+<h1 id="distance-open-sets-and-neighborhoods-in-mathbbr2">Distance, Open Sets, and Neighborhoods in <span class="math inline">\(\mathbb{R}^2\)</span></h1>
+<p>For points <span class="math inline">\(p=(x_1,y_1)\)</span> and <span class="math inline">\(q=(x_2,y_2)\)</span> in <span class="math inline">\(\mathbb{R}^2\)</span>, define distance by <span class="math display">\[d(p,q)=\sqrt{(x_1-x_2)^2+(y_1-y_2)^2}=\left\lVert p-q \right\rVert.\]</span></p>
+<h2 id="open-ball-in-mathbbr2">Open Ball in <span class="math inline">\(\mathbb{R}^2\)</span></h2>
+<p>For center <span class="math inline">\(a\in\mathbb{R}^2\)</span> and radius <span class="math inline">\(r&gt;0\)</span>, <span class="math display">\[B_r(a)=\{p\in\mathbb{R}^2:\left\lVert p-a \right\rVert&lt;r\}.\]</span></p>
+<h2 id="open-set">Open Set</h2>
+<p>A set <span class="math inline">\(U\subseteq\mathbb{R}^2\)</span> is <strong>open</strong> if for every <span class="math inline">\(a\in U\)</span>, there exists <span class="math inline">\(r&gt;0\)</span> such that <span class="math display">\[B_r(a)\subseteq U.\]</span> Intuition: points in an open set are interior points; no boundary point is included.</p>
+<h4 id="examples.">Examples.</h4>
+<ul>
+<li><p>Open disk: <span class="math inline">\(x^2+y^2&lt;1\)</span> is open.</p></li>
+<li><p>Closed disk: <span class="math inline">\(x^2+y^2\le 1\)</span> is not open.</p></li>
+<li><p>Upper half-plane: <span class="math inline">\(\{(x,y): y&gt;0\}\)</span> is open.</p></li>
+</ul>
+<h1 id="limits-of-functions-of-two-variables">Limits of Functions of Two Variables</h1>
+<p>Let <span class="math inline">\(f:D\to\mathbb{R}\)</span> and let <span class="math inline">\(a=(a_1,a_2)\)</span> be a limit point of <span class="math inline">\(D\)</span>.</p>
+<h2 id="definition-varepsilondelta">Definition (<span class="math inline">\(\varepsilon\)</span>–<span class="math inline">\(\delta\)</span>)</h2>
+<p>We say <span class="math display">\[\lim_{(x,y)\to(a_1,a_2)} f(x,y)=L\]</span> if for every <span class="math inline">\(\varepsilon&gt;0\)</span>, there exists <span class="math inline">\(\delta&gt;0\)</span> such that whenever <span class="math display">\[0&lt;\left\lVert (x,y)-(a_1,a_2) \right\rVert&lt;\delta,\]</span> we have <span class="math display">\[\left\lvert f(x,y)-L \right\rvert&lt;\varepsilon.\]</span></p>
+<h2 id="equivalent-sequential-criterion">Equivalent Sequential Criterion</h2>
+<p>The limit equals <span class="math inline">\(L\)</span> if and only if for every sequence <span class="math inline">\((x_n,y_n)\to(a_1,a_2)\)</span> with <span class="math inline">\((x_n,y_n)\neq(a_1,a_2)\)</span>, <span class="math display">\[f(x_n,y_n)\to L.\]</span> This criterion is powerful for proving limits <em>do not</em> exist.</p>
+<h2 id="worked-examples">Worked Examples</h2>
+<h4 id="example-4-limit-exists.">Example 4 (limit exists).</h4>
+<p><span class="math display">\[\lim_{(x,y)\to(0,0)}(x^2+y^2)=0.\]</span> Reason: <span class="math inline">\(\left\lvert x^2+y^2 \right\rvert=x^2+y^2=\left\lVert (x,y) \right\rVert^2\to0\)</span>.</p>
+<h4 id="example-5-path-dependence-limit-does-not-exist.">Example 5 (path dependence: limit does not exist).</h4>
+<p><span class="math display">\[f(x,y)=\frac{x^2-y^2}{x^2+y^2},\qquad (x,y)\neq(0,0).\]</span> Along <span class="math inline">\(y=0\)</span>, <span class="math inline">\(f(x,0)=1\)</span>. Along <span class="math inline">\(x=0\)</span>, <span class="math inline">\(f(0,y)=-1\)</span>. Different path-limits imply no limit at <span class="math inline">\((0,0)\)</span>.</p>
+<h4 id="example-6-a-classical-positive-example.">Example 6 (a classical positive example).</h4>
+<p><span class="math display">\[f(x,y)=\frac{x^2y}{x^2+y^2},\qquad (x,y)\neq(0,0).\]</span> Claim: <span class="math display">\[\lim_{(x,y)\to(0,0)} f(x,y)=0.\]</span> Estimate: <span class="math display">\[\left\lvert f(x,y) \right\rvert=\frac{x^2\left\lvert y \right\rvert}{x^2+y^2}\le \left\lvert y \right\rvert\le \sqrt{x^2+y^2}=\left\lVert (x,y) \right\rVert\to 0.\]</span></p>
+<h4 id="example-7-testing-many-lines-is-not-enough.">Example 7 (testing many lines is not enough).</h4>
+<p><span class="math display">\[f(x,y)=\frac{x^2y}{x^4+y^2},\qquad (x,y)\neq(0,0).\]</span> For line <span class="math inline">\(y=mx\)</span>, <span class="math display">\[f(x,mx)=\frac{mx^3}{x^4+m^2x^2}=\frac{mx}{x^2+m^2}\to0.\]</span> But for curve <span class="math inline">\(y=x^2\)</span>, <span class="math display">\[f(x,x^2)=\frac{x^4}{x^4+x^4}=\frac12.\]</span> So the limit does not exist.</p>
+<h4 id="example-8-full-limit-exists-but-one-iterated-limit-does-not.">Example 8 (full limit exists, but one iterated limit does not).</h4>
+<p>Define <span class="math display">\[f(x,y)=
+\begin{cases}
+x\sin\!\left(\dfrac1y\right), &amp; y\neq 0,\\
+0, &amp; y=0.
+\end{cases}\]</span> At <span class="math inline">\((0,0)\)</span>, <span class="math display">\[\left\lvert f(x,y) \right\rvert\le \left\lvert x \right\rvert\to 0,\]</span> so <span class="math display">\[\lim_{(x,y)\to(0,0)} f(x,y)=0.\]</span> However, <span class="math display">\[\lim_{x\to 0}\Big(\lim_{y\to 0} f(x,y)\Big)\]</span> does not exist, because for each fixed <span class="math inline">\(x\neq 0\)</span>, the inner limit <span class="math display">\[\lim_{y\to 0}x\sin\!\left(\dfrac1y\right)\]</span> does not exist.</p>
+<h4 id="example-9-full-limit-exists-both-iterated-limits-fail.">Example 9 (full limit exists, both iterated limits fail).</h4>
+<p>Define <span class="math display">\[f(x,y)=
+\begin{cases}
+x\sin\!\left(\dfrac1y\right)+y\sin\!\left(\dfrac1x\right), &amp; xy\neq 0,\\
+0, &amp; xy=0.
+\end{cases}\]</span> Then <span class="math display">\[\left\lvert f(x,y) \right\rvert\le \left\lvert x \right\rvert+\left\lvert y \right\rvert\to 0,\]</span> so <span class="math display">\[\lim_{(x,y)\to(0,0)} f(x,y)=0.\]</span> But for fixed <span class="math inline">\(x\neq 0\)</span>, the term <span class="math inline">\(x\sin(1/y)\)</span> makes <span class="math inline">\(\lim_{y\to0}f(x,y)\)</span> fail; similarly for fixed <span class="math inline">\(y\neq0\)</span>, the term <span class="math inline">\(y\sin(1/x)\)</span> makes <span class="math inline">\(\lim_{x\to0}f(x,y)\)</span> fail. Therefore neither iterated limit exists.</p>
+<figure>
+<img src="assets/lecture-3/example9_iterated_limits_surface.png" style="width:84.0%" alt="3D visualization for Example 9: f(x,y)=x\sin(1/y)+y\sin(1/x) (with f=0 on the axes). The red lines mark x=0 and y=0." /><figcaption aria-hidden="true">3D visualization for Example 9: <span class="math inline">\(f(x,y)=x\sin(1/y)+y\sin(1/x)\)</span> (with <span class="math inline">\(f=0\)</span> on the axes). The red lines mark <span class="math inline">\(x=0\)</span> and <span class="math inline">\(y=0\)</span>.</figcaption>
+</figure>
+<h4 id="example-10-jump-discontinuity-along-a-line.">Example 10 (jump discontinuity along a line).</h4>
+<p>Consider <span class="math display">\[g(x,y)=
+\begin{cases}
+x+y, &amp; y&gt;x,\\
+x+y+2, &amp; y&lt;x,\\
+x+y+1, &amp; y=x.
+\end{cases}\]</span> This is a two-variable function with a jump across the oblique line <span class="math inline">\(y=x\)</span>. At any point <span class="math inline">\((a,a)\)</span> on that line, <span class="math display">\[\lim_{(x,y)\to(a,a),\,y&gt;x} g(x,y)=2a,
+\qquad
+\lim_{(x,y)\to(a,a),\,y&lt;x} g(x,y)=2a+2,\]</span> so the limit does not exist on that line.</p>
+<figure>
+<img src="assets/lecture-3/jump_discontinuity_oblique_line.png" style="width:97.0%" alt="Nontrivial jump-discontinuity example. Left: two offset planes over regions y&gt;x and y&lt;x. Right: top view with the red jump line y=x." /><figcaption aria-hidden="true">Nontrivial jump-discontinuity example. Left: two offset planes over regions <span class="math inline">\(y&gt;x\)</span> and <span class="math inline">\(y&lt;x\)</span>. Right: top view with the red jump line <span class="math inline">\(y=x\)</span>.</figcaption>
+</figure>
+<figure>
+<img src="assets/lecture-3/example10_jump_level_curves.png" style="width:82.0%" alt="Density (heatmap) and level curves for Example 10. On each side of y=x, level sets are lines; crossing y=x causes a jump by 2, so matching level curves are offset across the red jump line." /><figcaption aria-hidden="true">Density (heatmap) and level curves for Example 10. On each side of <span class="math inline">\(y=x\)</span>, level sets are lines; crossing <span class="math inline">\(y=x\)</span> causes a jump by <span class="math inline">\(2\)</span>, so matching level curves are offset across the red jump line.</figcaption>
+</figure>
+<div class="tcolorbox">
+<p>Checking only paths of the form <span class="math inline">\(y=mx\)</span> can miss nonlinear approaches. If all lines give the same value, the limit still may fail to exist.</p>
+</div>
+<div class="tcolorbox">
+<p>Do not substitute <span class="math inline">\((0,0)\)</span> directly into a formula with denominator <span class="math inline">\(0\)</span> and conclude anything about the limit. Undefined value at the point and existence of limit are different questions.</p>
+</div>
+<h1 id="continuity-of-two-variable-functions">Continuity of Two-Variable Functions</h1>
+<h2 id="quick-review-continuity-in-one-variable">Quick Review: Continuity in One Variable</h2>
+<p>Before moving fully to two variables, recall the one-variable picture. Let <span class="math inline">\(h:I\subseteq\mathbb{R}\to\mathbb{R}\)</span>.</p>
+<ul>
+<li><p><strong>Continuity at <span class="math inline">\(x_0\)</span>:</strong> <span class="math inline">\(\lim_{x\to x_0}h(x)=h(x_0)\)</span>.</p></li>
+<li><p><strong>Intermediate Value Theorem (IVT):</strong> if <span class="math inline">\(h\)</span> is continuous on <span class="math inline">\([a,b]\)</span>, then every value between <span class="math inline">\(h(a)\)</span> and <span class="math inline">\(h(b)\)</span> is attained.</p></li>
+<li><p><strong>Extreme Value Theorem (max/min):</strong> if <span class="math inline">\(h\)</span> is continuous on <span class="math inline">\([a,b]\)</span>, then <span class="math inline">\(h\)</span> attains both a maximum and a minimum.</p></li>
+<li><p><strong>Boundedness theorem:</strong> if <span class="math inline">\(h\)</span> is continuous on <span class="math inline">\([a,b]\)</span>, then <span class="math inline">\(h\)</span> is bounded on <span class="math inline">\([a,b]\)</span>.</p></li>
+</ul>
+<p>The key reason these hold is that <span class="math inline">\([a,b]\)</span> is <strong>compact</strong> (closed and bounded in <span class="math inline">\(\mathbb{R}\)</span>), and also <strong>connected</strong>.</p>
+<h2 id="comparison-with-two-variables">Comparison with Two Variables</h2>
+<p>Now let <span class="math inline">\(f:D\subseteq\mathbb{R}^2\to\mathbb{R}\)</span>. The pointwise definition is analogous. In calculus, for global conclusions (boundedness and max/min), we mainly work on <strong>compact domains</strong>.</p>
+<h4 id="a-intermediate-value-behavior.">(A) Intermediate-value behavior.</h4>
+<p>In one variable, IVT is phrased on an interval <span class="math inline">\([a,b]\)</span>. In two variables, a practical classroom version is:</p>
+<blockquote>
+<p>If <span class="math inline">\(f\)</span> is continuous on a region and you move continuously from point <span class="math inline">\(P\)</span> to point <span class="math inline">\(Q\)</span> inside that region, then <span class="math inline">\(f\)</span> takes every value between <span class="math inline">\(f(P)\)</span> and <span class="math inline">\(f(Q)\)</span> along that motion.</p>
+</blockquote>
+<p>So we still keep the same intuition: continuous change cannot skip intermediate values.</p>
+<h4 id="example-ivt-failure-on-a-disconnected-domain.">Example (IVT failure on a disconnected domain).</h4>
+<p>Let <span class="math display">\[D=\{(x,y)\in\mathbb{R}^2:x&lt;0\}\cup\{(x,y)\in\mathbb{R}^2:x&gt;0\}\]</span> and define <span class="math display">\[f(x,y)=
+\begin{cases}
+-1, &amp; x&lt;0,\\
+1, &amp; x&gt;0.
+\end{cases}\]</span> The function is continuous on <span class="math inline">\(D\)</span>. Choose <span class="math inline">\(P=(-1,0)\)</span> and <span class="math inline">\(Q=(1,0)\)</span>. Then <span class="math display">\[f(P)=-1,\qquad f(Q)=1.\]</span> But there is no point in <span class="math inline">\(D\)</span> where <span class="math inline">\(f=0\)</span>, so an intermediate value is missing. This shows IVT can fail when the domain is not connected.</p>
+<h4 id="b-maxmin-and-boundedness.">(B) Max/min and boundedness.</h4>
+<p>For <span class="math inline">\(\mathbb{R}^2\)</span>, the direct analogue of <span class="math inline">\([a,b]\)</span> is a <strong>compact set</strong> <span class="math inline">\(K\subseteq\mathbb{R}^2\)</span> (closed and bounded), and this is the main domain type we care about in calculus applications.</p>
+<blockquote>
+<p>If <span class="math inline">\(f:K\to\mathbb{R}\)</span> is continuous and <span class="math inline">\(K\)</span> is compact, then <span class="math inline">\(f\)</span> is bounded on <span class="math inline">\(K\)</span> and attains both global maximum and global minimum on <span class="math inline">\(K\)</span>.</p>
+</blockquote>
+<h4 id="c-why-compactness-matters-pitfall.">(C) Why compactness matters (pitfall).</h4>
+<p>If the domain is not compact, max/min can fail even for continuous functions. <span class="math display">\[f(x,y)=x^2+y^2\quad\text{on }\mathbb{R}^2\]</span> is continuous and has a minimum <span class="math inline">\(0\)</span> at <span class="math inline">\((0,0)\)</span>, but no maximum.</p>
+<p><span class="math display">\[f(x,y)=x\quad\text{on }\{(x,y):x^2+y^2&lt;1\}\]</span> is bounded by <span class="math inline">\(-1&lt;f&lt;1\)</span>, but has no attained maximum/minimum because boundary points are excluded.</p>
+<h2 id="pointwise-definition">Pointwise Definition</h2>
+<p>A function <span class="math inline">\(f:D\to\mathbb{R}\)</span> is continuous at <span class="math inline">\(a\in D\)</span> if <span class="math display">\[\lim_{(x,y)\to a}f(x,y)=f(a).\]</span> So continuity means: <em>the limit exists and equals the function value</em>.</p>
+<h2 id="computation-rules">Computation Rules</h2>
+<p>If <span class="math inline">\(f,g\)</span> are continuous at <span class="math inline">\(a\)</span>, then so are:</p>
+<ul>
+<li><p><span class="math inline">\(f+g\)</span>, <span class="math inline">\(fg\)</span>, and <span class="math inline">\(cf\)</span>,</p></li>
+<li><p><span class="math inline">\(\dfrac{f}{g}\)</span> when <span class="math inline">\(g(a)\neq0\)</span>,</p></li>
+<li><p>compositions <span class="math inline">\(\phi\circ f\)</span> when <span class="math inline">\(\phi\)</span> is one-variable continuous.</p></li>
+</ul>
+<p>Hence polynomials are continuous everywhere; rational functions are continuous on domains where denominator is nonzero.</p>
+<h2 id="theorem-continuity-of-composition-different-combinations">Theorem: Continuity of Composition (Different Combinations)</h2>
+<div class="tcolorbox">
+<p>If <span class="math inline">\(F\)</span> is continuous at <span class="math inline">\(a\)</span> and <span class="math inline">\(G\)</span> is continuous at <span class="math inline">\(F(a)\)</span>, then <span class="math inline">\(G\circ F\)</span> is continuous at <span class="math inline">\(a\)</span>.</p>
+</div>
+<div class="tcolorbox">
+<p>Let <span class="math inline">\(F:X\to Y\)</span> and <span class="math inline">\(G:Y\to Z\)</span> be continuous. To prove <span class="math inline">\(G\circ F:X\to Z\)</span> is continuous, take any open set <span class="math inline">\(U\subseteq Z\)</span>. Since <span class="math inline">\(G\)</span> is continuous, <span class="math inline">\(G^{-1}(U)\)</span> is open in <span class="math inline">\(Y\)</span>. Since <span class="math inline">\(F\)</span> is continuous, <span class="math inline">\(F^{-1}(G^{-1}(U))\)</span> is open in <span class="math inline">\(X\)</span>. But <span class="math display">\[(G\circ F)^{-1}(U)=F^{-1}(G^{-1}(U)).\]</span> So the preimage of every open set in <span class="math inline">\(Z\)</span> under <span class="math inline">\(G\circ F\)</span> is open in <span class="math inline">\(X\)</span>. Therefore <span class="math inline">\(G\circ F\)</span> is continuous.</p>
+</div>
+<p>This one statement includes the main calculus combinations:</p>
+<ul>
+<li><p><strong>1D <span class="math inline">\(\to\)</span> 1D <span class="math inline">\(\to\)</span> 1D:</strong> <span class="math display">\[F:\mathbb{R}\to\mathbb{R},\quad G:\mathbb{R}\to\mathbb{R}\]</span> continuous <span class="math inline">\(\Rightarrow G(F(x))\)</span> continuous.</p></li>
+<li><p><strong>2D <span class="math inline">\(\to\)</span> 1D <span class="math inline">\(\to\)</span> 1D:</strong> <span class="math display">\[F:\mathbb{R}^2\to\mathbb{R},\quad G:\mathbb{R}\to\mathbb{R}\]</span> continuous <span class="math inline">\(\Rightarrow G(F(x,y))\)</span> continuous.</p></li>
+<li><p><strong>1D <span class="math inline">\(\to\)</span> 2D <span class="math inline">\(\to\)</span> 1D:</strong> <span class="math display">\[F:\mathbb{R}\to\mathbb{R}^2,\quad F(t)=(u(t),v(t)),\quad G:\mathbb{R}^2\to\mathbb{R}\]</span> continuous <span class="math inline">\(\Rightarrow G(u(t),v(t))\)</span> continuous in <span class="math inline">\(t\)</span>.</p></li>
+<li><p><strong>2D <span class="math inline">\(\to\)</span> 2D <span class="math inline">\(\to\)</span> 1D:</strong> <span class="math display">\[F:\mathbb{R}^2\to\mathbb{R}^2,\quad F(x,y)=(u(x,y),v(x,y)),\quad G:\mathbb{R}^2\to\mathbb{R}\]</span> continuous <span class="math inline">\(\Rightarrow G(u(x,y),v(x,y))\)</span> continuous.</p></li>
+</ul>
+<h4 id="quick-examples.">Quick examples.</h4>
+<ul>
+<li><p><span class="math inline">\(F(x,y)=x^2+y^2\)</span>, <span class="math inline">\(G(s)=e^s\)</span> <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(e^{x^2+y^2}\)</span> is continuous.</p></li>
+<li><p><span class="math inline">\(F(t)=(\cos t,\sin t)\)</span>, <span class="math inline">\(G(x,y)=xy\)</span> <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(G(F(t))=\cos t\sin t\)</span> is continuous.</p></li>
+<li><p><span class="math inline">\(F(x,y)=(x+y,xy)\)</span>, <span class="math inline">\(G(u,v)=\dfrac{u}{1+v^2}\)</span> <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(\dfrac{x+y}{1+x^2y^2}\)</span> is continuous.</p></li>
+</ul>
+<h2 id="topological-open-set-view">Topological (Open Set) View</h2>
+<p>A function <span class="math inline">\(f:D\to\mathbb{R}\)</span> is continuous if and only if for every open set <span class="math inline">\(V\subseteq\mathbb{R}\)</span>, the preimage <span class="math display">\[f^{-1}(V)=\{(x,y)\in D: f(x,y)\in V\}\]</span> is open in <span class="math inline">\(D\)</span> (with the subspace topology).</p>
+<h4 id="why-this-matters.">Why this matters.</h4>
+<p>This abstract definition works in all metric spaces and is independent of coordinates.</p>
+<h2 id="examples-of-continuity">Examples of Continuity</h2>
+<h4 id="example-11.">Example 11.</h4>
+<p><span class="math display">\[f(x,y)=e^{x^2+y^2}\sin(xy)\]</span> is continuous on <span class="math inline">\(\mathbb{R}^2\)</span> because it is built from continuous operations.</p>
+<h4 id="example-12-piecewise.">Example 12 (piecewise).</h4>
+<p>Define <span class="math display">\[f(x,y)=
+\begin{cases}
+\dfrac{x^2y}{x^2+y^2}, &amp; (x,y)\neq(0,0),\\
+0, &amp; (x,y)=(0,0).
+\end{cases}\]</span> By Example 6, <span class="math inline">\(\lim_{(x,y)\to(0,0)}f(x,y)=0=f(0,0)\)</span>, so <span class="math inline">\(f\)</span> is continuous at the origin.</p>
+<h1 id="derivative-in-two-variables-best-linear-approximation">Derivative in Two Variables: Best Linear Approximation</h1>
+<h2 id="partial-derivatives-first-step-toward-derivatives">Partial Derivatives: First Step Toward Derivatives</h2>
+<p>For a function <span class="math inline">\(f(x,y)\)</span>, we can vary one variable at a time.</p>
+<h4 id="definition-at-ab.">Definition at <span class="math inline">\((a,b)\)</span>.</h4>
+<p><span class="math display">\[f_x(a,b)=\lim_{h\to0}\frac{f(a+h,b)-f(a,b)}{h},
+\qquad
+f_y(a,b)=\lim_{k\to0}\frac{f(a,b+k)-f(a,b)}{k},\]</span> when these limits exist.</p>
+<ul>
+<li><p><span class="math inline">\(f_x\)</span> is the rate of change in the <span class="math inline">\(x\)</span>-direction (hold <span class="math inline">\(y=b\)</span> fixed).</p></li>
+<li><p><span class="math inline">\(f_y\)</span> is the rate of change in the <span class="math inline">\(y\)</span>-direction (hold <span class="math inline">\(x=a\)</span> fixed).</p></li>
+</ul>
+<p>Geometrically, <span class="math inline">\(f_x(a,b)\)</span> and <span class="math inline">\(f_y(a,b)\)</span> are slopes of trace curves on planes <span class="math inline">\(y=b\)</span> and <span class="math inline">\(x=a\)</span>.</p>
+<h4 id="geometry-picture-simple-example.">Geometry picture (simple example).</h4>
+<p>Take <span class="math display">\[f(x,y)=x^2+y^2,\]</span> and the point <span class="math inline">\((1,1,2)\)</span> on the surface <span class="math inline">\(z=f(x,y)\)</span>.</p>
+<ul>
+<li><p>Fix <span class="math inline">\(y=1\)</span>: trace curve is <span class="math inline">\(z=x^2+1\)</span>, so slope at <span class="math inline">\(x=1\)</span> is <span class="math display">\[f_x(1,1)=2.\]</span></p></li>
+<li><p>Fix <span class="math inline">\(x=1\)</span>: trace curve is <span class="math inline">\(z=1+y^2\)</span>, so slope at <span class="math inline">\(y=1\)</span> is <span class="math display">\[f_y(1,1)=2.\]</span></p></li>
+</ul>
+<p>So each partial derivative is the tangent-line slope of a different planar slice through the same surface point.</p>
+<figure>
+<img src="assets/lecture-3/partial_derivative_geometry_example.png" style="width:90.0%" alt="Geometric meaning of partial derivatives for z=x^2+y^2 at (1,1,2). Solid red/green curves are traces on y=1 and x=1; dashed lines are tangent lines giving slopes f_x(1,1) and f_y(1,1)." /><figcaption aria-hidden="true">Geometric meaning of partial derivatives for <span class="math inline">\(z=x^2+y^2\)</span> at <span class="math inline">\((1,1,2)\)</span>. Solid red/green curves are traces on <span class="math inline">\(y=1\)</span> and <span class="math inline">\(x=1\)</span>; dashed lines are tangent lines giving slopes <span class="math inline">\(f_x(1,1)\)</span> and <span class="math inline">\(f_y(1,1)\)</span>.</figcaption>
+</figure>
+<h4 id="notation.">Notation.</h4>
+<p><span class="math display">\[f_x=\frac{\partial f}{\partial x},\qquad f_y=\frac{\partial f}{\partial y}.\]</span> If <span class="math inline">\(f\)</span> is differentiable, the total differential is <span class="math display">\[\,\mathrm{d}f = f_x\,\,\mathrm{d}x + f_y\,\,\mathrm{d}y.\]</span></p>
+<h4 id="examples.-1">Examples.</h4>
+<ul>
+<li><p>If <span class="math inline">\(f(x,y)=x^2y+\sin(xy)\)</span>, then <span class="math display">\[f_x=2xy+y\cos(xy),\qquad f_y=x^2+x\cos(xy).\]</span></p></li>
+<li><p>If <span class="math inline">\(f(x,y)=|x|+y^2\)</span>, then at <span class="math inline">\((0,0)\)</span>: <span class="math display">\[f_y(0,0)=0\quad\text{but}\quad f_x(0,0)\text{ does not exist}.\]</span> So even existence of one partial derivative does not imply existence of the other.</p></li>
+</ul>
+<h2 id="definition-of-differentiability-at-a-point">Definition of Differentiability at a Point</h2>
+<p>Let <span class="math inline">\(f:\mathbb{R}^2\to\mathbb{R}\)</span> and <span class="math inline">\(a=(a_1,a_2)\)</span>. We say <span class="math inline">\(f\)</span> is differentiable at <span class="math inline">\(a\)</span> if there exists a linear map <span class="math display">\[L:\mathbb{R}^2\to\mathbb{R}\]</span> such that <span class="math display">\[f(a+h)-f(a)-L(h)=o(\left\lVert h \right\rVert)\quad\text{as }h\to0.\]</span> Equivalently, <span class="math display">\[\lim_{h\to0}\frac{f(a+h)-f(a)-L(h)}{\left\lVert h \right\rVert}=0.\]</span> The map <span class="math inline">\(L\)</span> is the derivative <span class="math inline">\(Df(a)\)</span>.</p>
+<h2 id="coordinate-form">Coordinate Form</h2>
+<p>In two variables, if differentiable, <span class="math display">\[Df(a)(h_1,h_2)=f_x(a)h_1+f_y(a)h_2,\]</span> so <span class="math display">\[f(a+h)\approx f(a)+f_x(a)h_1+f_y(a)h_2.\]</span> The gradient is <span class="math display">\[\nabla f(a)=(f_x(a),f_y(a)),\]</span> and <span class="math display">\[Df(a)(h)=\nabla f(a)\cdot h.\]</span></p>
+<h2 id="tangent-plane-formula">Tangent Plane Formula</h2>
+<p>For <span class="math inline">\(z=f(x,y)\)</span> at <span class="math inline">\((a,b,f(a,b))\)</span>, the tangent plane is <span class="math display">\[z=f(a,b)+f_x(a,b)(x-a)+f_y(a,b)(y-b).\]</span></p>
+<div class="tcolorbox">
+<p>Find the tangent plane of <span class="math display">\[z=x^2+y^2\]</span> at the point <span class="math inline">\((1,2,5)\)</span>.</p>
+</div>
+<h2 id="examples">Examples</h2>
+<h4 id="example-13-differentiable-polynomial.">Example 13 (differentiable polynomial).</h4>
+<p><span class="math display">\[f(x,y)=x^2+3xy-y^2.\]</span> At <span class="math inline">\((1,2)\)</span>, <span class="math display">\[f_x=2x+3y,\quad f_y=3x-2y,\]</span> so <span class="math display">\[\nabla f(1,2)=(8,-1),\quad Df(1,2)(h_1,h_2)=8h_1-h_2.\]</span> Local linearization: <span class="math display">\[f(1+h_1,2+h_2)\approx f(1,2)+8h_1-h_2.\]</span></p>
+<h4 id="example-14-partials-exist-but-not-differentiable-at-origin.">Example 14 (partials exist but not differentiable at origin).</h4>
+<p>Define <span class="math display">\[f(x,y)=
+\begin{cases}
+\dfrac{xy}{\sqrt{x^2+y^2}}, &amp; (x,y)\neq(0,0),\\
+0, &amp; (x,y)=(0,0).
+\end{cases}\]</span> Both <span class="math inline">\(f_x(0,0)\)</span> and <span class="math inline">\(f_y(0,0)\)</span> exist and equal <span class="math inline">\(0\)</span>, but <span class="math display">\[f(t,t)=\frac{t^2}{\sqrt{2t^2}}=\frac{|t|}{\sqrt2},\]</span> which is not <span class="math inline">\(o(\sqrt{t^2+t^2})=o(|t|)\)</span>. Hence <span class="math inline">\(f\)</span> is not differentiable at <span class="math inline">\((0,0)\)</span>.</p>
+<div class="tcolorbox">
+<p>Existence of partial derivatives at a point does <em>not</em> guarantee differentiability at that point.</p>
+</div>
+<h2 id="a-useful-sufficient-condition">A Useful Sufficient Condition</h2>
+<p>If <span class="math inline">\(f_x\)</span> and <span class="math inline">\(f_y\)</span> exist in a neighborhood of <span class="math inline">\(a\)</span> and are continuous at <span class="math inline">\(a\)</span>, then <span class="math inline">\(f\)</span> is differentiable at <span class="math inline">\(a\)</span>.</p>
+<h2 id="higher-order-partial-derivatives-order-can-matter">Higher-Order Partial Derivatives (Order Can Matter)</h2>
+<p>Once first partial derivatives exist, we can differentiate again.</p>
+<h4 id="second-order-partials.">Second-order partials.</h4>
+<p><span class="math display">\[f_{xx}=\frac{\partial}{\partial x}(f_x),\qquad
+f_{yy}=\frac{\partial}{\partial y}(f_y),\qquad
+f_{xy}=\frac{\partial}{\partial y}(f_x),\qquad
+f_{yx}=\frac{\partial}{\partial x}(f_y).\]</span> Here <span class="math inline">\(f_{xy}\)</span> and <span class="math inline">\(f_{yx}\)</span> are <strong>mixed partial derivatives</strong>.</p>
+<div class="tcolorbox">
+<p>If <span class="math inline">\(f_{xy}\)</span> and <span class="math inline">\(f_{yx}\)</span> are continuous in a neighborhood of a point, then <span class="math display">\[f_{xy}=f_{yx}\]</span> at that point.</p>
+</div>
+<p>So under sufficient smoothness, the order of differentiation does <em>not</em> matter. But without those conditions, the order can matter.</p>
+<h4 id="example-where-order-matters-at-one-point.">Example where order matters at one point.</h4>
+<p>Define <span class="math display">\[f(x,y)=
+\begin{cases}
+\dfrac{xy(x^2-y^2)}{x^2+y^2}, &amp; (x,y)\neq(0,0),\\
+0, &amp; (x,y)=(0,0).
+\end{cases}\]</span> At <span class="math inline">\((0,0)\)</span>, one can compute <span class="math display">\[f_{xy}(0,0)=-1,\qquad f_{yx}(0,0)=1.\]</span> Hence <span class="math display">\[f_{xy}(0,0)\neq f_{yx}(0,0),\]</span> so the differentiation order matters here.</p>
+<h2 id="more-examples-how-to-judge-differentiability-quickly">More Examples: How to Judge Differentiability Quickly</h2>
+<h4 id="example-a-smooth-polynomial-differentiable-everywhere.">Example A (smooth polynomial: differentiable everywhere).</h4>
+<p><span class="math display">\[f(x,y)=x^3+2xy-y^2.\]</span> All partial derivatives are polynomials, hence continuous everywhere. Therefore <span class="math inline">\(f\)</span> is differentiable at every point of <span class="math inline">\(\mathbb{R}^2\)</span>.</p>
+<h4 id="example-b-continuous-but-not-differentiable-at-one-point.">Example B (continuous but not differentiable at one point).</h4>
+<p><span class="math display">\[f(x,y)=\sqrt{x^2+y^2}.\]</span> At <span class="math inline">\((0,0)\)</span>, the function is continuous. But <span class="math display">\[\frac{f(th)-f(0,0)}{|t|}=\frac{|t|\,\left\lVert h \right\rVert}{|t|}=\left\lVert h \right\rVert\]</span> does not come from a linear map in <span class="math inline">\(h\)</span>, so <span class="math inline">\(f\)</span> is not differentiable at <span class="math inline">\((0,0)\)</span>.</p>
+<h4 id="example-c-differentiable-despite-piecewise-definition.">Example C (differentiable despite piecewise definition).</h4>
+<p><span class="math display">\[f(x,y)=
+\begin{cases}
+x^2+y^2, &amp; x^2+y^2\le 1,\\
+2x^2+2y^2-1, &amp; x^2+y^2&gt;1.
+\end{cases}\]</span> On the circle <span class="math inline">\(x^2+y^2=1\)</span>, both formulas give value <span class="math inline">\(1\)</span>, but gradients are different: <span class="math display">\[\nabla(x^2+y^2)=(2x,2y),\qquad \nabla(2x^2+2y^2-1)=(4x,4y).\]</span> So <span class="math inline">\(f\)</span> is continuous on <span class="math inline">\(\mathbb{R}^2\)</span>, but not differentiable on the boundary circle.</p>
+<h4 id="example-d-key-positive-criterion-in-practice.">Example D (key positive criterion in practice).</h4>
+<p><span class="math display">\[f(x,y)=
+\begin{cases}
+\dfrac{x^2y^2}{x^2+y^2}, &amp; (x,y)\neq(0,0),\\
+0, &amp; (x,y)=(0,0).
+\end{cases}\]</span> Near <span class="math inline">\((0,0)\)</span>, <span class="math display">\[0\le \left\lvert f(x,y) \right\rvert=\frac{x^2y^2}{x^2+y^2}\le \frac{(x^2+y^2)^2}{4(x^2+y^2)}=\frac{x^2+y^2}{4}.\]</span> This estimate gives a quadratic error bound, which is strong evidence toward differentiability at the origin (with derivative <span class="math inline">\(0\)</span>).</p>
+<h1 id="mini-workflow-for-students">Mini Workflow for Students</h1>
+<p>When facing a new two-variable problem, follow this checklist:</p>
+<ol>
+<li><p>Identify domain and possible singular points.</p></li>
+<li><p>For limits: try estimates with <span class="math inline">\(\left\lVert (x,y) \right\rVert\)</span>, then test strategic paths.</p></li>
+<li><p>For continuity: compare limit and function value at the target point.</p></li>
+<li><p>For derivatives: compute partials, then check differentiability (not only existence of partials).</p></li>
+<li><p>Interpret results geometrically (level curves, tangent plane, local linear model).</p></li>
+</ol>
+<h1 id="practice-set-in-class-or-homework">Practice Set (In-Class or Homework)</h1>
+<ol>
+<li><p>Determine whether each limit exists: <span class="math display">\[\lim_{(x,y)\to(0,0)}\frac{xy}{x^2+y^2},\qquad
+\lim_{(x,y)\to(0,0)}\frac{x^2y^2}{x^2+y^2}.\]</span></p></li>
+<li><p>Study continuity at <span class="math inline">\((0,0)\)</span> for <span class="math display">\[f(x,y)=
+\begin{cases}
+\dfrac{x^3}{x^2+y^2}, &amp; (x,y)\neq(0,0),\\
+0, &amp; (x,y)=(0,0).
+\end{cases}\]</span></p></li>
+<li><p>For <span class="math inline">\(f(x,y)=\ln(1+x^2+y^2)\)</span>, compute <span class="math inline">\(\nabla f(1,-1)\)</span> and write tangent plane at <span class="math inline">\((1,-1,f(1,-1))\)</span>.</p></li>
+<li><p>Give an example where all directional derivatives at <span class="math inline">\((0,0)\)</span> exist but the function is not differentiable at <span class="math inline">\((0,0)\)</span>.</p></li>
+</ol>
+<div class="tcolorbox">
+<p>For two-variable calculus, the key upgrade from one variable is geometric thinking with neighborhoods in the plane. Limits and continuity depend on <em>all</em> nearby directions, and derivatives mean <em>linear approximation</em>, not just partial derivative formulas.</p>
+</div>
