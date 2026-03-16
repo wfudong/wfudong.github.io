@@ -106,10 +106,15 @@
 </nav>
 <header id="title-block-header">
 <h1 class="title">Lecture 3: Functions of Two Variables, Limits, Continuity, and Derivatives</h1>
+<div class="cta-row" style="justify-content: center; margin-top: 1rem;">
+  <a href="functions_limits_continuity_derivatives.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Open PDF</a>
+  <a href="functions_limits_continuity_derivatives.pdf" download class="btn-secondary">Download PDF</a>
+</div>
 </header>
 <div class="lecture-layout">
 <nav id="TOC" role="doc-toc">
 <a href="calculus-2.html" class="toc-syllabus">← Back to Course Syllabus</a>
+<a href="functions_limits_continuity_derivatives.pdf" class="toc-syllabus" target="_blank" rel="noopener noreferrer">Open Lecture PDF</a>
 <ul>
 <li><a href="#lecture-scope-and-goals">Lecture Scope and Goals</a></li>
 <li><a href="#functions-in-higher-dimension-focus-on-mathbbr2tomathbbr">Functions in Higher Dimension: Focus on <span class="math inline">\(\mathbb{R}^2\to\mathbb{R}\)</span></a>
@@ -355,14 +360,14 @@ f_y(a,b)=\lim_{k\to0}\frac{f(a,b+k)-f(a,b)}{k},\]</span> when these limits exist
 </ul>
 <p>Geometrically, <span class="math inline">\(f_x(a,b)\)</span> and <span class="math inline">\(f_y(a,b)\)</span> are slopes of trace curves on planes <span class="math inline">\(y=b\)</span> and <span class="math inline">\(x=a\)</span>.</p>
 <h4 id="geometry-picture-simple-example.">Geometry picture (simple example).</h4>
-<p>Take <span class="math display">\[f(x,y)=x^2+y^2,\]</span> and the point <span class="math inline">\((1,1,2)\)</span> on the surface <span class="math inline">\(z=f(x,y)\)</span>.</p>
+<p>Take <span class="math display">\[f(x,y)=x^2+y^2,\]</span> and the point <span class="math inline">\((1,2,5)\)</span> on the surface <span class="math inline">\(z=f(x,y)\)</span>.</p>
 <ul>
-<li><p>Fix <span class="math inline">\(y=1\)</span>: trace curve is <span class="math inline">\(z=x^2+1\)</span>, so slope at <span class="math inline">\(x=1\)</span> is <span class="math display">\[f_x(1,1)=2.\]</span></p></li>
-<li><p>Fix <span class="math inline">\(x=1\)</span>: trace curve is <span class="math inline">\(z=1+y^2\)</span>, so slope at <span class="math inline">\(y=1\)</span> is <span class="math display">\[f_y(1,1)=2.\]</span></p></li>
+<li><p>Fix <span class="math inline">\(y=2\)</span>: trace curve is <span class="math inline">\(z=x^2+4\)</span>, so slope at <span class="math inline">\(x=1\)</span> is <span class="math display">\[f_x(1,2)=2.\]</span></p></li>
+<li><p>Fix <span class="math inline">\(x=1\)</span>: trace curve is <span class="math inline">\(z=1+y^2\)</span>, so slope at <span class="math inline">\(y=2\)</span> is <span class="math display">\[f_y(1,2)=4.\]</span></p></li>
 </ul>
 <p>So each partial derivative is the tangent-line slope of a different planar slice through the same surface point.</p>
 <figure>
-<img src="assets/lecture-3/partial_derivative_geometry_example.png" style="width:90.0%" alt="Geometric meaning of partial derivatives for z=x^2+y^2 at (1,1,2). Solid red/green curves are traces on y=1 and x=1; dashed lines are tangent lines giving slopes f_x(1,1) and f_y(1,1)." /><figcaption aria-hidden="true">Geometric meaning of partial derivatives for <span class="math inline">\(z=x^2+y^2\)</span> at <span class="math inline">\((1,1,2)\)</span>. Solid red/green curves are traces on <span class="math inline">\(y=1\)</span> and <span class="math inline">\(x=1\)</span>; dashed lines are tangent lines giving slopes <span class="math inline">\(f_x(1,1)\)</span> and <span class="math inline">\(f_y(1,1)\)</span>.</figcaption>
+<img src="assets/lecture-3/partial_derivative_geometry_example.png" style="width:90.0%" alt="Geometric meaning of partial derivatives for z=x^2+y^2 at (1,2,5). Solid red/green curves are traces on y=2 and x=1; dashed lines are tangent lines giving slopes f_x(1,2) and f_y(1,2)." /><figcaption aria-hidden="true">Geometric meaning of partial derivatives for <span class="math inline">\(z=x^2+y^2\)</span> at <span class="math inline">\((1,2,5)\)</span>. Solid red/green curves are traces on <span class="math inline">\(y=2\)</span> and <span class="math inline">\(x=1\)</span>; dashed lines are tangent lines giving slopes <span class="math inline">\(f_x(1,2)\)</span> and <span class="math inline">\(f_y(1,2)\)</span>.</figcaption>
 </figure>
 <h4 id="notation.">Notation.</h4>
 <p><span class="math display">\[f_x=\frac{\partial f}{\partial x},\qquad f_y=\frac{\partial f}{\partial y}.\]</span> If <span class="math inline">\(f\)</span> is differentiable, the total differential is <span class="math display">\[\,\mathrm{d}f = f_x\,\,\mathrm{d}x + f_y\,\,\mathrm{d}y.\]</span></p>
@@ -377,8 +382,58 @@ f_y(a,b)=\lim_{k\to0}\frac{f(a,b+k)-f(a,b)}{k},\]</span> when these limits exist
 <p>In two variables, if differentiable, <span class="math display">\[Df(a)(h_1,h_2)=f_x(a)h_1+f_y(a)h_2,\]</span> so <span class="math display">\[f(a+h)\approx f(a)+f_x(a)h_1+f_y(a)h_2.\]</span> The gradient is <span class="math display">\[\nabla f(a)=(f_x(a),f_y(a)),\]</span> and <span class="math display">\[Df(a)(h)=\nabla f(a)\cdot h.\]</span></p>
 <h2 id="tangent-plane-formula">Tangent Plane Formula</h2>
 <p>For <span class="math inline">\(z=f(x,y)\)</span> at <span class="math inline">\((a,b,f(a,b))\)</span>, the tangent plane is <span class="math display">\[z=f(a,b)+f_x(a,b)(x-a)+f_y(a,b)(y-b).\]</span></p>
+<h4 id="derivation-and-proof-of-the-formula.">Derivation and proof of the formula.</h4>
+<p>Assume <span class="math inline">\(f\)</span> is differentiable at <span class="math inline">\((a,b)\)</span>. Then for small increments <span class="math inline">\((h,k)\)</span>,</p>
+<p><span class="math display">\[
+f(a+h,b+k)=f(a,b)+f_x(a,b)h+f_y(a,b)k+r(h,k),
+\]</span> where <span class="math inline">\(\dfrac{r(h,k)}{\sqrt{h^2+k^2}}\to0\)</span> as <span class="math inline">\((h,k)\to(0,0)\)</span>.</p>
+<p>The first-order part
+<span class="math display">\[
+L(h,k)=f(a,b)+f_x(a,b)h+f_y(a,b)k
+\]</span>
+is the best linear approximation of the surface height near <span class="math inline">\((a,b)\)</span>. Replace <span class="math inline">\(h=x-a\)</span>, <span class="math inline">\(k=y-b\)</span> to get</p>
+<p><span class="math display">\[
+z=L(x-a,y-b)=f(a,b)+f_x(a,b)(x-a)+f_y(a,b)(y-b).
+\]</span></p>
+<p>This is a plane through <span class="math inline">\((a,b,f(a,b))\)</span>. Also, along the lines <span class="math inline">\(y=b\)</span> and <span class="math inline">\(x=a\)</span>, its slopes are <span class="math inline">\(f_x(a,b)\)</span> and <span class="math inline">\(f_y(a,b)\)</span>, matching the surface’s directional traces. Since the error term is little-o of distance, the difference between the surface and this plane is negligible to first order, so this plane is exactly the tangent plane.</p>
+<div class="tcolorbox">
+<p><strong>Why is the tangent plane the best linear approximation?</strong></p>
+<p><strong>Step 1: Plane-curve case (one variable).</strong> For <span class="math inline">\(y=f(x)\)</span> near <span class="math inline">\(x=a\)</span>, approximate by a line <span class="math inline">\(\ell(x)=f(a)+m(x-a)\)</span>. Choose <span class="math inline">\(m\)</span> to minimize local error
+<span class="math display">\[
+E(m;h)=\big|f(a+h)-f(a)-mh\big|.
+\]</span>
+Dividing by <span class="math inline">\(|h|\)</span> and sending <span class="math inline">\(h\to0\)</span> gives minimizer <span class="math inline">\(m=f'(a)\)</span>. So the tangent line is the unique first-order optimal line.</p>
+<p>A finite-sample least-squares version is: choose <span class="math inline">\(m\)</span> minimizing
+<span class="math display">\[
+J(m)=\sum_{i=1}^N\big(f(a+h_i)-f(a)-mh_i\big)^2,
+\]</span>
+whose normal equation gives
+<span class="math display">\[
+m=\frac{\sum_i h_i\big(f(a+h_i)-f(a)\big)}{\sum_i h_i^2}.
+\]</span>
+As samples become symmetric and close to <span class="math inline">\(0\)</span>, this slope converges to <span class="math inline">\(f'(a)\)</span>.</p>
+<p><strong>Step 2: Surface case (two variables).</strong> For <span class="math inline">\(z=f(x,y)\)</span>, approximate near <span class="math inline">\((a,b)\)</span> by
+<span class="math display">\[
+P(x,y)=f(a,b)+p(x-a)+q(y-b).
+\]</span>
+Choose <span class="math inline">\((p,q)\)</span> to minimize the first-order error
+<span class="math display">\[
+E(p,q;h,k)=\big|f(a+h,b+k)-f(a,b)-ph-qk\big|.
+\]</span>
+Differentiability implies
+<span class="math display">\[
+f(a+h,b+k)-f(a,b)=f_x(a,b)h+f_y(a,b)k+o\!\left(\sqrt{h^2+k^2}\right),
+\]</span>
+so the first-order minimizer is <span class="math inline">\((p,q)=(f_x(a,b),f_y(a,b))\)</span>. Therefore
+<span class="math display">\[
+P(x,y)=f(a,b)+f_x(a,b)(x-a)+f_y(a,b)(y-b)
+\]</span>
+is exactly the tangent plane, i.e. the best linear approximation in 3D.</p>
+</div>
 <div class="tcolorbox">
 <p>Find the tangent plane of <span class="math display">\[z=x^2+y^2\]</span> at the point <span class="math inline">\((1,2,5)\)</span>.</p>
+<p>Compute partials: <span class="math inline">\(f_x=2x\)</span>, <span class="math inline">\(f_y=2y\)</span>, so <span class="math inline">\(f_x(1,2)=2\)</span>, <span class="math inline">\(f_y(1,2)=4\)</span>, and <span class="math inline">\(f(1,2)=5\)</span>.</p>
+<p>Hence the tangent plane is <span class="math display">\[z=5+2(x-1)+4(y-2)=2x+4y-5.\]</span></p>
 </div>
 <h2 id="examples">Examples</h2>
 <h4 id="example-13-differentiable-polynomial.">Example 13 (differentiable polynomial).</h4>
