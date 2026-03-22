@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>练习 4 - 方向导数与极值</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <script defer src="../analytics.js"></script>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="site-shell">
+        <nav class="navbar" aria-label="Primary">
+            <a href="index-zh.html" class="logo">GBU Calculus Hub</a>
+            <ul class="nav-links">
+                <li><a href="index-zh.html">首页</a></li>
+                <li><a href="calculus-2-zh.html">课程</a></li>
+                <li class="nav-dropdown is-active">
+                    <button class="nav-trigger" type="button" aria-haspopup="true">
+                        练习
+                        <span class="caret" aria-hidden="true">▾</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="test-1-zh.html">练习 1 · 向量热身</a></li>
+                        <li><a href="test-2-zh.html">练习 2 · 三维几何</a></li>
+                        <li><a href="test-3-zh.html">练习 3 · 极限与偏导</a></li>
+                        <li><a href="test-4-zh.html" aria-current="page">练习 4 · 方向导数与极值</a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown">
+                    <button class="nav-trigger" type="button" aria-haspopup="true">
+                        讲义
+                        <span class="caret" aria-hidden="true">▾</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="calculus-2-lecture-1-zh.html">讲义 1 · 欧氏空间中的向量</a></li>
+                        <li><a href="calculus-2-lecture-2-zh.html">讲义 2 · 三维解析几何</a></li>
+                        <li><a href="calculus-2-lecture-3-zh.html">讲义 3 · 二元函数、极限、连续性与导数</a></li>
+                        <li><a href="calculus-2-lecture-4-zh.html">讲义 4 · 方向导数、链式法则与极值</a></li>
+                    </ul>
+                </li>
+                <li><a href="test-4.html" class="lang-switch">EN</a></li>
+            </ul>
+        </nav>
+
+        <section class="content">
+            <div class="container">
+                <nav style="margin-bottom: 1.5rem; font-size: 0.95rem;">
+                    <a href="index-zh.html">首页</a> / <a href="calculus-2-zh.html">课程</a> / <span aria-current="page">练习 4</span>
+                </nav>
+
+                <h2>练习 4：方向导数、链式法则与极值</h2>
+                <p><strong>预计时间：</strong>45–60 分钟</p>
+                <p><strong>重点：</strong>对应第四讲：梯度与方向导数、多元链式法则、雅可比矩阵、无约束/约束极值。</p>
+
+                <div class="section-panel" style="margin-bottom: 2rem;">
+                    <h3 style="margin-top: 0;">你将练习的内容</h3>
+                    <ul style="margin-top: 0.8rem;">
+                        <li>方向导数与单位方向向量</li>
+                        <li>最大变化率与梯度范数</li>
+                        <li>单参数/双参数链式法则</li>
+                        <li>雅可比矩阵元素读取</li>
+                        <li>二阶判别与拉格朗日乘子法</li>
+                    </ul>
+                </div>
+
+                <ol class="interactive-list" style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.5rem;">
+                    <li><div class="course-item" style="cursor: default;"><h4>练习 1：方向导数</h4><p>对 $f(x,y)=x^2y+y^3$，在 $(1,1)$ 沿 $u=(3/5,4/5)$，$D_u f(1,1)=$</p><input id="ex1" type="text" step="any" style="max-width:220px;"><button id="check-ex1" class="btn-primary" style="max-width:220px;margin-top:0.8rem;">检查</button><p id="fb-ex1" style="min-height:1.2rem;font-weight:600;margin-top:0.6rem;"></p><details style="margin-top:0.6rem;"><summary><strong>提示与解答</strong></summary><p style="margin-top:0.5rem;"><strong>提示：</strong>先求梯度 $\nabla f=(2xy,\;x^2+3y^2)$，再与 $u$ 点乘。</p><p><strong>解答：</strong>$\nabla f(1,1)=(2,4)$，故 $D_u f=(2,4)\cdot(3/5,4/5)=22/5$。</p></details></div></li>
+                    <li><div class="course-item" style="cursor: default;"><h4>练习 2：单位向量要求</h4><p>判断：公式 $D_u f=\nabla f\cdot u$ 中，$u$ 必须是单位向量。</p><select id="ex2"><option value="">请选择</option><option value="true">对</option><option value="false">错</option></select><button id="check-ex2" class="btn-primary" style="max-width:220px;margin-top:0.8rem;">检查</button><p id="fb-ex2" style="min-height:1.2rem;font-weight:600;margin-top:0.6rem;"></p><details style="margin-top:0.6rem;"><summary><strong>提示与解答</strong></summary><p style="margin-top:0.5rem;"><strong>提示：</strong>该公式默认方向向量长度为 1。</p><p><strong>解答：</strong>对。若给的是非单位向量，先单位化再代入。</p></details></div></li>
+                    <li><div class="course-item" style="cursor: default;"><h4>练习 3：最大方向导数</h4><p>对 $f(x,y)=x^2+y^2$ 在 $(1,2)$，最大方向导数为：</p><input id="ex3" type="text" step="any" style="max-width:220px;"><button id="check-ex3" class="btn-primary" style="max-width:220px;margin-top:0.8rem;">检查</button><p id="fb-ex3" style="min-height:1.2rem;font-weight:600;margin-top:0.6rem;"></p><details style="margin-top:0.6rem;"><summary><strong>提示与解答</strong></summary><p style="margin-top:0.5rem;"><strong>提示：</strong>最大方向导数等于梯度的模长。</p><p><strong>解答：</strong>$\nabla f=(2x,2y)$，在 $(1,2)$ 处为 $(2,4)$，模长 $2\sqrt{5}$。</p></details></div></li>
+                    <li><div class="course-item" style="cursor: default;"><h4>练习 4：单参数链式法则</h4><p>若 $f=x^2y$, $x=t^2$, $y=e^t$，求 $t=0$ 时 $\dfrac{dz}{dt}$。</p><input id="ex4" type="text" step="any" style="max-width:220px;"><button id="check-ex4" class="btn-primary" style="max-width:220px;margin-top:0.8rem;">检查</button><p id="fb-ex4" style="min-height:1.2rem;font-weight:600;margin-top:0.6rem;"></p><details style="margin-top:0.6rem;"><summary><strong>提示与解答</strong></summary><p style="margin-top:0.5rem;"><strong>提示：</strong>可直接用公式 $\frac{dz}{dt}=(4t^3+t^4)e^t$。</p><p><strong>解答：</strong>代入 $t=0$ 得 $0$。</p></details></div></li>
+                    <li><div class="course-item" style="cursor: default;"><h4>练习 5：双参数链式法则</h4><p>$w=e^{xy},x=s+t,y=s-t$，在 $(1,2)$ 处 $\partial w/\partial s=$</p><input id="ex5" type="text" step="any" style="max-width:220px;"><button id="check-ex5" class="btn-primary" style="max-width:220px;margin-top:0.8rem;">检查</button><p id="fb-ex5" style="min-height:1.2rem;font-weight:600;margin-top:0.6rem;"></p><details style="margin-top:0.6rem;"><summary><strong>提示与解答</strong></summary><p style="margin-top:0.5rem;"><strong>提示：</strong>先化成 $w=e^{s^2-t^2}$ 再对 $s$ 求偏导。</p><p><strong>解答：</strong>$\partial w/\partial s=2s\,e^{s^2-t^2}$，在 $(1,2)$ 处为 $2e^{-3}$。</p></details></div></li>
+                    <li><div class="course-item" style="cursor: default;"><h4>练习 6：雅可比矩阵</h4><p>对 $F(x,y)=(x^2-y,xy)$，$J_F(1,2)$ 的 $(1,2)$ 元素是：</p><input id="ex6" type="text" step="any" style="max-width:220px;"><button id="check-ex6" class="btn-primary" style="max-width:220px;margin-top:0.8rem;">检查</button><p id="fb-ex6" style="min-height:1.2rem;font-weight:600;margin-top:0.6rem;"></p><details style="margin-top:0.6rem;"><summary><strong>提示与解答</strong></summary><p style="margin-top:0.5rem;"><strong>提示：</strong>第一行来自 $F_1=x^2-y$。</p><p><strong>解答：</strong>$\partial F_1/\partial y=-1$。</p></details></div></li>
+                    <li><div class="course-item" style="cursor: default;"><h4>练习 7：临界点分类</h4><p>$f=x^3-3x+y^2$ 中 $(-1,0)$ 属于：</p><select id="ex7"><option value="">请选择</option><option value="min">极小值点</option><option value="max">极大值点</option><option value="saddle">鞍点</option></select><button id="check-ex7" class="btn-primary" style="max-width:220px;margin-top:0.8rem;">检查</button><p id="fb-ex7" style="min-height:1.2rem;font-weight:600;margin-top:0.6rem;"></p><details style="margin-top:0.6rem;"><summary><strong>提示与解答</strong></summary><p style="margin-top:0.5rem;"><strong>提示：</strong>看 $D=f_{xx}f_{yy}-f_{xy}^2$ 的符号。</p><p><strong>解答：</strong>在 $(-1,0)$，$D<0$，所以是鞍点。</p></details></div></li>
+                    <li><div class="course-item" style="cursor: default;"><h4>练习 8：拉格朗日乘子</h4><p>$xy$ 在 $x^2+y^2=1$ 上的最大值是：</p><input id="ex8" type="text" step="any" style="max-width:220px;"><button id="check-ex8" class="btn-primary" style="max-width:220px;margin-top:0.8rem;">检查</button><p id="fb-ex8" style="min-height:1.2rem;font-weight:600;margin-top:0.6rem;"></p><details style="margin-top:0.6rem;"><summary><strong>提示与解答</strong></summary><p style="margin-top:0.5rem;"><strong>提示：</strong>约束下有 $x=\pm y$。</p><p><strong>解答：</strong>最大值 $1/2$（最小值 $-1/2$）。</p></details></div></li>
+                </ol>
+
+                <section class="course-item" style="margin-top: 2rem; cursor: default;">
+                    <h3 style="margin-top: 0;">第四讲自测（自动评分）</h3>
+                    <p style="margin-bottom: 0.9rem;">提交后显示总分和错题提示。</p>
+                    <ol style="display:flex;flex-direction:column;gap:1rem;padding-left:1.2rem;margin:0;">
+                        <li><p style="margin:0 0 0.5rem;">$D_u f(1,1)$（同上题）=</p><input id="exam-q1" type="text" step="any" style="max-width:220px;"></li>
+                        <li><p style="margin:0 0 0.5rem;">方向向量需单位化（对/错）：</p><select id="exam-q2"><option value="">请选择</option><option value="true">对</option><option value="false">错</option></select></li>
+                        <li><p style="margin:0 0 0.5rem;">$f=x^2+y^2$ 在 $(1,2)$ 的最大方向导数：</p><input id="exam-q3" type="text" step="any" style="max-width:220px;"></li>
+                        <li><p style="margin:0 0 0.5rem;">$f=x^2y,x=t^2,y=e^t$，$t=0$ 时 $dz/dt=$</p><input id="exam-q4" type="text" step="any" style="max-width:220px;"></li>
+                        <li><p style="margin:0 0 0.5rem;">$w=e^{xy},x=s+t,y=s-t$，$(1,2)$ 处 $\partial w/\partial s=$</p><input id="exam-q5" type="text" step="any" style="max-width:220px;"></li>
+                        <li><p style="margin:0 0 0.5rem;">$\partial F_1/\partial y$ 在 $(1,2)$ 的值：</p><input id="exam-q6" type="text" step="any" style="max-width:220px;"></li>
+                        <li><p style="margin:0 0 0.5rem;">$(-1,0)$ 分类：</p><select id="exam-q7"><option value="">请选择</option><option value="min">极小值点</option><option value="max">极大值点</option><option value="saddle">鞍点</option></select></li>
+                        <li><p style="margin:0 0 0.5rem;">$xy$ 在单位圆上的最大值：</p><input id="exam-q8" type="text" step="any" style="max-width:220px;"></li>
+                        <li><p style="margin:0 0 0.5rem;">图形面 $z=f(x,y)$ 的一个法向量可写为：</p><select id="exam-q9"><option value="">请选择</option><option value="a">$(f_x,f_y,-1)$</option><option value="b">$(1,1,1)$</option><option value="c">$(f_x,f_y,1)$ 仅此一个</option></select></li>
+                        <li><p style="margin:0 0 0.5rem;">$\nabla f=\lambda\nabla g$ 与 $g=c$ 对应方法名：</p><select id="exam-q10"><option value="">请选择</option><option value="lagrange">拉格朗日乘子法</option><option value="gauss">高斯消元</option><option value="stokes">斯托克斯公式</option></select></li>
+                    </ol>
+                    <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:1.2rem;"><button id="exam-submit" class="btn-primary" style="max-width:200px;">提交</button><button id="exam-reset" class="btn-secondary" type="button" style="max-width:200px;">重置</button></div>
+                    <p id="exam-score" class="feedback" style="margin-top:0.9rem;"></p>
+                    <ul id="exam-wrong-list" style="margin:0.3rem 0 0;padding-left:1.2rem;"></ul>
+                </section>
+
+                <div class="quick-links" style="margin-top:1.4rem;">
+                    <a href="calculus-2-zh.html" class="btn-secondary">返回课程页</a>
+                    <a href="calculus-2-lecture-4-zh.html" class="btn-secondary">回顾第四讲</a>
+                </div>
+            </div>
+        </section>
+
+        <div id="floating-math-pad" style="position:fixed;right:1rem;bottom:1rem;z-index:1000;max-width:320px;background:#fff;border:1px solid #d8dde7;border-radius:12px;padding:0.8rem;box-shadow:0 10px 28px rgba(30,42,56,0.18);display:none;">
+            <p id="math-pad-target" style="margin:0 0 0.5rem;font-size:0.88rem;color:#4d5a6a;">当前输入框数学符号</p>
+            <div class="math-pad" style="display:flex;flex-wrap:wrap;gap:0.45rem;">
+                <button type="button" class="btn-secondary math-token" data-token="sqrt()">\(\sqrt{\Box}\)</button>
+                <button type="button" class="btn-secondary math-token" data-token="^()">\(x^{\Box}\)</button>
+                <button type="button" class="btn-secondary math-token" data-token="pi">\(\pi\)</button>
+                <button type="button" class="btn-secondary math-token" data-token="+">\( + \)</button>
+                <button type="button" class="btn-secondary math-token" data-token="-">\( - \)</button>
+                <button type="button" class="btn-secondary math-token" data-token="*">\( \times \)</button>
+                <button type="button" class="btn-secondary math-token" data-token="/">\( \div \)</button>
+                <button type="button" class="btn-secondary math-token" data-token="(">\( ( \)</button>
+                <button type="button" class="btn-secondary math-token" data-token=")">\( ) \)</button>
+            </div>
+            <p style="margin:0.55rem 0 0;font-size:0.8rem;color:#6b7786;">也支持 <code>2e-3</code>。</p>
+        </div>
+
+        <footer>
+            <p>© 2026 GBU Calculus Hub · 独立教学平台</p>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const splitHintSolutionDetails = function () {
+                document.querySelectorAll('details').forEach(function (d) {
+                    const summary = d.querySelector('summary');
+                    if (!summary) return;
+                    const title = summary.textContent.trim();
+                    if (title !== '提示与解答') return;
+                    const ps = d.querySelectorAll('p');
+                    if (ps.length < 2) return;
+
+                    const hint = document.createElement('details');
+                    hint.style.marginTop = '0.6rem';
+                    hint.innerHTML = `<summary><strong>提示</strong></summary>${ps[0].outerHTML}`;
+
+                    const sol = document.createElement('details');
+                    sol.style.marginTop = '0.6rem';
+                    sol.innerHTML = `<summary><strong>解答</strong></summary>${ps[1].outerHTML}`;
+
+                    d.replaceWith(hint, sol);
+                });
+            };
+
+            const setupMathPad = function () {
+                let activeInput = null;
+                const pad = document.getElementById('floating-math-pad');
+                const targetLabel = document.getElementById('math-pad-target');
+                const setPadVisibility = function (visible) {
+                    if (!pad) return;
+                    pad.style.display = visible ? 'block' : 'none';
+                };
+                document.addEventListener('focusin', function (event) {
+                    const target = event.target;
+                    if (target && target.matches('input[type="text"]')) {
+                        activeInput = target;
+                        const title = target.closest('.course-item')?.querySelector('h4')?.textContent?.trim();
+                        if (targetLabel) targetLabel.textContent = title ? `当前输入：${title}` : '当前输入框数学符号';
+                        setPadVisibility(true);
+                    }
+                });
+                document.addEventListener('focusout', function () {
+                    setTimeout(function () {
+                        const current = document.activeElement;
+                        const stillInInput = current && current.matches && current.matches('input[type="text"]');
+                        if (!stillInInput) setPadVisibility(false);
+                    }, 0);
+                });
+                document.querySelectorAll('.math-token').forEach(function (button) {
+                    button.addEventListener('mousedown', function (event) { event.preventDefault(); });
+                    button.addEventListener('click', function () {
+                        if (!activeInput) return;
+                        const token = button.getAttribute('data-token') || '';
+                        const start = activeInput.selectionStart ?? activeInput.value.length;
+                        const end = activeInput.selectionEnd ?? activeInput.value.length;
+                        const before = activeInput.value.slice(0, start);
+                        const after = activeInput.value.slice(end);
+                        activeInput.value = before + token + after;
+                        const cursor = (token === 'sqrt()' || token === '^()') ? start + token.length - 1 : start + token.length;
+                        activeInput.focus();
+                        activeInput.setSelectionRange(cursor, cursor);
+                    });
+                });
+            };
+
+            const parseMathInput = function (raw) {
+                if (typeof raw !== 'string') return NaN;
+                let expr = raw.trim().toLowerCase();
+                if (!expr) return NaN;
+                expr = expr.replace(/π/g, 'pi').replace(/√/g, 'sqrt');
+                expr = expr.replace(/\s+/g, '');
+                if (/[^0-9a-z+\-*/^().]/i.test(expr)) return NaN;
+                let jsExpr = expr
+                    .replace(/sqrt\(/g, 'Math.sqrt(')
+                    .replace(/exp\(/g, 'Math.exp(')
+                    .replace(/\bpi\b/g, 'Math.PI')
+                    .replace(/\^/g, '**');
+                const strippedSci = jsExpr.replace(/\d+(?:\.\d+)?e[+\-]?\d+/gi, '');
+                const leftovers = strippedSci.replace(/Math\.sqrt|Math\.exp|Math\.PI/g, '');
+                if (/[A-DF-Za-df-z]/.test(leftovers)) return NaN;
+                try {
+                    const value = Function(`"use strict"; return (${jsExpr});`)();
+                    return Number.isFinite(value) ? value : NaN;
+                } catch {
+                    return NaN;
+                }
+            };
+            const isClose = (a, b, tol = 1e-5) => Math.abs(a - b) < tol;
+            const setFeedback = function (id, message, color) {
+                const node = document.getElementById(id);
+                if (!node) return;
+                node.textContent = message;
+                node.style.color = color;
+            };
+
+            splitHintSolutionDetails();
+            setupMathPad();
+
+            document.getElementById('check-ex1')?.addEventListener('click', () => {
+                const v = parseMathInput(document.getElementById('ex1').value);
+                setFeedback('fb-ex1', !Number.isNaN(v) && isClose(v, 22 / 5) ? '正确。' : '应为 22/5。', !Number.isNaN(v) && isClose(v, 22 / 5) ? '#2a7b4f' : '#d9534f');
+            });
+            document.getElementById('check-ex2')?.addEventListener('click', () => {
+                const v = document.getElementById('ex2').value;
+                setFeedback('fb-ex2', v === 'true' ? '正确。' : '需先单位化方向向量。', v === 'true' ? '#2a7b4f' : '#d9534f');
+            });
+            document.getElementById('check-ex3')?.addEventListener('click', () => {
+                const v = parseMathInput(document.getElementById('ex3').value);
+                const ans = 2 * Math.sqrt(5);
+                setFeedback('fb-ex3', !Number.isNaN(v) && isClose(v, ans, 1e-3) ? '正确。' : '应为 2√5。', !Number.isNaN(v) && isClose(v, ans, 1e-3) ? '#2a7b4f' : '#d9534f');
+            });
+            document.getElementById('check-ex4')?.addEventListener('click', () => {
+                const v = parseMathInput(document.getElementById('ex4').value);
+                setFeedback('fb-ex4', !Number.isNaN(v) && isClose(v, 0) ? '正确。' : '应为 0。', !Number.isNaN(v) && isClose(v, 0) ? '#2a7b4f' : '#d9534f');
+            });
+            document.getElementById('check-ex5')?.addEventListener('click', () => {
+                const v = parseMathInput(document.getElementById('ex5').value);
+                const ans = 2 * Math.exp(-3);
+                setFeedback('fb-ex5', !Number.isNaN(v) && isClose(v, ans, 1e-3) ? '正确。' : '应为 2e^{-3}。', !Number.isNaN(v) && isClose(v, ans, 1e-3) ? '#2a7b4f' : '#d9534f');
+            });
+            document.getElementById('check-ex6')?.addEventListener('click', () => {
+                const v = parseMathInput(document.getElementById('ex6').value);
+                setFeedback('fb-ex6', !Number.isNaN(v) && isClose(v, -1) ? '正确。' : '应为 -1。', !Number.isNaN(v) && isClose(v, -1) ? '#2a7b4f' : '#d9534f');
+            });
+            document.getElementById('check-ex7')?.addEventListener('click', () => {
+                const v = document.getElementById('ex7').value;
+                setFeedback('fb-ex7', v === 'saddle' ? '正确。' : '该点是鞍点。', v === 'saddle' ? '#2a7b4f' : '#d9534f');
+            });
+            document.getElementById('check-ex8')?.addEventListener('click', () => {
+                const v = parseMathInput(document.getElementById('ex8').value);
+                setFeedback('fb-ex8', !Number.isNaN(v) && isClose(v, 0.5) ? '正确。' : '最大值为 1/2。', !Number.isNaN(v) && isClose(v, 0.5) ? '#2a7b4f' : '#d9534f');
+            });
+
+            const examSubmit = document.getElementById('exam-submit');
+            const examReset = document.getElementById('exam-reset');
+            const examScore = document.getElementById('exam-score');
+            const examWrongList = document.getElementById('exam-wrong-list');
+
+            const clear = () => { examScore.textContent = ''; examWrongList.innerHTML = ''; };
+
+            examSubmit?.addEventListener('click', function () {
+                const wrong = [];
+                let earned = 0;
+                const total = 10;
+
+                const q1 = parseMathInput(document.getElementById('exam-q1').value); if (!Number.isNaN(q1) && isClose(q1, 22 / 5)) earned++; else wrong.push('第1题错误');
+                if (document.getElementById('exam-q2').value === 'true') earned++; else wrong.push('第2题错误');
+                const q3 = parseMathInput(document.getElementById('exam-q3').value); if (!Number.isNaN(q3) && isClose(q3, 2 * Math.sqrt(5), 1e-3)) earned++; else wrong.push('第3题错误');
+                const q4 = parseMathInput(document.getElementById('exam-q4').value); if (!Number.isNaN(q4) && isClose(q4, 0)) earned++; else wrong.push('第4题错误');
+                const q5 = parseMathInput(document.getElementById('exam-q5').value); if (!Number.isNaN(q5) && isClose(q5, 2 * Math.exp(-3), 1e-3)) earned++; else wrong.push('第5题错误');
+                const q6 = parseMathInput(document.getElementById('exam-q6').value); if (!Number.isNaN(q6) && isClose(q6, -1)) earned++; else wrong.push('第6题错误');
+                if (document.getElementById('exam-q7').value === 'saddle') earned++; else wrong.push('第7题错误');
+                const q8 = parseMathInput(document.getElementById('exam-q8').value); if (!Number.isNaN(q8) && isClose(q8, 0.5)) earned++; else wrong.push('第8题错误');
+                if (document.getElementById('exam-q9').value === 'a') earned++; else wrong.push('第9题错误');
+                if (document.getElementById('exam-q10').value === 'lagrange') earned++; else wrong.push('第10题错误');
+
+                examScore.textContent = `得分：${earned}/${total}`;
+                examWrongList.innerHTML = '';
+                wrong.forEach(function (item) { const li = document.createElement('li'); li.textContent = item; examWrongList.appendChild(li); });
+            });
+
+            examReset?.addEventListener('click', function () {
+                ['exam-q1', 'exam-q3', 'exam-q4', 'exam-q5', 'exam-q6', 'exam-q8'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+                ['exam-q2', 'exam-q7', 'exam-q9', 'exam-q10'].forEach(id => { const el = document.getElementById(id); if (el) el.selectedIndex = 0; });
+                clear();
+            });
+        }());
+    </script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Lecture 4: Directional Derivatives, Chain Rule, and Optimization</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/lecture-notes.css">
+  <script defer src="../analytics.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const toc = document.getElementById('TOC');
+      const floatingToggle = document.querySelector('.outline-toggle');
+      const body = document.body;
+      let userPinned = false;
+
+      const updateFloatingToggle = function () {
+        if (!floatingToggle) return;
+        const collapsed = body.classList.contains('outline-hidden');
+        floatingToggle.textContent = collapsed ? 'Show Outline' : 'Hide Outline';
+        floatingToggle.setAttribute('aria-expanded', String(!collapsed));
+      };
+
+      const applyResponsiveState = function () {
+        if (userPinned) return;
+        const shouldCollapse = window.innerWidth <= 1100;
+        body.classList.toggle('outline-hidden', shouldCollapse);
+        updateFloatingToggle();
+      };
+
+      applyResponsiveState();
+      window.addEventListener('resize', applyResponsiveState);
+
+      floatingToggle?.addEventListener('click', function () {
+        userPinned = true;
+        body.classList.toggle('outline-hidden');
+        updateFloatingToggle();
+      });
+
+      if (toc) {
+        const topSections = toc.querySelectorAll(':scope > ul > li');
+        topSections.forEach(function (section) {
+          const nestedList = section.querySelector(':scope > ul');
+          if (!nestedList) return;
+
+          const anchor = section.querySelector(':scope > a');
+          const sectionToggle = document.createElement('button');
+          sectionToggle.type = 'button';
+          sectionToggle.className = 'toc-section-toggle';
+          sectionToggle.setAttribute('aria-expanded', 'false');
+          sectionToggle.textContent = '▸';
+
+          if (anchor) {
+            anchor.insertAdjacentElement('afterend', sectionToggle);
+          } else {
+            section.insertBefore(sectionToggle, nestedList);
+          }
+
+          nestedList.hidden = true;
+
+          sectionToggle.addEventListener('click', function (event) {
+            event.preventDefault();
+            const expanded = nestedList.hidden;
+            nestedList.hidden = !expanded;
+            sectionToggle.setAttribute('aria-expanded', String(expanded));
+            sectionToggle.textContent = expanded ? '▾' : '▸';
+          });
+        });
+      }
+    });
+  </script>
+</head>
+<body class="lecture-page">
+<div class="site-shell" style="padding-top: 1rem;">
+<nav class="navbar" aria-label="Primary">
+<a href="index.html" class="logo">GBU Calculus Hub</a>
+<ul class="nav-links">
+<li><a href="index.html">Home</a></li>
+<li><a href="calculus-2.html">Course</a></li>
+<li class="nav-dropdown">
+  <button class="nav-trigger" type="button" aria-haspopup="true">
+    Practice
+    <span class="caret" aria-hidden="true">▾</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="test-1.html">Practice 1 · Vectors Warm-up</a></li>
+    <li><a href="test-2.html">Practice 2 · Geometry in R3</a></li>
+    <li><a href="test-3.html">Practice 3 · Limits and Derivatives</a></li>
+                        <li><a href="test-4.html">Practice 4 · Directional Derivatives & Optimization</a></li>
+  </ul>
+</li>
+<li class="nav-dropdown is-active">
+  <button class="nav-trigger" type="button" aria-haspopup="true">
+    Lecture Notes
+    <span class="caret" aria-hidden="true">▾</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="calculus-2-lecture-1.html">Lecture 1 · Vectors in Euclidean Space</a></li>
+    <li><a href="calculus-2-lecture-2.html">Lecture 2 · Analytic Geometry in R3</a></li>
+    <li><a href="calculus-2-lecture-3.html">Lecture 3 · Functions, Limits, Continuity, Derivatives</a></li>
+    <li><a href="calculus-2-lecture-4.html" aria-current="page">Lecture 4 · Directional Derivatives, Chain Rule, Extrema</a></li>
+  </ul>
+</li>
+<li><a href="calculus-2-lecture-4-zh.html" class="lang-switch">中文</a></li>
+</ul>
+</nav>
+<header id="title-block-header">
+<h1 class="title">Lecture 4: Directional Derivatives, Chain Rule, and Optimization</h1>
+<div class="cta-row" style="justify-content: center; margin-top: 1rem;">
+  <a href="directional_derivatives_chain_rule_extrema.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Open PDF</a>
+  <a href="directional_derivatives_chain_rule_extrema.pdf" download class="btn-secondary">Download PDF</a>
+</div>
+</header>
+<div class="lecture-layout">
+<nav id="TOC" role="doc-toc">
+<a href="calculus-2.html" class="toc-syllabus">← Back to Course Syllabus</a>
+<a href="directional_derivatives_chain_rule_extrema.pdf" class="toc-syllabus" target="_blank" rel="noopener noreferrer">Open Lecture PDF</a>
+<ul>
+<li><a href="#learning-outcomes">Learning Outcomes</a></li>
+<li><a href="#directional-derivatives-and-gradient">Directional Derivatives and Gradient</a></li>
+<li><a href="#tangent-plane-and-normal-direction">Tangent Plane and Normal Direction</a></li>
+<li><a href="#chain-rule-in-multivariable-calculus">Chain Rule in Multivariable Calculus</a></li>
+<li><a href="#jacobian-matrix-and-linearization">Jacobian Matrix and Linearization</a></li>
+<li><a href="#optimization-in-two-variables">Optimization in Two Variables</a></li>
+<li><a href="#lagrange-multipliers">Lagrange Multipliers</a></li>
+<li><a href="#mini-workflow">Mini Workflow</a></li>
+<li><a href="#practice-set">Practice Set</a></li>
+</ul>
+</nav>
+<article class="lecture-main">
+<button class="outline-toggle" type="button" aria-expanded="true" aria-controls="TOC">Hide Outline</button>
+<nav style="margin-bottom: 1.5rem; font-size: 0.95rem;">
+    <a href="index.html">Home</a> / <a href="calculus-2.html">Course</a> / <span aria-current="page">Lecture 4</span>
+</nav>
+<div class="lecture-content">
+<h1 id="learning-outcomes">Learning Outcomes</h1>
+<p><strong>By the end of this lecture, you will be able to:</strong></p>
+<ul style="margin-bottom: 1.5rem;">
+<li>Compute directional derivatives and interpret them with the gradient.</li>
+<li>Use tangent-plane linearization and identify normal directions consistently.</li>
+<li>Apply chain rule in one-parameter and multi-parameter settings.</li>
+<li>Interpret and compute Jacobian matrices as local linear maps.</li>
+<li>Classify unconstrained critical points using the second derivative test.</li>
+<li>Solve constrained extrema problems with Lagrange multipliers.</li>
+</ul>
+
+<h1 id="directional-derivatives-and-gradient">Directional Derivatives and Gradient</h1>
+<p>Let \(f:\mathbb{R}^2 \to \mathbb{R}\), \(a=(a,b)\), and \(u=(u_1,u_2)\) with \(\|u\|=1\). The directional derivative is</p>
+<p>\[
+D_u f(a)=\lim_{t\to 0}\frac{f(a+tu)-f(a)}{t}.
+\]</p>
+<p>If \(f\) is differentiable at \(a\), then</p>
+<p>\[
+D_u f(a)=\nabla f(a)\cdot u.
+\]</p>
+<ul>
+<li>\(\nabla f(a)\) points to steepest increase.</li>
+<li>Maximum directional derivative is \(\|\nabla f(a)\|\).</li>
+<li>Minimum directional derivative is \(-\|\nabla f(a)\|\).</li>
+<li>If \(u\perp \nabla f(a)\), then \(D_u f(a)=0\).</li>
+</ul>
+<div class="tcolorbox">
+<p><strong>Pitfall:</strong> The direction vector in \(D_u f=\nabla f\cdot u\) must be a unit vector. Normalize first if needed.</p>
+</div>
+<p><strong>Example.</strong> For \(f(x,y)=x^2y+y^3\),</p>
+<p>\[
+\nabla f=(2xy,\,x^2+3y^2),\quad \nabla f(1,1)=(2,4).
+\]</p>
+<p>With \(u=(3/5,4/5)\):</p>
+<p>\[
+D_u f(1,1)=(2,4)\cdot(3/5,4/5)=22/5.
+\]</p>
+
+<h1 id="tangent-plane-and-normal-direction">Tangent Plane and Normal Direction</h1>
+<p>For \(z=f(x,y)\) differentiable at \((a,b)\):</p>
+<p>\[
+z\approx f(a,b)+f_x(a,b)(x-a)+f_y(a,b)(y-b).
+\]</p>
+<p>For \(F(x,y,z)=f(x,y)-z=0\), a normal vector is</p>
+<p>\[
+\nabla F(a,b,f(a,b))=(f_x(a,b),f_y(a,b),-1).
+\]</p>
+<p>Both \(n\) and \(-n\) are valid. Choose orientation based on wording such as <em>upward/outward/inward</em>.</p>
+<figure>
+<img src="assets/lecture-4/example2_level_curve_gradient.png" style="width:86.0%" alt="Level curve with gradient and tangent direction" />
+<figcaption>Level curve \(f(x,y)=7\) with gradient and tangent direction at \((1,2)\).</figcaption>
+</figure>
+<figure>
+<img src="assets/lecture-4/normal_direction_graph_surface.png" style="width:88.0%" alt="Opposite normals on a graph surface" />
+<figcaption>Graph surface \(z=x^2+y^2\): two opposite normal directions at a smooth point.</figcaption>
+</figure>
+<figure>
+<img src="assets/lecture-4/normal_direction_sphere.png" style="width:88.0%" alt="Outward and inward normals on a sphere" />
+<figcaption>Sphere \(x^2+y^2+z^2=4\): \(\nabla F\) gives outward normal, \(-\nabla F\) inward normal.</figcaption>
+</figure>
+
+<h1 id="chain-rule-in-multivariable-calculus">Chain Rule in Multivariable Calculus</h1>
+<h2>Case A: One Parameter</h2>
+<p>If \(x=x(t), y=y(t), z=f(x,y)\), then</p>
+<p>\[
+\frac{dz}{dt}=f_x\frac{dx}{dt}+f_y\frac{dy}{dt}=\nabla f\cdot (x'(t),y'(t)).
+\]</p>
+<p><strong>Example.</strong> \(f(x,y)=x^2y\), \(x=t^2\), \(y=e^t\):</p>
+<p>\[
+\frac{dz}{dt}=(4t^3+t^4)e^t.
+\]</p>
+<h2>Case B: Two Parameters</h2>
+<p>If \(x=x(s,t), y=y(s,t), w=f(x,y)\), then</p>
+<p>\[
+\frac{\partial w}{\partial s}=f_x\frac{\partial x}{\partial s}+f_y\frac{\partial y}{\partial s},
+\qquad
+\frac{\partial w}{\partial t}=f_x\frac{\partial x}{\partial t}+f_y\frac{\partial y}{\partial t}.
+\]</p>
+
+<h1 id="jacobian-matrix-and-linearization">Jacobian Matrix and Linearization</h1>
+<p>For \(F:\mathbb{R}^n\to\mathbb{R}^m\),</p>
+<p>\[
+J_F(a)=\left[\frac{\partial F_i}{\partial x_j}(a)\right]_{m\times n}.
+\]</p>
+<p>If \(F\) is differentiable at \(a\),</p>
+<p>\[
+F(a+h)=F(a)+J_F(a)h+o(\|h\|).
+\]</p>
+<p><strong>Example.</strong> \(F(x,y)=(x^2-y,xy)\):</p>
+<p>\[
+J_F(x,y)=\begin{bmatrix}2x & -1\\ y & x\end{bmatrix},
+\qquad
+J_F(1,2)=\begin{bmatrix}2 & -1\\ 2 & 1\end{bmatrix}.
+\]</p>
+
+<h1 id="optimization-in-two-variables">Optimization in Two Variables</h1>
+<p>Critical points satisfy \(\nabla f(a,b)=(0,0)\) (or first partials fail to exist).</p>
+<p>Use</p>
+<p>\[
+A=f_{xx},\;B=f_{xy},\;C=f_{yy},\;D=AC-B^2.
+\]</p>
+<ul>
+<li>If \(D&gt;0\) and \(A&gt;0\): local minimum.</li>
+<li>If \(D&gt;0\) and \(A&lt;0\): local maximum.</li>
+<li>If \(D&lt;0\): saddle.</li>
+<li>If \(D=0\): inconclusive.</li>
+</ul>
+<p><strong>Example.</strong> \(f(x,y)=x^3-3x+y^2\). Critical points: \((1,0)\), \((-1,0)\). Classification: \((1,0)\) is local minimum, \((-1,0)\) is saddle.</p>
+
+<h1 id="lagrange-multipliers">Lagrange Multipliers</h1>
+<p>To optimize \(f(x,y)\) under \(g(x,y)=c\), solve</p>
+<p>\[
+\nabla f=\lambda\nabla g,\qquad g(x,y)=c.
+\]</p>
+<p><strong>Example.</strong> Optimize \(f(x,y)=xy\) on \(x^2+y^2=1\):</p>
+<p>Max value \(1/2\), min value \(-1/2\), attained at \((\pm 1/\sqrt2,\pm 1/\sqrt2)\) with matching signs for max and opposite signs for min.</p>
+
+<h1 id="mini-workflow">Mini Workflow</h1>
+<ol>
+<li>Normalize the direction vector for directional derivatives.</li>
+<li>Compute gradient first, then project: \(D_u f=\nabla f\cdot u\).</li>
+<li>For normals, compute a valid normal and choose sign by orientation words.</li>
+<li>For composites, draw dependence and apply chain rule step by step.</li>
+<li>For unconstrained extrema, find critical points then use second derivative test.</li>
+<li>For constraints, solve \(\nabla f=\lambda\nabla g\) with constraint equation.</li>
+</ol>
+
+<h1 id="practice-set">Practice Set</h1>
+<ol>
+<li>\(f(x,y)=x^2+2xy-y^2\). Compute \(D_u f(1,-1)\) for \(u=(1/\sqrt2,1/\sqrt2)\).</li>
+<li>\(z=x^2+y^2\), \(x=t\cos t\), \(y=t\sin t\). Find \(dz/dt\).</li>
+<li>Find and classify critical points of \(f(x,y)=x^2+y^2-4x+6y\).</li>
+<li>Use Lagrange multipliers for extrema of \(f(x,y)=x+2y\) on \(x^2+y^2=5\).</li>
+<li>\(F(x,y)=(x^2+y, e^{xy})\). Compute \(J_F(0,1)\) and linear approximation near \((0,1)\).</li>
+</ol>
+
+<div class="tcolorbox">
+<p><strong>Takeaway:</strong> The gradient unifies local change, directional rates, chain rule structure, and optimization with or without constraints.</p>
+</div>
+</div>
+</article>
+</div>
+</div>
+</body>
+</html>
