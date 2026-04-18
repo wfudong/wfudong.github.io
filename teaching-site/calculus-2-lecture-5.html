@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="Lecture 5 for GBU Calculus II, combining Higher Math Lectures 5 and 6 on extrema, Taylor expansion, and implicit-function methods." />
+  <title>Lecture 5: Extreme Values, Taylor Expansion, and Implicit Constraints</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/lecture-notes.css">
+  <script defer src="../analytics.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const toc = document.getElementById('TOC');
+      const floatingToggle = document.querySelector('.outline-toggle');
+      const body = document.body;
+      let userPinned = false;
+
+      const updateFloatingToggle = function () {
+        if (!floatingToggle) return;
+        const collapsed = body.classList.contains('outline-hidden');
+        floatingToggle.textContent = collapsed ? 'Show Outline' : 'Hide Outline';
+        floatingToggle.setAttribute('aria-expanded', String(!collapsed));
+      };
+
+      const applyResponsiveState = function () {
+        if (userPinned) return;
+        const shouldCollapse = window.innerWidth <= 1100;
+        body.classList.toggle('outline-hidden', shouldCollapse);
+        updateFloatingToggle();
+      };
+
+      applyResponsiveState();
+      window.addEventListener('resize', applyResponsiveState);
+
+      floatingToggle?.addEventListener('click', function () {
+        userPinned = true;
+        body.classList.toggle('outline-hidden');
+        updateFloatingToggle();
+      });
+
+      if (toc) {
+        const topSections = toc.querySelectorAll(':scope > ul > li');
+        topSections.forEach(function (section) {
+          const nestedList = section.querySelector(':scope > ul');
+          if (!nestedList) return;
+
+          const anchor = section.querySelector(':scope > a');
+          const sectionToggle = document.createElement('button');
+          sectionToggle.type = 'button';
+          sectionToggle.className = 'toc-section-toggle';
+          sectionToggle.setAttribute('aria-expanded', 'false');
+          sectionToggle.textContent = '▸';
+
+          if (anchor) {
+            anchor.insertAdjacentElement('afterend', sectionToggle);
+          } else {
+            section.insertBefore(sectionToggle, nestedList);
+          }
+
+          nestedList.hidden = true;
+
+          sectionToggle.addEventListener('click', function (event) {
+            event.preventDefault();
+            const expanded = nestedList.hidden;
+            nestedList.hidden = !expanded;
+            sectionToggle.setAttribute('aria-expanded', String(expanded));
+            sectionToggle.textContent = expanded ? '▾' : '▸';
+          });
+        });
+      }
+    });
+  </script>
+</head>
+<body class="lecture-page">
+<div class="site-shell" style="padding-top: 1rem;">
+<nav class="navbar" aria-label="Primary">
+<a href="index.html" class="logo">GBU Calculus Hub</a>
+<ul class="nav-links">
+<li><a href="index.html">Home</a></li>
+<li><a href="calculus-2.html">Course</a></li>
+<li class="nav-dropdown">
+  <button class="nav-trigger" type="button" aria-haspopup="true">
+    Practice
+    <span class="caret" aria-hidden="true">▾</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="test-1.html">Practice 1 · Vectors Warm-up</a></li>
+    <li><a href="test-2.html">Practice 2 · Geometry in R3</a></li>
+    <li><a href="test-3.html">Practice 3 · Limits and Derivatives</a></li>
+    <li><a href="test-4.html">Practice 4 · Directional Derivatives &amp; Optimization</a></li>
+  </ul>
+</li>
+<li class="nav-dropdown is-active">
+  <button class="nav-trigger" type="button" aria-haspopup="true">
+    Lecture Notes
+    <span class="caret" aria-hidden="true">▾</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="calculus-2-lecture-1.html">Lecture 1 · Vectors in Euclidean Space</a></li>
+    <li><a href="calculus-2-lecture-2.html">Lecture 2 · Analytic Geometry in R3</a></li>
+    <li><a href="calculus-2-lecture-3.html">Lecture 3 · Functions, Limits, Continuity, Derivatives</a></li>
+    <li><a href="calculus-2-lecture-4.html">Lecture 4 · Directional Derivatives, Chain Rule, Extrema</a></li>
+    <li><a href="calculus-2-lecture-5.html" aria-current="page">Lecture 5 · Extreme Values, Taylor Expansion, Implicit Constraints</a></li>
+  </ul>
+</li>
+<li><a href="calculus-2-lecture-5-zh.html" class="lang-switch">中文</a></li>
+</ul>
+</nav>
+<header id="title-block-header">
+<h1 class="title">Lecture 5: Extreme Values, Taylor Expansion, and Implicit Constraints</h1>
+<p class="course-info" style="text-align: center; margin-top: 0.5rem;">
+  Last updated: April 18, 2026 (synthesized from Higher Math Lectures 5 and 6)
+</p>
+<div class="cta-row" style="justify-content: center; margin-top: 1rem;">
+  <a href="extreme_values_multivariable.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Lecture 5 PDF</a>
+  <a href="taylor_inverse_implicit_extrema.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Lecture 6 PDF</a>
+</div>
+</header>
+<div class="lecture-layout">
+<nav id="TOC" role="doc-toc">
+<a href="calculus-2.html" class="toc-syllabus">← Back to Course Syllabus</a>
+<a href="extreme_values_multivariable.pdf" class="toc-syllabus" target="_blank" rel="noopener noreferrer">Open Lecture 5 PDF</a>
+<a href="taylor_inverse_implicit_extrema.pdf" class="toc-syllabus" target="_blank" rel="noopener noreferrer">Open Lecture 6 PDF</a>
+<ul>
+<li><a href="#learning-outcomes">Learning Outcomes</a></li>
+<li><a href="#why-this-web-lecture-combines-two-source-notes">Why This Web Lecture Combines Two Source Notes</a></li>
+<li><a href="#local-and-global-extrema">Local and Global Extrema</a></li>
+<li><a href="#extreme-value-theorem-and-closed-regions">Extreme Value Theorem and Closed Regions</a></li>
+<li><a href="#hessian-test-through-taylor-expansion">Hessian Test Through Taylor Expansion</a></li>
+<li><a href="#constraints-lagrange-multipliers-and-geometric-tangency">Constraints, Lagrange Multipliers, and Geometric Tangency</a></li>
+<li><a href="#inverse-and-implicit-function-theorems">Inverse and Implicit Function Theorems</a></li>
+<li><a href="#unified-problem-solving-workflow">Unified Problem-Solving Workflow</a></li>
+<li><a href="#practice-set">Practice Set</a></li>
+<li><a href="#source-pdfs">Source PDFs</a></li>
+</ul>
+</nav>
+<article class="lecture-main">
+<button class="outline-toggle" type="button" aria-expanded="true" aria-controls="TOC">Hide Outline</button>
+<nav style="margin-bottom: 1.5rem; font-size: 0.95rem;">
+    <a href="index.html">Home</a> / <a href="calculus-2.html">Course</a> / <span aria-current="page">Lecture 5</span>
+</nav>
+<div class="lecture-content">
+<h1 id="learning-outcomes">Learning Outcomes</h1>
+<p><strong>By the end of this lecture, you should be able to:</strong></p>
+<ul style="margin-bottom: 1.5rem;">
+<li>Distinguish local extrema, absolute extrema, and saddle behavior in several variables.</li>
+<li>Use the Extreme Value Theorem to decide when global maxima and minima must exist.</li>
+<li>Find interior candidates with \(\nabla f=0\) and classify them with the Hessian test.</li>
+<li>Handle absolute extrema on closed regions by combining interior, boundary, and corner analysis.</li>
+<li>Use Lagrange multipliers for smooth equality constraints and explain the geometry behind the formula.</li>
+<li>Recognize how Taylor expansion, the inverse function theorem, and the implicit function theorem support optimization methods.</li>
+</ul>
+
+<div class="tcolorbox">
+<h4>Central Theme</h4>
+<p>Higher Math Lecture 5 gives the optimization toolkit. Higher Math Lecture 6 explains why that toolkit works so reliably: Taylor expansion controls local shape, and implicit-function ideas explain how smooth constraints behave near a point.</p>
+</div>
+
+<h1 id="why-this-web-lecture-combines-two-source-notes">Why This Web Lecture Combines Two Source Notes</h1>
+<p>The local source folder contains two separate notes:</p>
+<ul>
+<li><strong>Lecture 5</strong> develops interior critical points, absolute extrema on compact sets, boundary analysis, and Lagrange multipliers.</li>
+<li><strong>Lecture 6</strong> adds the conceptual layer: Taylor expansion, local invertibility, implicit equations, and a unified view of constrained versus unconstrained extrema.</li>
+</ul>
+<p>For the course website, these topics fit naturally into one teaching page. Students usually ask the same three questions in one breath: <em>Does an extremum exist?</em> <em>Where are the candidates?</em> <em>How do we classify them?</em> The merged page keeps those steps together.</p>
+
+<blockquote>
+<p><strong>Key distinction:</strong> existence, candidate equations, and classification are three different tasks. Mixing them up is the most common source of errors in multivariable optimization.</p>
+</blockquote>
+
+<h1 id="local-and-global-extrema">Local and Global Extrema</h1>
+<p>Let \(f:D\subset\mathbb{R}^2\to\mathbb{R}\).</p>
+<ul>
+<li>\(f\) has a <strong>local maximum</strong> at \(p\in D\) if \(f(p)\ge f(x,y)\) for all nearby points in \(D\).</li>
+<li>\(f\) has a <strong>local minimum</strong> at \(p\in D\) if \(f(p)\le f(x,y)\) for all nearby points in \(D\).</li>
+<li>\(f\) has an <strong>absolute maximum</strong> at \(p\) if \(f(p)\ge f(x,y)\) for all \((x,y)\in D\).</li>
+<li>\(f\) has an <strong>absolute minimum</strong> at \(p\) if \(f(p)\le f(x,y)\) for all \((x,y)\in D\).</li>
+</ul>
+<p><strong>Example.</strong> For \(f(x,y)=x^2+y^2\) on \(\mathbb{R}^2\), the point \((0,0)\) is both a local and an absolute minimum, but there is no absolute maximum.</p>
+<p>If \(p=(a,b)\) is an interior point of \(D\) and \(f\) is differentiable, then any local extremum must satisfy</p>
+<p>\[
+\nabla f(a,b)=\bigl(f_x(a,b),f_y(a,b)\bigr)=(0,0).
+\]</p>
+<p>This is the multivariable version of Fermat's theorem. A <strong>critical point</strong> is a point where \(\nabla f=0\) or a first partial derivative does not exist.</p>
+
+<div class="tcolorbox">
+<h4>Pitfall</h4>
+<p>\(\nabla f=0\) gives a candidate, not a final answer. Critical points may be minima, maxima, saddles, or inconclusive without higher-order analysis.</p>
+</div>
+
+<h1 id="extreme-value-theorem-and-closed-regions">Extreme Value Theorem and Closed Regions</h1>
+<p>If \(D\subset\mathbb{R}^2\) is <strong>closed and bounded</strong> and \(f\) is continuous on \(D\), then \(f\) attains both an absolute maximum and an absolute minimum on \(D\). This is the Extreme Value Theorem.</p>
+<p>That theorem answers the existence question before any calculation starts. Once existence is guaranteed, we use the standard comparison workflow:</p>
+<ol>
+<li>Find interior critical points with \(\nabla f=0\).</li>
+<li>Reduce each smooth boundary piece to a one-variable problem.</li>
+<li>Check corner points and endpoints.</li>
+<li>Compare all candidate values.</li>
+</ol>
+
+<p><strong>Counterexample.</strong> On the open disk \(x^2+y^2&lt;1\), the function \(f(x,y)=x^2+y^2\) has no absolute maximum, because values approach \(1\) but never reach it.</p>
+
+<h2>Worked Closed-Region Example</h2>
+<p>Consider</p>
+<p>\[
+f(x,y)=x^2+y^2-2x-4y
+\]</p>
+<p>on the rectangle \(D=[0,3]\times[0,4]\).</p>
+<ul>
+<li>Interior critical point: \(\nabla f=(2x-2,\,2y-4)\), so \((1,2)\) with value \(f(1,2)=-5\).</li>
+<li>Boundary \(x=0\): \(f(0,y)=y^2-4y\), giving candidates \(y=0,2,4\) with values \(0,-4,0\).</li>
+<li>Boundary \(x=3\): \(f(3,y)=y^2-4y+3\), giving values \(3,-1,3\).</li>
+<li>Boundary \(y=0\) or \(y=4\): \(f(x,0)=f(x,4)=x^2-2x\), giving values \(0,-1,3\).</li>
+</ul>
+<p>Comparing every candidate shows</p>
+<p>\[
+f_{\min}=-5 \text{ at } (1,2), \qquad f_{\max}=3 \text{ at } (3,0) \text{ and } (3,4).
+\]</p>
+
+<h1 id="hessian-test-through-taylor-expansion">Hessian Test Through Taylor Expansion</h1>
+<p>Lecture 6 explains why the second derivative test works. If \(f\in C^2\) near \(a\in\mathbb{R}^n\), then</p>
+<p>\[
+f(a+h)=f(a)+\nabla f(a)\cdot h+\frac12\,h^{\mathsf T}H_f(a)h+o(\|h\|^2),
+\]</p>
+<p>where \(H_f(a)\) is the Hessian matrix.</p>
+<p>At a critical point, the linear term disappears, so the quadratic form decides the local shape:</p>
+<p>\[
+f(a+h)-f(a)=\frac12\,h^{\mathsf T}H_f(a)h+o(\|h\|^2).
+\]</p>
+
+<h2>Two-Variable Hessian Test</h2>
+<p>For \(f(x,y)\), write</p>
+<p>\[
+A=f_{xx}(a,b), \qquad B=f_{xy}(a,b), \qquad C=f_{yy}(a,b), \qquad D=AC-B^2.
+\]</p>
+<ul>
+<li>If \(D&gt;0\) and \(A&gt;0\), then \((a,b)\) is a strict local minimum.</li>
+<li>If \(D&gt;0\) and \(A&lt;0\), then \((a,b)\) is a strict local maximum.</li>
+<li>If \(D&lt;0\), then \((a,b)\) is a saddle point.</li>
+<li>If \(D=0\), the test is inconclusive.</li>
+</ul>
+
+<h2>Example: Classification by the Hessian</h2>
+<p>Let</p>
+<p>\[
+f(x,y)=x^3-3xy+y^3.
+\]</p>
+<p>Then</p>
+<p>\[
+f_x=3x^2-3y, \qquad f_y=-3x+3y^2,
+\]</p>
+<p>so the critical points satisfy \(x^2=y\) and \(y^2=x\), giving \((0,0)\) and \((1,1)\).</p>
+<p>The second derivatives are</p>
+<p>\[
+f_{xx}=6x,\qquad f_{xy}=-3,\qquad f_{yy}=6y.
+\]</p>
+<ul>
+<li>At \((0,0)\), \(D=0\cdot0-(-3)^2=-9&lt;0\), so the point is a saddle.</li>
+<li>At \((1,1)\), \(D=6\cdot6-(-3)^2=27&gt;0\) and \(f_{xx}(1,1)=6&gt;0\), so the point is a strict local minimum.</li>
+</ul>
+
+<div class="tcolorbox">
+<h4>Taylor Viewpoint</h4>
+<p>The Hessian test is not a separate trick. It is a direct consequence of the second-order Taylor polynomial. When the quadratic part is positive definite, the graph bends upward in every direction; when it is indefinite, the graph bends up in some directions and down in others.</p>
+</div>
+
+<h1 id="constraints-lagrange-multipliers-and-geometric-tangency">Constraints, Lagrange Multipliers, and Geometric Tangency</h1>
+<p>To optimize \(f(x,y)\) subject to a smooth constraint \(g(x,y)=c\), solve</p>
+<p>\[
+\nabla f=\lambda \nabla g, \qquad g(x,y)=c.
+\]</p>
+<p>The geometry is simple: at a constrained extremum, every feasible motion is tangent to the constraint curve, so the first-order change in \(f\) along that tangent direction must be zero. That makes \(\nabla f\) normal to the same curve as \(\nabla g\), hence parallel.</p>
+
+<h2>Example: Optimizing on the Unit Circle</h2>
+<p>Let \(f(x,y)=xy\) with constraint \(x^2+y^2=1\).</p>
+<p>\[
+\nabla f=(y,x), \qquad \nabla g=(2x,2y).
+\]</p>
+<p>So we solve</p>
+<p>\[
+y=2\lambda x,\qquad x=2\lambda y,\qquad x^2+y^2=1.
+\]</p>
+<p>The first two equations force \(x=\pm y\).</p>
+<ul>
+<li>If \(x=y\), then \(x=y=\pm 1/\sqrt{2}\) and \(f=1/2\).</li>
+<li>If \(x=-y\), then \(f=-1/2\).</li>
+</ul>
+<p>Therefore</p>
+<p>\[
+f_{\max}=\frac12, \qquad f_{\min}=-\frac12.
+\]</p>
+
+<h2>Multiple Constraints</h2>
+<p>Lecture 6 also gives the higher-dimensional version. For \(k\) smooth equality constraints</p>
+<p>\[
+g_1(x)=c_1,\quad \dots,\quad g_k(x)=c_k,
+\]</p>
+<p>the condition becomes</p>
+<p>\[
+\nabla f=\lambda_1 \nabla g_1+\cdots+\lambda_k \nabla g_k.
+\]</p>
+<p>That means \(\nabla f\) lies in the normal space generated by all constraint gradients.</p>
+
+<h1 id="inverse-and-implicit-function-theorems">Inverse and Implicit Function Theorems</h1>
+<p>These theorems explain when a nonlinear problem behaves like a linear one near a point.</p>
+
+<h2>Inverse Function Theorem</h2>
+<p>If \(F:\mathbb{R}^n\to\mathbb{R}^n\) is \(C^1\) near \(a\) and</p>
+<p>\[
+\det J_F(a)\neq 0,
+\]</p>
+<p>then \(F\) is locally invertible near \(a\), and</p>
+<p>\[
+J_{F^{-1}}(F(a))=(J_F(a))^{-1}.
+\]</p>
+<p><strong>Example.</strong> For</p>
+<p>\[
+F(x,y)=\bigl(e^x\cos y,\ e^x\sin y\bigr),
+\]</p>
+<p>the Jacobian determinant is \(e^{2x}&gt;0\), so the map is locally invertible everywhere, even though it is not globally one-to-one because of the periodic variable \(y\).</p>
+
+<h2>Implicit Function Theorem</h2>
+<p>If \(F(x,y)\) is \(C^1\) near \((a,b)\), \(F(a,b)=0\), and \(F_y(a,b)\neq 0\), then the equation \(F(x,y)=0\) defines a unique differentiable function \(y=\varphi(x)\) near \(x=a\). The derivative is</p>
+<p>\[
+\varphi'(x)=-\frac{F_x(x,\varphi(x))}{F_y(x,\varphi(x))}.
+\]</p>
+<p>This matters for optimization because a smooth constraint can often be treated locally as a graph \(y=\varphi(x)\), turning a constrained problem into a one-variable problem.</p>
+
+<h2>Example: Implicit Differentiation with Structure</h2>
+<p>Take</p>
+<p>\[
+F(x,y)=x^2+xy+y^2-3.
+\]</p>
+<p>At \((1,1)\), \(F(1,1)=0\) and</p>
+<p>\[
+F_y(1,1)=1+2=3\neq 0,
+\]</p>
+<p>so near \((1,1)\) the equation defines \(y\) as a differentiable function of \(x\). Since</p>
+<p>\[
+F_x(x,y)=2x+y,\qquad F_y(x,y)=x+2y,
+\]</p>
+<p>we obtain</p>
+<p>\[
+y'(1)=-\frac{F_x(1,1)}{F_y(1,1)}=-\frac{3}{3}=-1.
+\]</p>
+
+<div class="tcolorbox">
+<h4>Constraint Interpretation</h4>
+<p>Lagrange multipliers are the global geometric language. The implicit function theorem is the local parameterization language. They describe the same smooth-constraint picture from two complementary viewpoints.</p>
+</div>
+
+<h1 id="unified-problem-solving-workflow">Unified Problem-Solving Workflow</h1>
+<table>
+<thead>
+<tr>
+<th>Problem type</th>
+<th>Main equations</th>
+<th>How to finish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Interior local extremum</td>
+<td>\(\nabla f=0\)</td>
+<td>Use Taylor or Hessian classification.</td>
+</tr>
+<tr>
+<td>Absolute extrema on closed region</td>
+<td>Interior critical points, boundary equations, corners</td>
+<td>Compare every candidate value.</td>
+</tr>
+<tr>
+<td>Smooth equality constraint</td>
+<td>\(\nabla f=\lambda \nabla g\) with \(g=c\)</td>
+<td>Check all candidates and compare values.</td>
+</tr>
+<tr>
+<td>Local solution of equation</td>
+<td>\(F(x,y)=0\), \(F_y\neq 0\)</td>
+<td>Use implicit-function theorem and derivative formula.</td>
+</tr>
+<tr>
+<td>Local invertibility of map</td>
+<td>\(\det J_F\neq 0\)</td>
+<td>Apply inverse-function theorem.</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Compact student workflow.</strong></p>
+<ol>
+<li>Identify the domain type: unconstrained, compact region, or smooth constraint.</li>
+<li>Write candidate equations cleanly before computing values.</li>
+<li>Use Taylor or Hessian information only for interior classification.</li>
+<li>Use boundary analysis or constraints to capture candidates that the interior test misses.</li>
+<li>State final answers with both the point and the function value.</li>
+</ol>
+
+<h1 id="practice-set">Practice Set</h1>
+<ol>
+<li>Find and classify all critical points of \(f(x,y)=x^4+y^4-4x^2-4y^2\).</li>
+<li>Find the absolute extrema of \(f(x,y)=x^2+y^2+2x-4y\) on the triangle with vertices \((0,0)\), \((2,0)\), and \((0,2)\).</li>
+<li>Use Lagrange multipliers to optimize \(f(x,y)=x^2+y^2\) subject to \(x+2y=6\).</li>
+<li>Find the second-order Taylor polynomial of \(f(x,y)=\ln(1+x+y)\) at \((0,0)\).</li>
+<li>Show that \(x^2+xy+y^2=3\) defines \(y\) as a function of \(x\) near \((1,1)\), then compute \(y'(1)\).</li>
+</ol>
+
+<h1 id="source-pdfs">Source PDFs</h1>
+<div class="lecture-pdf-card">
+  <p>This website page is based on the two local source notes in the <code>Higher Math</code> folder.</p>
+  <div class="cta-row" style="margin-top: 1rem;">
+    <a href="extreme_values_multivariable.pdf" target="_blank" rel="noopener noreferrer" class="btn-primary">Open Lecture 5 PDF</a>
+    <a href="taylor_inverse_implicit_extrema.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Open Lecture 6 PDF</a>
+  </div>
+  <p style="margin-top: 1rem;">Lecture 5 provides the main optimization examples. Lecture 6 supplies the Taylor, inverse-function, and implicit-function viewpoints that justify the workflow used above.</p>
+</div>
+</div>
+</article>
+</div>
+</div>
+</body>
+</html>
