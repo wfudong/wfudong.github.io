@@ -129,7 +129,7 @@ body {
     position: absolute;
     top: calc(100% + 0.4rem);
     left: 0;
-    min-width: 210px;
+    min-width: min(340px, calc(100vw - 2rem));
     background: #ffffff;
     border: 1px solid var(--border);
     border-radius: 14px;
@@ -146,6 +146,8 @@ body {
     display: block;
     padding: 0.55rem 0.95rem;
     font-size: 0.9rem;
+    line-height: 1.35;
+    white-space: normal;
     border-radius: 0;
     color: var(--text);
     border: none;

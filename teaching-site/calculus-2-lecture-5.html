@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="Lecture 5 for GBU Calculus II, combining Higher Math Lectures 5 and 6 on extrema, Taylor expansion, and implicit-function methods." />
+  <meta name="description" content="Lecture 5 for GBU Calculus II on local extrema, absolute extrema, Hessian tests, boundary comparison, and Lagrange multipliers." />
   <title>Lecture 5: Extreme Values, Taylor Expansion, and Implicit Constraints</title>
   <link rel="stylesheet" href="assets/styles.css">
   <link rel="stylesheet" href="assets/lecture-notes.css">
@@ -75,57 +75,64 @@
 <body class="lecture-page">
 <div class="site-shell" style="padding-top: 1rem;">
 <nav class="navbar" aria-label="Primary">
-<a href="index.html" class="logo">GBU Calculus Hub</a>
-<ul class="nav-links">
-<li><a href="index.html">Home</a></li>
-<li><a href="calculus-2.html">Course</a></li>
-<li class="nav-dropdown">
-  <button class="nav-trigger" type="button" aria-haspopup="true">
-    Practice
-    <span class="caret" aria-hidden="true">▾</span>
-  </button>
-  <ul class="dropdown-menu">
-    <li><a href="test-1.html">Practice 1 · Vectors Warm-up</a></li>
-    <li><a href="test-2.html">Practice 2 · Geometry in R3</a></li>
-    <li><a href="test-3.html">Practice 3 · Limits and Derivatives</a></li>
-    <li><a href="test-4.html">Practice 4 · Directional Derivatives &amp; Optimization</a></li>
-  </ul>
-</li>
-<li class="nav-dropdown is-active">
-  <button class="nav-trigger" type="button" aria-haspopup="true">
-    Lecture Notes
-    <span class="caret" aria-hidden="true">▾</span>
-  </button>
-  <ul class="dropdown-menu">
-    <li><a href="calculus-2-lecture-1.html">Lecture 1 · Vectors in Euclidean Space</a></li>
-    <li><a href="calculus-2-lecture-2.html">Lecture 2 · Analytic Geometry in R3</a></li>
-    <li><a href="calculus-2-lecture-3.html">Lecture 3 · Functions, Limits, Continuity, Derivatives</a></li>
-    <li><a href="calculus-2-lecture-4.html">Lecture 4 · Directional Derivatives, Chain Rule, Extrema</a></li>
-    <li><a href="calculus-2-lecture-5.html" aria-current="page">Lecture 5 · Extreme Values, Taylor Expansion, Implicit Constraints</a></li>
-                        <li><a href="calculus-2-lecture-6.html">Lecture 6 · Review and Multivariable Integration</a></li>
-  </ul>
-</li>
-<li><a href="calculus-2-lecture-5-zh.html" class="lang-switch">中文</a></li>
-</ul>
-</nav>
+            <a href="index.html" class="logo">GBU Calculus Hub</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="calculus-2.html">Course</a></li>
+                <li class="nav-dropdown">
+                    <button class="nav-trigger" type="button" aria-haspopup="true">
+                        Practice
+                        <span class="caret" aria-hidden="true">▾</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="test-1.html">Practice 1 · Vectors Warm-up</a></li>
+                        <li><a href="test-2.html">Practice 2 · Geometry in R3</a></li>
+                        <li><a href="test-3.html">Practice 3 · Limits and Derivatives</a></li>
+                        <li><a href="test-4.html">Practice 4 · Directional Derivatives & Optimization</a></li>
+                        <li><a href="test-6.html">Practice 6 · Taylor, Inverse, Implicit, Extrema</a></li>
+                        <li><a href="test-7.html">Practice 7 · Review and Integration Bridge</a></li>
+                        <li><a href="test-8.html">Practice 8 · Derivative Examples and Integration Preview</a></li>
+                        <li><a href="test-9.html">Practice 9 · Integration Theory</a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown is-active">
+                    <button class="nav-trigger" type="button" aria-haspopup="true">
+                        Lecture Notes
+                        <span class="caret" aria-hidden="true">▾</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="calculus-2-lecture-1.html">Lecture 1 · Vectors in Euclidean Space</a></li>
+                        <li><a href="calculus-2-lecture-2.html">Lecture 2 · Analytic Geometry in R3</a></li>
+                        <li><a href="calculus-2-lecture-3.html">Lecture 3 · Functions, Limits, Continuity, Derivatives</a></li>
+                        <li><a href="calculus-2-lecture-4.html">Lecture 4 · Directional Derivatives, Chain Rule, Extrema</a></li>
+                        <li><a href="calculus-2-lecture-5.html" aria-current="page">Lecture 5 · Extreme Values, Taylor Expansion, Implicit Constraints</a></li>
+                        <li><a href="calculus-2-lecture-6.html">Lecture 6 · Taylor's Theorem, Inverse/Implicit Functions, Extrema Review</a></li>
+                        <li><a href="calculus-2-lecture-7.html">Lecture 7 · Review and Introduction to Multivariable Integration</a></li>
+                        <li><a href="calculus-2-lecture-8.html">Lecture 8 · Derivative Examples and Integration Preview</a></li>
+                        <li><a href="calculus-2-lecture-9.html">Lecture 9 · Multivariable Integration Theory</a></li>
+                    </ul>
+                </li>
+                <li><a href="calculus-2-lecture-5-zh.html" class="lang-switch">中文</a></li>
+            </ul>
+        </nav>
 <header id="title-block-header">
 <h1 class="title">Lecture 5: Extreme Values, Taylor Expansion, and Implicit Constraints</h1>
 <p class="course-info" style="text-align: center; margin-top: 0.5rem;">
-  Last updated: April 18, 2026 (synthesized from Higher Math Lectures 5 and 6)
+  Last updated: April 18, 2026 (Lecture 6 now has its own dedicated page)
 </p>
 <div class="cta-row" style="justify-content: center; margin-top: 1rem;">
   <a href="extreme_values_multivariable.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Lecture 5 PDF</a>
-  <a href="taylor_inverse_implicit_extrema.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Lecture 6 PDF</a>
+  <a href="calculus-2-lecture-6.html" class="btn-secondary">Lecture 6 Page</a>
 </div>
 </header>
 <div class="lecture-layout">
 <nav id="TOC" role="doc-toc">
 <a href="calculus-2.html" class="toc-syllabus">← Back to Course Syllabus</a>
 <a href="extreme_values_multivariable.pdf" class="toc-syllabus" target="_blank" rel="noopener noreferrer">Open Lecture 5 PDF</a>
-<a href="taylor_inverse_implicit_extrema.pdf" class="toc-syllabus" target="_blank" rel="noopener noreferrer">Open Lecture 6 PDF</a>
+<a href="calculus-2-lecture-6.html" class="toc-syllabus">Go to Lecture 6 Page</a>
 <ul>
 <li><a href="#learning-outcomes">Learning Outcomes</a></li>
-<li><a href="#why-this-web-lecture-combines-two-source-notes">Why This Web Lecture Combines Two Source Notes</a></li>
+<li><a href="#lecture-5-and-lecture-6-relationship">Lecture 5 and Lecture 6 Relationship</a></li>
 <li><a href="#local-and-global-extrema">Local and Global Extrema</a></li>
 <li><a href="#extreme-value-theorem-and-closed-regions">Extreme Value Theorem and Closed Regions</a></li>
 <li><a href="#hessian-test-through-taylor-expansion">Hessian Test Through Taylor Expansion</a></li>
@@ -155,16 +162,16 @@
 
 <div class="tcolorbox">
 <h4>Central Theme</h4>
-<p>Higher Math Lecture 5 gives the optimization toolkit. Higher Math Lecture 6 explains why that toolkit works so reliably: Taylor expansion controls local shape, and implicit-function ideas explain how smooth constraints behave near a point.</p>
+<p>Higher Math Lecture 5 gives the optimization toolkit. Lecture 6 now has a separate page for the Taylor, inverse-function, and implicit-function viewpoints that justify this workflow.</p>
 </div>
 
-<h1 id="why-this-web-lecture-combines-two-source-notes">Why This Web Lecture Combines Two Source Notes</h1>
+<h1 id="lecture-5-and-lecture-6-relationship">Lecture 5 and Lecture 6 Relationship</h1>
 <p>The local source folder contains two separate notes:</p>
 <ul>
 <li><strong>Lecture 5</strong> develops interior critical points, absolute extrema on compact sets, boundary analysis, and Lagrange multipliers.</li>
 <li><strong>Lecture 6</strong> adds the conceptual layer: Taylor expansion, local invertibility, implicit equations, and a unified view of constrained versus unconstrained extrema.</li>
 </ul>
-<p>For the course website, these topics fit naturally into one teaching page. Students usually ask the same three questions in one breath: <em>Does an extremum exist?</em> <em>Where are the candidates?</em> <em>How do we classify them?</em> The merged page keeps those steps together.</p>
+<p>This page keeps the optimization workflow visible, while the separate Lecture 6 page gives the focused Taylor, inverse-function, and implicit-function treatment. Students usually ask the same three questions in one breath: <em>Does an extremum exist?</em> <em>Where are the candidates?</em> <em>How do we classify them?</em></p>
 
 <blockquote>
 <p><strong>Key distinction:</strong> existence, candidate equations, and classification are three different tasks. Mixing them up is the most common source of errors in multivariable optimization.</p>
@@ -409,10 +416,10 @@ y'(1)=-\frac{F_x(1,1)}{F_y(1,1)}=-\frac{3}{3}=-1.
 
 <h1 id="source-pdfs">Source PDFs</h1>
 <div class="lecture-pdf-card">
-  <p>This website page is based on the two local source notes in the <code>Higher Math</code> folder.</p>
+  <p>This website page is based on the local Lecture 5 optimization note, with a cross-link to the newly separated Lecture 6 page.</p>
   <div class="cta-row" style="margin-top: 1rem;">
     <a href="extreme_values_multivariable.pdf" target="_blank" rel="noopener noreferrer" class="btn-primary">Open Lecture 5 PDF</a>
-    <a href="taylor_inverse_implicit_extrema.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Open Lecture 6 PDF</a>
+    <a href="calculus-2-lecture-6.html" class="btn-secondary">Go to Lecture 6 Page</a>
   </div>
   <p style="margin-top: 1rem;">Lecture 5 provides the main optimization examples. Lecture 6 supplies the Taylor, inverse-function, and implicit-function viewpoints that justify the workflow used above.</p>
 </div>

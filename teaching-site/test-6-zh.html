@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>练习 6 - Taylor、反函数、隐函数与极值复习</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <script defer src="../analytics.js"></script>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="site-shell">
+        <nav class="navbar" aria-label="Primary">
+            <a href="index-zh.html" class="logo">GBU Calculus Hub</a>
+            <ul class="nav-links">
+                <li><a href="index-zh.html">首页</a></li>
+                <li><a href="calculus-2-zh.html">课程</a></li>
+                <li class="nav-dropdown is-active">
+                    <button class="nav-trigger" type="button" aria-haspopup="true">
+                        练习
+                        <span class="caret" aria-hidden="true">▾</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="test-1-zh.html">练习 1 · 向量热身</a></li>
+                        <li><a href="test-2-zh.html">练习 2 · 三维几何</a></li>
+                        <li><a href="test-3-zh.html">练习 3 · 极限与偏导</a></li>
+                        <li><a href="test-4-zh.html">练习 4 · 方向导数与极值</a></li>
+                        <li><a href="test-6-zh.html" aria-current="page">练习 6 · Taylor、反函数、隐函数与极值</a></li>
+                        <li><a href="test-7-zh.html">练习 7 · 复习与积分桥接</a></li>
+                        <li><a href="test-8-zh.html">练习 8 · 导数例题与积分预告</a></li>
+                        <li><a href="test-9-zh.html">练习 9 · 积分理论</a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown">
+                    <button class="nav-trigger" type="button" aria-haspopup="true">
+                        讲义
+                        <span class="caret" aria-hidden="true">▾</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="calculus-2-lecture-1-zh.html">讲义 1 · 欧氏空间中的向量</a></li>
+                        <li><a href="calculus-2-lecture-2-zh.html">讲义 2 · 三维解析几何</a></li>
+                        <li><a href="calculus-2-lecture-3-zh.html">讲义 3 · 二元函数、极限、连续性与导数</a></li>
+                        <li><a href="calculus-2-lecture-4-zh.html">讲义 4 · 方向导数、链式法则与极值</a></li>
+                        <li><a href="calculus-2-lecture-5-zh.html">讲义 5 · 多元函数极值、泰勒展开与隐函数方法</a></li>
+                        <li><a href="calculus-2-lecture-6-zh.html">讲义 6 · Taylor 定理、反函数、隐函数与极值复习</a></li>
+                        <li><a href="calculus-2-lecture-7-zh.html">讲义 7 · 前六讲复习与多元积分引入</a></li>
+                        <li><a href="calculus-2-lecture-8-zh.html">讲义 8 · 多元导数例题与积分预告</a></li>
+                        <li><a href="calculus-2-lecture-9-zh.html">讲义 9 · 多元积分理论</a></li>
+                    </ul>
+                </li>
+                <li><a href="test-6.html" class="lang-switch">EN</a></li>
+            </ul>
+        </nav>
+
+        <section class="content">
+            <div class="container">
+                <nav style="margin-bottom: 1.5rem; font-size: 0.95rem;">
+                    <a href="index-zh.html">首页</a> / <a href="calculus-2-zh.html">课程</a> / <span aria-current="page">练习 6</span>
+                </nav>
+
+                <h2>练习 6: Taylor、反函数、隐函数与极值复习</h2>
+                <p><strong>预计时间:</strong> 35-45 分钟</p>
+                <p><strong>重点:</strong> Higher Math 第 6 讲</p>
+
+                <div class="section-panel" style="margin-bottom: 2rem;">
+                    <h3 style="margin-top: 0;">练习方式</h3>
+                    <p>先独立完成题目，需要时再打开提示。提交后会自动评分。数值题支持小数以及 sqrt(2)、pi、exp(1) 等表达式。</p>
+                </div>
+
+                <ol class="interactive-list">
+                    <li><div class="course-item" style="cursor: default;">
+                        <h4>练习 6 · 1</h4>
+                        <p>对 $F(x,y)=(x+y,x-y)$，计算 $\det J_F$。</p>
+                        <input id="q1" type="text" data-answer="-2" data-tolerance="0.001" placeholder="输入答案">
+                        <details style="margin-top:0.8rem;"><summary><strong>提示</strong></summary><p style="margin-top:0.5rem;">Jacobian 矩阵为 $\begin{bmatrix}1&1\\1&-1\end{bmatrix}$。</p></details>
+                        <details style="margin-top:0.6rem;"><summary><strong>解答</strong></summary><p style="margin-top:0.5rem;">$\det J_F=-2$。</p></details>
+                    </div></li>
+                    <li><div class="course-item" style="cursor: default;">
+                        <h4>练习 6 · 2</h4>
+                        <p>若 $F(x,y)=x^2+y^2-1=0$，则在 $(3/5,4/5)$ 处 $y'(x)=$</p>
+                        <input id="q2" type="text" data-answer="-0.75" data-tolerance="0.001" placeholder="输入答案">
+                        <details style="margin-top:0.8rem;"><summary><strong>提示</strong></summary><p style="margin-top:0.5rem;">用 $y'=-F_x/F_y=-x/y$。</p></details>
+                        <details style="margin-top:0.6rem;"><summary><strong>解答</strong></summary><p style="margin-top:0.5rem;">答案是 $-3/4$。</p></details>
+                    </div></li>
+                    <li><div class="course-item" style="cursor: default;">
+                        <h4>练习 6 · 3</h4>
+                        <p>对 $f(x,y)=e^x\cos y$，在 $(0,0)$ 的二阶 Taylor 多项式中 $x^2$ 的系数为：</p>
+                        <input id="q3" type="text" data-answer="0.5" data-tolerance="0.001" placeholder="输入答案">
+                        <details style="margin-top:0.8rem;"><summary><strong>提示</strong></summary><p style="margin-top:0.5rem;">$e^x$ 部分贡献 $x^2/2$。</p></details>
+                        <details style="margin-top:0.6rem;"><summary><strong>解答</strong></summary><p style="margin-top:0.5rem;">系数是 $1/2$。</p></details>
+                    </div></li>
+                    <li><div class="course-item" style="cursor: default;">
+                        <h4>练习 6 · 4</h4>
+                        <p>对 $f=x^3-3xy+y^3$，在 $(1,1)$ 处计算 $D=f_{xx}f_{yy}-f_{xy}^2$。</p>
+                        <input id="q4" type="text" data-answer="27" data-tolerance="0.001" placeholder="输入答案">
+                        <details style="margin-top:0.8rem;"><summary><strong>提示</strong></summary><p style="margin-top:0.5rem;">$f_{xx}=6x$, $f_{yy}=6y$, $f_{xy}=-3$。</p></details>
+                        <details style="margin-top:0.6rem;"><summary><strong>解答</strong></summary><p style="margin-top:0.5rem;">在 $(1,1)$，$D=6\cdot6-9=27$。</p></details>
+                    </div></li>
+                    <li><div class="course-item" style="cursor: default;">
+                        <h4>练习 6 · 5</h4>
+                        <p>哪个条件可使 $F(x,y)=0$ 在局部解出 $y=y(x)$？</p>
+                        <select id="q5" data-answer="fy"><option value="">请选择</option><option value="fx">$F_x\ne0$</option><option value="fy">$F_y\ne0$</option><option value="grad0">$\nabla F=0$</option></select>
+                        <details style="margin-top:0.8rem;"><summary><strong>提示</strong></summary><p style="margin-top:0.5rem;">要解出的变量对应偏导数不能为零。</p></details>
+                        <details style="margin-top:0.6rem;"><summary><strong>解答</strong></summary><p style="margin-top:0.5rem;">条件是 $F_y\ne0$。</p></details>
+                    </div></li>
+                    <li><div class="course-item" style="cursor: default;">
+                        <h4>练习 6 · 6</h4>
+                        <p>$xy$ 在 $x^2+y^2=1$ 上的最大值是：</p>
+                        <input id="q6" type="text" data-answer="0.5" data-tolerance="0.001" placeholder="输入答案">
+                        <details style="margin-top:0.8rem;"><summary><strong>提示</strong></summary><p style="margin-top:0.5rem;">使用 $2xy\le x^2+y^2$。</p></details>
+                        <details style="margin-top:0.6rem;"><summary><strong>解答</strong></summary><p style="margin-top:0.5rem;">最大值为 $1/2$。</p></details>
+                    </div></li>
+                </ol>
+
+                <section class="course-item" style="margin-top: 2rem; cursor: default;">
+                    <h3 style="margin-top: 0;">自动评分</h3>
+                    <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:1rem;">
+                        <button id="score-submit" class="btn-primary" type="button" style="max-width:220px;">提交答案</button>
+                        <button id="score-reset" class="btn-secondary" type="button" style="max-width:180px;">重置</button>
+                    </div>
+                    <p id="score-feedback" class="feedback" style="margin-top:0.9rem;" aria-live="polite"></p>
+                    <ul id="wrong-list" style="margin:0.3rem 0 0;padding-left:1.2rem;"></ul>
+                </section>
+
+                <div class="quick-links" style="margin-top:1.4rem;">
+                    <a href="calculus-2-zh.html" class="btn-secondary">返回课程页面</a>
+                    <a href="calculus-2-lecture-6-zh.html" class="btn-secondary">回顾第 6 讲</a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 GBU Calculus Hub · 独立教学平台</p>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const parseMathInput = function (raw) {
+                if (typeof raw !== 'string') return NaN;
+                let expr = raw.trim().toLowerCase();
+                if (!expr) return NaN;
+                expr = expr.replace(/π/g, 'pi').replace(/√/g, 'sqrt');
+                expr = expr.replace(/\s+/g, '');
+                if (/[^0-9a-z+\-*/^().]/i.test(expr)) return NaN;
+                let jsExpr = expr
+                    .replace(/sqrt\(/g, 'Math.sqrt(')
+                    .replace(/exp\(/g, 'Math.exp(')
+                    .replace(/\bpi\b/g, 'Math.PI')
+                    .replace(/\^/g, '**');
+                const strippedSci = jsExpr.replace(/\d+(?:\.\d+)?e[+\-]?\d+/gi, '');
+                const leftovers = strippedSci.replace(/Math\.sqrt|Math\.exp|Math\.PI/g, '');
+                if (/[A-DF-Za-df-z]/.test(leftovers)) return NaN;
+                try {
+                    const value = Function('"use strict"; return (' + jsExpr + ');')();
+                    return Number.isFinite(value) ? value : NaN;
+                } catch {
+                    return NaN;
+                }
+            };
+            const isClose = (a, b, tol = 1e-3) => Math.abs(a - b) <= tol;
+            const feedback = document.getElementById('score-feedback');
+            const wrongList = document.getElementById('wrong-list');
+            const controls = Array.from(document.querySelectorAll('input[data-answer], select[data-answer]'));
+            document.getElementById('score-submit')?.addEventListener('click', function () {
+                let correct = 0;
+                wrongList.innerHTML = '';
+                controls.forEach(function (control, index) {
+                    const expectedRaw = control.dataset.answer || '';
+                    let ok = false;
+                    if (control.tagName === 'SELECT') {
+                        ok = control.value === expectedRaw;
+                    } else {
+                        const given = parseMathInput(control.value);
+                        const expected = parseMathInput(expectedRaw);
+                        const tol = Number(control.dataset.tolerance || '0.001');
+                        ok = !Number.isNaN(given) && !Number.isNaN(expected) && isClose(given, expected, tol);
+                    }
+                    control.style.borderColor = ok ? '#15803d' : '#dc2626';
+                    if (ok) {
+                        correct += 1;
+                    } else {
+                        const li = document.createElement('li');
+                        li.textContent = '第 ' + (index + 1) + ' 题需要复习。';
+                        wrongList.appendChild(li);
+                    }
+                });
+                feedback.textContent = '得分: ' + correct + ' / ' + controls.length;
+                feedback.className = 'feedback ' + (correct === controls.length ? 'success' : 'warn');
+            });
+            document.getElementById('score-reset')?.addEventListener('click', function () {
+                controls.forEach(function (control) { control.value = ''; control.style.borderColor = ''; });
+                feedback.textContent = '';
+                feedback.className = 'feedback';
+                wrongList.innerHTML = '';
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Lecture 6 bundle for GBU Calculus II, linking Higher Math Lectures 7, 8, and 9 on review, multivariable integration, coordinate systems, and Jacobians.">
-    <title>Lecture 6: Review and Multivariable Integration</title>
+    <meta name="description" content="Lecture 6 guide for GBU Calculus II: Taylor's Theorem, Inverse/Implicit Functions, Extrema Review.">
+    <title>Lecture 6: Taylor's Theorem, Inverse/Implicit Functions, Extrema Review</title>
     <link rel="stylesheet" href="assets/styles.css">
     <link rel="stylesheet" href="assets/lecture-notes.css">
     <script defer src="../analytics.js"></script>
@@ -26,7 +26,11 @@
                         <li><a href="test-1.html">Practice 1 · Vectors Warm-up</a></li>
                         <li><a href="test-2.html">Practice 2 · Geometry in R3</a></li>
                         <li><a href="test-3.html">Practice 3 · Limits and Derivatives</a></li>
-                        <li><a href="test-4.html">Practice 4 · Directional Derivatives &amp; Optimization</a></li>
+                        <li><a href="test-4.html">Practice 4 · Directional Derivatives & Optimization</a></li>
+                        <li><a href="test-6.html">Practice 6 · Taylor, Inverse, Implicit, Extrema</a></li>
+                        <li><a href="test-7.html">Practice 7 · Review and Integration Bridge</a></li>
+                        <li><a href="test-8.html">Practice 8 · Derivative Examples and Integration Preview</a></li>
+                        <li><a href="test-9.html">Practice 9 · Integration Theory</a></li>
                     </ul>
                 </li>
                 <li class="nav-dropdown is-active">
@@ -40,141 +44,71 @@
                         <li><a href="calculus-2-lecture-3.html">Lecture 3 · Functions, Limits, Continuity, Derivatives</a></li>
                         <li><a href="calculus-2-lecture-4.html">Lecture 4 · Directional Derivatives, Chain Rule, Extrema</a></li>
                         <li><a href="calculus-2-lecture-5.html">Lecture 5 · Extreme Values, Taylor Expansion, Implicit Constraints</a></li>
-                        <li><a href="calculus-2-lecture-6.html" aria-current="page">Lecture 6 · Review and Multivariable Integration</a></li>
+                        <li><a href="calculus-2-lecture-6.html" aria-current="page">Lecture 6 · Taylor's Theorem, Inverse/Implicit Functions, Extrema Review</a></li>
+                        <li><a href="calculus-2-lecture-7.html">Lecture 7 · Review and Introduction to Multivariable Integration</a></li>
+                        <li><a href="calculus-2-lecture-8.html">Lecture 8 · Derivative Examples and Integration Preview</a></li>
+                        <li><a href="calculus-2-lecture-9.html">Lecture 9 · Multivariable Integration Theory</a></li>
                     </ul>
                 </li>
                 <li><a href="calculus-2-lecture-6-zh.html" class="lang-switch">中文</a></li>
             </ul>
         </nav>
-
         <header id="title-block-header">
-            <h1 class="title">Lecture 6: Review and Multivariable Integration</h1>
-            <p class="course-info" style="text-align: center; margin-top: 0.5rem;">
-                Last updated: May 17, 2026 (synced with Higher Math Lectures 7, 8, and 9)
-            </p>
+            <h1 class="title">Lecture 6: Taylor's Theorem, Inverse/Implicit Functions, Extrema Review</h1>
+            <p class="course-info" style="text-align: center; margin-top: 0.5rem;">Last updated: May 17, 2026 · synced with Higher Math Lecture 6</p>
             <div class="cta-row" style="justify-content: center; margin-top: 1rem;">
-                <a href="review_intro_multivariable_integration.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Lecture 7 PDF</a>
-                <a href="derivative_examples_integration_preview.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Lecture 8 PDF</a>
-                <a href="multivariable_integration_theory.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Lecture 9 PDF</a>
+                <a href="taylor_inverse_implicit_extrema.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Lecture 6 PDF</a>
+                <a href="test-6.html" class="btn-secondary">Practice 6</a>
+                <a href="calculus-2-lecture-6-zh.html" class="btn-secondary">中文页面</a>
             </div>
         </header>
-
         <div class="lecture-layout">
             <nav id="TOC" role="doc-toc">
                 <a href="calculus-2.html" class="toc-syllabus">← Back to Course Syllabus</a>
-                <a href="review_intro_multivariable_integration.pdf" class="toc-syllabus" target="_blank" rel="noopener noreferrer">Open Lecture 7 PDF</a>
-                <a href="derivative_examples_integration_preview.pdf" class="toc-syllabus" target="_blank" rel="noopener noreferrer">Open Lecture 8 PDF</a>
-                <a href="multivariable_integration_theory.pdf" class="toc-syllabus" target="_blank" rel="noopener noreferrer">Open Lecture 9 PDF</a>
+                <a href="taylor_inverse_implicit_extrema.pdf" class="toc-syllabus" target="_blank" rel="noopener noreferrer">Open Lecture 6 PDF</a>
+                <a href="test-6.html" class="toc-syllabus">Open Practice 6</a>
                 <ul>
                     <li><a href="#learning-outcomes">Learning Outcomes</a></li>
-                    <li><a href="#source-lectures">Source Lectures</a></li>
-                    <li><a href="#review-bridge">Review Bridge</a></li>
-                    <li><a href="#double-integrals">Double Integrals</a></li>
-                    <li><a href="#triple-integrals">Triple Integrals</a></li>
-                    <li><a href="#coordinate-changes">Coordinate Changes</a></li>
-                    <li><a href="#problem-workflow">Problem Workflow</a></li>
-                    <li><a href="#source-pdfs">Source PDFs</a></li>
+                    <li><a href="#jacobian-chain-rule">Jacobian and Chain Rule Review</a></li>
+<li><a href="#taylor-theorem">Taylor Models</a></li>
+<li><a href="#inverse-function">Inverse Function Theorem</a></li>
+<li><a href="#implicit-function">Implicit Function Theorem</a></li>
+<li><a href="#extrema-workflow">Extrema Workflow</a></li>
+                    <li><a href="#source-pdf">Source PDF</a></li>
                 </ul>
             </nav>
-
             <article class="lecture-main">
                 <nav style="margin-bottom: 1.5rem; font-size: 0.95rem;">
                     <a href="index.html">Home</a> / <a href="calculus-2.html">Course</a> / <span aria-current="page">Lecture 6</span>
                 </nav>
-
                 <div class="lecture-content">
                     <h1 id="learning-outcomes">Learning Outcomes</h1>
-                    <p><strong>By the end of this lecture bundle, you should be able to:</strong></p>
-                    <ul>
-                        <li>Review the main computational language from Lectures 1-6: vectors, geometry, limits, derivatives, gradients, Jacobians, extrema, and Taylor expansion.</li>
-                        <li>Interpret double and triple integrals as accumulated total, area, volume, mass, and average value.</li>
-                        <li>Set up iterated integrals over rectangles, Type I and Type II regions, vertical solids, and sliced solids.</li>
-                        <li>Change the order of integration when a different slicing direction simplifies the computation.</li>
-                        <li>Choose Cartesian, polar, cylindrical, or spherical coordinates from the symmetry of the region and integrand.</li>
-                        <li>Use the Jacobian determinant as the local scaling factor in a change of variables.</li>
-                    </ul>
-
-                    <div class="tcolorbox">
-                        <h4>Central Theme</h4>
-                        <p>The course now shifts from local behavior to accumulated quantities. Derivatives describe nearby change; integrals collect those local contributions over a whole region.</p>
-                    </div>
-
-                    <h1 id="source-lectures">Source Lectures</h1>
-                    <p>The current Higher Math folder contains three newer source notes. This website page keeps them together because they form one transition block: review, integration preview, and integration theory.</p>
-                    <ul>
-                        <li><strong>Higher Math Lecture 7:</strong> review of Lectures 1-6 and a short introduction to multivariable integration.</li>
-                        <li><strong>Higher Math Lecture 8:</strong> additional derivative examples, a practical mean value theorem, and a first pass through double and triple integrals.</li>
-                        <li><strong>Higher Math Lecture 9:</strong> organized theory for double integrals, triple integrals, coordinate systems, general change of variables, and applications.</li>
-                    </ul>
-
-                    <h1 id="review-bridge">Review Bridge</h1>
-                    <p>The review block ties earlier material to integration:</p>
-                    <ul>
-                        <li>Determinants from linear algebra measure area and volume scaling.</li>
-                        <li>Parametrizations describe curves, surfaces, and regions that later become integration domains.</li>
-                        <li>Continuity gives a clean sufficient condition for integrability.</li>
-                        <li>Jacobians from the chain rule become the scaling factor in coordinate changes.</li>
-                        <li>Extrema help estimate integrals and bound accumulated quantities.</li>
-                    </ul>
-
-                    <h1 id="double-integrals">Double Integrals</h1>
-                    <p>A double integral \(\iint_D f(x,y)\,dA\) accumulates a density \(f\) over a planar region \(D\). On a rectangle, Fubini's theorem turns the accumulation into iterated one-variable integrals:</p>
-                    <p>\[
-                    \iint_{[a,b]\times[c,d]} f(x,y)\,dA
-                    =
-                    \int_a^b\int_c^d f(x,y)\,dy\,dx.
-                    \]</p>
-                    <p>For non-rectangular regions, the main task is choosing bounds. A Type I region uses \(a\le x\le b\), \(g_1(x)\le y\le g_2(x)\); a Type II region uses \(c\le y\le d\), \(h_1(y)\le x\le h_2(y)\).</p>
-                    <blockquote>
-                        <p><strong>Practical habit:</strong> sketch the region first, label the outside variable, then write the inner bounds as the slice seen by that outside variable.</p>
-                    </blockquote>
-
-                    <h1 id="triple-integrals">Triple Integrals</h1>
-                    <p>A triple integral \(\iiint_E f(x,y,z)\,dV\) accumulates density through a solid \(E\). Common descriptions include boxes, vertical solids, horizontal slices, and coordinate systems adapted to symmetry.</p>
-                    <ul>
-                        <li><strong>Vertical solids:</strong> describe a base region \(D\) in the \(xy\)-plane and bounds \(u(x,y)\le z\le v(x,y)\).</li>
-                        <li><strong>Horizontal slices:</strong> fix \(z\), integrate over a cross-section \(D_z\), then integrate the result over \(z\).</li>
-                        <li><strong>Other slicing directions:</strong> use the variable that gives the simplest cross-sections and bounds.</li>
-                    </ul>
-
-                    <h1 id="coordinate-changes">Coordinate Changes</h1>
-                    <p>Coordinate changes replace a difficult region by a simpler parameter region, while the Jacobian corrects the area or volume element.</p>
-                    <ul>
-                        <li>Polar coordinates: \(x=r\cos\theta,\ y=r\sin\theta,\ dA=r\,dr\,d\theta\).</li>
-                        <li>Cylindrical coordinates: \(x=r\cos\theta,\ y=r\sin\theta,\ z=z,\ dV=r\,dr\,d\theta\,dz\).</li>
-                        <li>Spherical coordinates: \(x=\rho\sin\phi\cos\theta,\ y=\rho\sin\phi\sin\theta,\ z=\rho\cos\phi,\ dV=\rho^2\sin\phi\,d\rho\,d\phi\,d\theta\).</li>
-                    </ul>
-                    <p>In general, for a smooth one-to-one change of variables \(x=T(u)\), the volume element is multiplied by \(|\det DT(u)|\).</p>
-
-                    <h1 id="problem-workflow">Problem Workflow</h1>
-                    <ol>
-                        <li>Identify whether the problem asks for area, volume, mass, average value, or a transformed integral.</li>
-                        <li>Draw the region or solid and choose a slicing direction.</li>
-                        <li>Write bounds from outside to inside, checking each bound against the picture.</li>
-                        <li>Choose coordinates only when symmetry or bounds become simpler.</li>
-                        <li>Include the correct area or volume element, especially the Jacobian factor.</li>
-                        <li>Compute only after the setup is geometrically clear.</li>
-                    </ol>
-
-                    <h1 id="source-pdfs">Source PDFs</h1>
+                    <p><strong>By the end of this lecture, you should be able to:</strong></p>
+                    <ul><li>Use the Jacobian as a best linear approximation and apply the matrix chain rule.</li><li>Write first- and second-order Taylor models for functions of several variables.</li><li>Check local invertibility with a nonzero Jacobian determinant.</li><li>Use implicit differentiation formulas such as $y'(x)=-F_x/F_y$.</li><li>Organize unconstrained and constrained extrema through gradients, Hessians, and Lagrange multipliers.</li></ul>
+                    <div class="tcolorbox"><h4>Central Theme</h4><p>The Jacobian is the best linear model. Taylor expansion adds the next layers, while inverse and implicit function theorems explain when equations and coordinate maps behave regularly near a point.</p></div>
+                    <h1 id="jacobian-chain-rule">Jacobian and Chain Rule Review</h1>
+                    <p>For a differentiable map $F:\mathbb{R}^n\to\mathbb{R}^m$, the Jacobian $J_F(a)$ is the unique linear map satisfying $F(a+h)=F(a)+J_F(a)h+o(\|h\|)$.</p><p>The chain rule becomes matrix multiplication: $J_{G\circ F}(a)=J_G(F(a))J_F(a)$. This single formula covers curves, parameterized surfaces, inverse maps, and implicit differentiation.</p>
+                    <h1 id="taylor-theorem">Taylor Models</h1>
+                    <p>Taylor's theorem refines the linear approximation. At a point $a$,</p><p>\[ f(a+h)=f(a)+\nabla f(a)\cdot h+\frac12 h^{\mathsf T}H_f(a)h+o(\|h\|^2). \]</p><p>At a critical point, the linear term disappears, so the Hessian quadratic form controls the first visible local shape.</p>
+                    <h1 id="inverse-function">Inverse Function Theorem</h1>
+                    <p>If $F:\mathbb{R}^n\to\mathbb{R}^n$ is continuously differentiable and $\det J_F(a)\ne0$, then $F$ has a differentiable local inverse near $a$.</p><blockquote><p>The theorem is local. A map may be locally invertible around a point without being one-to-one on the whole domain.</p></blockquote>
+                    <h1 id="implicit-function">Implicit Function Theorem</h1>
+                    <p>If $F(x,y)=0$ and $F_y(a,b)\ne0$, then near $(a,b)$ the equation can be solved as $y=y(x)$, and</p><p>\[ y'(x)=-\frac{F_x}{F_y}. \]</p><p>The same idea extends to systems: solve for variables whose Jacobian block is invertible.</p>
+                    <h1 id="extrema-workflow">Extrema Workflow</h1>
+                    <ol><li>Ask whether the domain guarantees existence of absolute extrema.</li><li>Find interior candidates from $\nabla f=0$ or nondifferentiability.</li><li>Classify local candidates using the Hessian or higher-order Taylor terms.</li><li>For constraints, solve $\nabla f=\lambda\nabla g$ together with the constraint.</li><li>For closed regions, compare interior, boundary, and corner values.</li></ol>
+                    <h1 id="source-pdf">Source PDF</h1>
                     <div class="lecture-pdf-card">
-                        <h3>Current Higher Math lecture PDFs</h3>
+                        <h3>Higher Math Lecture 6: Taylor, inverse/implicit functions, and extrema review</h3>
                         <div class="cta-row">
-                            <a href="review_intro_multivariable_integration.pdf" target="_blank" rel="noopener noreferrer" class="btn-primary">Open Lecture 7 PDF</a>
-                            <a href="derivative_examples_integration_preview.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Open Lecture 8 PDF</a>
-                            <a href="multivariable_integration_theory.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Open Lecture 9 PDF</a>
+                            <a href="taylor_inverse_implicit_extrema.pdf" target="_blank" rel="noopener noreferrer" class="btn-primary">Open Lecture 6 PDF</a>
+                            <a href="test-6.html" class="btn-secondary">Practice 6</a>
                         </div>
-                        <p style="margin-top: 1rem;">Use Lecture 7 for review and bridging, Lecture 8 for representative derivative and integration examples, and Lecture 9 for the systematic integration toolkit.</p>
+                        <p style="margin-top: 1rem;">This web page is a bilingual course guide to the source note; use the PDF for full derivations and classroom-ready details.</p>
                     </div>
-
-                    <div class="quick-links" style="margin-top: 1.5rem;">
-                        <a href="calculus-2-lecture-5.html" class="btn-secondary">← Back to Lecture 5</a>
-                        <a href="calculus-2.html" class="btn-secondary">Back to Course</a>
-                    </div>
+                    <div class="quick-links" style="margin-top: 1.5rem;"><a href="calculus-2-lecture-5.html" class="btn-secondary">← Lecture 5</a><a href="calculus-2.html" class="btn-secondary">Back to Course</a><a href="calculus-2-lecture-7.html" class="btn-secondary">Lecture 7 →</a></div>
                 </div>
             </article>
         </div>
-
         <footer>
             <p>© 2026 GBU Calculus Hub · Independent Teaching Portal</p>
         </footer>
