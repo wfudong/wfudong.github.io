@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lecture 6 bundle for GBU Calculus II, linking Higher Math Lectures 7, 8, and 9 on review, multivariable integration, coordinate systems, and Jacobians.">
+    <title>Lecture 6: Review and Multivariable Integration</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/lecture-notes.css">
+    <script defer src="../analytics.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</head>
+<body class="lecture-page">
+    <div class="site-shell" style="padding-top: 1rem;">
+        <nav class="navbar" aria-label="Primary">
+            <a href="index.html" class="logo">GBU Calculus Hub</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="calculus-2.html">Course</a></li>
+                <li class="nav-dropdown">
+                    <button class="nav-trigger" type="button" aria-haspopup="true">
+                        Practice
+                        <span class="caret" aria-hidden="true">▾</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="test-1.html">Practice 1 · Vectors Warm-up</a></li>
+                        <li><a href="test-2.html">Practice 2 · Geometry in R3</a></li>
+                        <li><a href="test-3.html">Practice 3 · Limits and Derivatives</a></li>
+                        <li><a href="test-4.html">Practice 4 · Directional Derivatives &amp; Optimization</a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown is-active">
+                    <button class="nav-trigger" type="button" aria-haspopup="true">
+                        Lecture Notes
+                        <span class="caret" aria-hidden="true">▾</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="calculus-2-lecture-1.html">Lecture 1 · Vectors in Euclidean Space</a></li>
+                        <li><a href="calculus-2-lecture-2.html">Lecture 2 · Analytic Geometry in R3</a></li>
+                        <li><a href="calculus-2-lecture-3.html">Lecture 3 · Functions, Limits, Continuity, Derivatives</a></li>
+                        <li><a href="calculus-2-lecture-4.html">Lecture 4 · Directional Derivatives, Chain Rule, Extrema</a></li>
+                        <li><a href="calculus-2-lecture-5.html">Lecture 5 · Extreme Values, Taylor Expansion, Implicit Constraints</a></li>
+                        <li><a href="calculus-2-lecture-6.html" aria-current="page">Lecture 6 · Review and Multivariable Integration</a></li>
+                    </ul>
+                </li>
+                <li><a href="calculus-2-lecture-6-zh.html" class="lang-switch">中文</a></li>
+            </ul>
+        </nav>
+
+        <header id="title-block-header">
+            <h1 class="title">Lecture 6: Review and Multivariable Integration</h1>
+            <p class="course-info" style="text-align: center; margin-top: 0.5rem;">
+                Last updated: May 17, 2026 (synced with Higher Math Lectures 7, 8, and 9)
+            </p>
+            <div class="cta-row" style="justify-content: center; margin-top: 1rem;">
+                <a href="review_intro_multivariable_integration.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Lecture 7 PDF</a>
+                <a href="derivative_examples_integration_preview.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Lecture 8 PDF</a>
+                <a href="multivariable_integration_theory.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Lecture 9 PDF</a>
+            </div>
+        </header>
+
+        <div class="lecture-layout">
+            <nav id="TOC" role="doc-toc">
+                <a href="calculus-2.html" class="toc-syllabus">← Back to Course Syllabus</a>
+                <a href="review_intro_multivariable_integration.pdf" class="toc-syllabus" target="_blank" rel="noopener noreferrer">Open Lecture 7 PDF</a>
+                <a href="derivative_examples_integration_preview.pdf" class="toc-syllabus" target="_blank" rel="noopener noreferrer">Open Lecture 8 PDF</a>
+                <a href="multivariable_integration_theory.pdf" class="toc-syllabus" target="_blank" rel="noopener noreferrer">Open Lecture 9 PDF</a>
+                <ul>
+                    <li><a href="#learning-outcomes">Learning Outcomes</a></li>
+                    <li><a href="#source-lectures">Source Lectures</a></li>
+                    <li><a href="#review-bridge">Review Bridge</a></li>
+                    <li><a href="#double-integrals">Double Integrals</a></li>
+                    <li><a href="#triple-integrals">Triple Integrals</a></li>
+                    <li><a href="#coordinate-changes">Coordinate Changes</a></li>
+                    <li><a href="#problem-workflow">Problem Workflow</a></li>
+                    <li><a href="#source-pdfs">Source PDFs</a></li>
+                </ul>
+            </nav>
+
+            <article class="lecture-main">
+                <nav style="margin-bottom: 1.5rem; font-size: 0.95rem;">
+                    <a href="index.html">Home</a> / <a href="calculus-2.html">Course</a> / <span aria-current="page">Lecture 6</span>
+                </nav>
+
+                <div class="lecture-content">
+                    <h1 id="learning-outcomes">Learning Outcomes</h1>
+                    <p><strong>By the end of this lecture bundle, you should be able to:</strong></p>
+                    <ul>
+                        <li>Review the main computational language from Lectures 1-6: vectors, geometry, limits, derivatives, gradients, Jacobians, extrema, and Taylor expansion.</li>
+                        <li>Interpret double and triple integrals as accumulated total, area, volume, mass, and average value.</li>
+                        <li>Set up iterated integrals over rectangles, Type I and Type II regions, vertical solids, and sliced solids.</li>
+                        <li>Change the order of integration when a different slicing direction simplifies the computation.</li>
+                        <li>Choose Cartesian, polar, cylindrical, or spherical coordinates from the symmetry of the region and integrand.</li>
+                        <li>Use the Jacobian determinant as the local scaling factor in a change of variables.</li>
+                    </ul>
+
+                    <div class="tcolorbox">
+                        <h4>Central Theme</h4>
+                        <p>The course now shifts from local behavior to accumulated quantities. Derivatives describe nearby change; integrals collect those local contributions over a whole region.</p>
+                    </div>
+
+                    <h1 id="source-lectures">Source Lectures</h1>
+                    <p>The current Higher Math folder contains three newer source notes. This website page keeps them together because they form one transition block: review, integration preview, and integration theory.</p>
+                    <ul>
+                        <li><strong>Higher Math Lecture 7:</strong> review of Lectures 1-6 and a short introduction to multivariable integration.</li>
+                        <li><strong>Higher Math Lecture 8:</strong> additional derivative examples, a practical mean value theorem, and a first pass through double and triple integrals.</li>
+                        <li><strong>Higher Math Lecture 9:</strong> organized theory for double integrals, triple integrals, coordinate systems, general change of variables, and applications.</li>
+                    </ul>
+
+                    <h1 id="review-bridge">Review Bridge</h1>
+                    <p>The review block ties earlier material to integration:</p>
+                    <ul>
+                        <li>Determinants from linear algebra measure area and volume scaling.</li>
+                        <li>Parametrizations describe curves, surfaces, and regions that later become integration domains.</li>
+                        <li>Continuity gives a clean sufficient condition for integrability.</li>
+                        <li>Jacobians from the chain rule become the scaling factor in coordinate changes.</li>
+                        <li>Extrema help estimate integrals and bound accumulated quantities.</li>
+                    </ul>
+
+                    <h1 id="double-integrals">Double Integrals</h1>
+                    <p>A double integral \(\iint_D f(x,y)\,dA\) accumulates a density \(f\) over a planar region \(D\). On a rectangle, Fubini's theorem turns the accumulation into iterated one-variable integrals:</p>
+                    <p>\[
+                    \iint_{[a,b]\times[c,d]} f(x,y)\,dA
+                    =
+                    \int_a^b\int_c^d f(x,y)\,dy\,dx.
+                    \]</p>
+                    <p>For non-rectangular regions, the main task is choosing bounds. A Type I region uses \(a\le x\le b\), \(g_1(x)\le y\le g_2(x)\); a Type II region uses \(c\le y\le d\), \(h_1(y)\le x\le h_2(y)\).</p>
+                    <blockquote>
+                        <p><strong>Practical habit:</strong> sketch the region first, label the outside variable, then write the inner bounds as the slice seen by that outside variable.</p>
+                    </blockquote>
+
+                    <h1 id="triple-integrals">Triple Integrals</h1>
+                    <p>A triple integral \(\iiint_E f(x,y,z)\,dV\) accumulates density through a solid \(E\). Common descriptions include boxes, vertical solids, horizontal slices, and coordinate systems adapted to symmetry.</p>
+                    <ul>
+                        <li><strong>Vertical solids:</strong> describe a base region \(D\) in the \(xy\)-plane and bounds \(u(x,y)\le z\le v(x,y)\).</li>
+                        <li><strong>Horizontal slices:</strong> fix \(z\), integrate over a cross-section \(D_z\), then integrate the result over \(z\).</li>
+                        <li><strong>Other slicing directions:</strong> use the variable that gives the simplest cross-sections and bounds.</li>
+                    </ul>
+
+                    <h1 id="coordinate-changes">Coordinate Changes</h1>
+                    <p>Coordinate changes replace a difficult region by a simpler parameter region, while the Jacobian corrects the area or volume element.</p>
+                    <ul>
+                        <li>Polar coordinates: \(x=r\cos\theta,\ y=r\sin\theta,\ dA=r\,dr\,d\theta\).</li>
+                        <li>Cylindrical coordinates: \(x=r\cos\theta,\ y=r\sin\theta,\ z=z,\ dV=r\,dr\,d\theta\,dz\).</li>
+                        <li>Spherical coordinates: \(x=\rho\sin\phi\cos\theta,\ y=\rho\sin\phi\sin\theta,\ z=\rho\cos\phi,\ dV=\rho^2\sin\phi\,d\rho\,d\phi\,d\theta\).</li>
+                    </ul>
+                    <p>In general, for a smooth one-to-one change of variables \(x=T(u)\), the volume element is multiplied by \(|\det DT(u)|\).</p>
+
+                    <h1 id="problem-workflow">Problem Workflow</h1>
+                    <ol>
+                        <li>Identify whether the problem asks for area, volume, mass, average value, or a transformed integral.</li>
+                        <li>Draw the region or solid and choose a slicing direction.</li>
+                        <li>Write bounds from outside to inside, checking each bound against the picture.</li>
+                        <li>Choose coordinates only when symmetry or bounds become simpler.</li>
+                        <li>Include the correct area or volume element, especially the Jacobian factor.</li>
+                        <li>Compute only after the setup is geometrically clear.</li>
+                    </ol>
+
+                    <h1 id="source-pdfs">Source PDFs</h1>
+                    <div class="lecture-pdf-card">
+                        <h3>Current Higher Math lecture PDFs</h3>
+                        <div class="cta-row">
+                            <a href="review_intro_multivariable_integration.pdf" target="_blank" rel="noopener noreferrer" class="btn-primary">Open Lecture 7 PDF</a>
+                            <a href="derivative_examples_integration_preview.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Open Lecture 8 PDF</a>
+                            <a href="multivariable_integration_theory.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Open Lecture 9 PDF</a>
+                        </div>
+                        <p style="margin-top: 1rem;">Use Lecture 7 for review and bridging, Lecture 8 for representative derivative and integration examples, and Lecture 9 for the systematic integration toolkit.</p>
+                    </div>
+
+                    <div class="quick-links" style="margin-top: 1.5rem;">
+                        <a href="calculus-2-lecture-5.html" class="btn-secondary">← Back to Lecture 5</a>
+                        <a href="calculus-2.html" class="btn-secondary">Back to Course</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <footer>
+            <p>© 2026 GBU Calculus Hub · Independent Teaching Portal</p>
+        </footer>
+    </div>
+</body>
+</html>
