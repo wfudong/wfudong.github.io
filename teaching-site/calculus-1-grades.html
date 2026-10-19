@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+    <meta name="referrer" content="no-referrer">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="description" content="Access your individual Calculus I grade record using the private code supplied by your instructor.">
+    <title>Calculus I · My Grades</title>
+    <link rel="stylesheet" href="assets/grades.css">
+    <script type="module" src="assets/grades-page.mjs"></script>
+</head>
+<body>
+    <div class="site-shell">
+        <nav class="navbar" aria-label="Primary">
+            <a href="index.html" class="logo">GBU Calculus Hub</a>
+            <div class="nav-links">
+                <a id="course-link" href="calculus-1.html" data-text="course">Calculus I</a>
+                <button id="language-toggle" type="button" lang="zh-CN">中文</button>
+            </div>
+        </nav>
+        <main>
+            <header class="hero">
+                <p class="eyebrow">CALCULUS I / <span data-text="studentPortal">STUDENT PORTAL</span></p>
+                <h1 data-text="title">My Grades</h1>
+                <p data-text="intro">View your quiz, midterm, homework, and final exam scores using the private access code from your instructor.</p>
+            </header>
+
+            <section id="unlock-panel" class="panel" aria-labelledby="unlock-heading">
+                <h2 id="unlock-heading" data-text="unlockHeading">Open your grade record</h2>
+                <p class="muted" id="code-help" data-text="codeHelp">Paste the complete code beginning with C1-. Keep it private: anyone with your code can open your record.</p>
+                <form id="unlock-form" autocomplete="off">
+                    <label for="access-code" data-text="codeLabel">Your private access code</label>
+                    <input id="access-code" name="access-code" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="80" required aria-describedby="code-help">
+                    <button id="unlock-button" class="btn-primary" type="submit" data-text="unlock" disabled>View my grades</button>
+                </form>
+                <p id="status" role="status" aria-live="polite"></p>
+                <noscript>JavaScript is required to decrypt your record. 需要启用 JavaScript 才能解密成绩。</noscript>
+            </section>
+
+            <section id="grades-panel" class="panel" aria-labelledby="record-heading" hidden>
+                <div class="record-header">
+                    <div>
+                        <p class="eyebrow" data-text="privateRecord">YOUR PRIVATE RECORD</p>
+                        <h2 id="record-heading" tabindex="-1"></h2>
+                        <p id="student-id" class="muted"></p>
+                        <p id="updated-at" class="muted"></p>
+                    </div>
+                    <button id="lock-button" type="button" class="btn-secondary" data-text="lock">Lock and clear</button>
+                </div>
+                <div id="grade-categories" class="grade-grid"></div>
+                <p class="muted" data-text="scoreNote">A dash means the score has not been published. Scores are shown as earned / possible; no weighted course total is calculated here.</p>
+            </section>
+
+            <aside class="privacy-note">
+                <h2 data-text="privacyHeading">Keep your record private</h2>
+                <p data-text="privacy">Your code is used in this browser and is not submitted to a login server or saved by this page. The page clears your record when you switch tabs or after five minutes without activity. Use “Lock and clear” before leaving a shared computer.</p>
+                <p data-text="help">Lost code or an incorrect score? Contact your instructor privately. Never post your code in a group chat.</p>
+            </aside>
+        </main>
+        <footer>GBU Calculus Hub · <span data-text="footer">Individual grade access</span></footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,6 @@
+# Student records and access codes must never be published.
+private-grades/
+**/gradebook.json
+**/access-codes.json
+**/access-codes.csv
+.DS_Store
