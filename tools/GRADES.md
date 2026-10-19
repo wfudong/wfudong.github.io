@@ -66,10 +66,12 @@ python3 tools/import-grades.py codes
 ```
 
 This prepares encrypted output locally; these commands do not upload it. The
-original workbook is not changed. `P` remains `P`, blanks remain unrecorded,
+original workbook is not changed. `P` remains `P`. Empty HW1-3 and Quiz1-3 cells
+become `NP` (not presented), never numeric zero. Actual zero scores remain zero.
+Empty HW4/Quiz4 and other future assessments remain unrecorded,
 and maximum scores are unspecified by default. Only if officially confirmed,
 pass `--quiz-max 10` (or the correct maximum) to the import command. Entirely
-blank assessment columns are retained as unrecorded results, not zero scores.
+blank future assessment columns are retained as unrecorded results, not zero scores.
 
 Imports merge by student ID and assessment label. Existing midterm/final results,
 feedback, confirmed numeric maxima, and students not present in the workbook
@@ -124,6 +126,40 @@ export. **Neither deletion nor rotation revokes a previously downloaded record
 or an older record retained in Git history.** A person holding the old code and
 an old encrypted record can still read that old snapshot.
 
+## Teacher / TA Master Dashboard
+
+`teaching-site/calculus-1-staff.html` (or `?lang=zh`) shows all real students,
+group filters, searchable grades, quiz distributions and numeric means, and
+homework participation charts. It uses a separate `C1T-` master code and a
+separately encrypted class-wide record. Student codes cannot decrypt it. The
+class-wide record does not contain student access codes. The fictional demo
+account is excluded from class statistics.
+
+The regular publisher prepares both individual and staff encrypted records.
+It creates and preserves the master code in private `staff-access.json` and
+`teacher-master-code.txt`. Never commit or distribute these to students. Share
+the master code only with authorized teachers and TAs: it grants full class
+access, rather than verifying an individual staff member's identity. The staff
+page includes no analytics, remote chart libraries, or persistent browser storage.
+It clears grades and charts when locked, hidden, or inactive for five minutes.
+
+```sh
+node tools/publish-grades.mjs publish --rotate-staff
+```
+
+This replaces the master code for future publications without changing student
+codes. Publish all generated additions/deletions and give teaching staff the new
+code. As with student-code rotation, old downloaded records or Git snapshots
+remain readable with their old code. A shared master code cannot revoke just one
+TA's access; that would require individual accounts and a backend.
+
+`NP` is a separate participation status. It is excluded from numeric means,
+medians, and score histograms; an actual numeric zero is included. `P` is shown
+as recorded and counted separately from NP. No policy about treating absences
+as zero in official course grading is inferred. Maximum scores remain unspecified
+unless supplied, and raw quiz means may have different scales. Group filters
+affect all charts; student-name search and the NP checkbox filter the table only.
+
 ## Security Model and Limits
 
 - Generated codes contain 32 cryptographically random bytes (256 bits), not
@@ -162,6 +198,7 @@ The design uses the browser's standard Web Crypto implementation. References:
 
 ```sh
 node --test tools/grades.test.mjs
+node --test tools/staff-grades.test.mjs
 python3 -m unittest discover -s tools -p 'test_import_grades.py'
 python3 -m http.server 8765 --bind 127.0.0.1
 ```

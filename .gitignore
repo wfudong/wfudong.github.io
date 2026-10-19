@@ -3,6 +3,8 @@ private-grades/
 **/gradebook.json
 **/access-codes.json
 **/access-codes.csv
+**/staff-access.json
+**/teacher-master-code.txt
 **/student-access-codes.xlsx
 **/import-roster.json
 **/import-report.json

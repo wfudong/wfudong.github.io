@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+    <meta name="referrer" content="no-referrer">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <title>Calculus I · Teaching Dashboard</title>
+    <link rel="stylesheet" href="assets/grades.css">
+    <link rel="stylesheet" href="assets/staff-grades.css">
+    <script type="module" src="assets/staff-grades.mjs?v=1"></script>
+</head>
+<body>
+    <div class="site-shell">
+        <nav class="navbar" aria-label="Primary">
+            <a href="index.html" class="logo">GBU Calculus Hub</a>
+            <div class="nav-links">
+                <a id="course-link" href="calculus-1.html" data-text="course">Calculus I</a>
+                <a href="calculus-1-grades.html" data-text="studentView">Student view</a>
+                <button id="language-toggle" type="button" lang="zh-CN">中文</button>
+            </div>
+        </nav>
+        <main>
+            <header class="hero staff-hero">
+                <div>
+                    <p class="eyebrow" data-text="eyebrow">CALCULUS I / TEACHING TEAM</p>
+                    <h1 data-text="title">The Class at a Glance</h1>
+                    <p data-text="intro">An encrypted workspace for teachers and TAs: individual results, participation, and class-wide patterns.</p>
+                </div>
+                <p class="staff-seal" data-text="seal">STAFF ACCESS ONLY</p>
+            </header>
+
+            <section id="unlock-panel" class="panel" aria-labelledby="unlock-heading">
+                <h2 id="unlock-heading" data-text="unlockHeading">Open the teaching dashboard</h2>
+                <p class="muted" id="code-help" data-text="codeHelp">Use the master code beginning with C1T-. It grants access to all class grades. Share it only with authorized teaching staff.</p>
+                <form id="unlock-form" autocomplete="off">
+                    <label for="master-code" data-text="masterCode">Teacher / TA master code</label>
+                    <input id="master-code" name="master-code" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="80" required aria-describedby="code-help">
+                    <button id="unlock-button" class="btn-primary" type="submit" data-text="unlock" disabled>Unlock dashboard</button>
+                </form>
+                <p id="status" role="status" aria-live="polite"></p>
+                <noscript>JavaScript is required to decrypt the dashboard. 需要启用 JavaScript 才能解密。</noscript>
+            </section>
+
+            <section id="dashboard" aria-labelledby="dashboard-heading" hidden>
+                <div class="record-header">
+                    <div>
+                        <h2 id="dashboard-heading" tabindex="-1" data-text="overview">Class Overview</h2>
+                        <p id="updated-at" class="muted"></p>
+                    </div>
+                    <button id="lock-button" type="button" class="btn-secondary" data-text="lock">Lock and clear</button>
+                </div>
+                <div class="panel filters">
+                    <div><label for="group-filter" data-text="group">Group</label><select id="group-filter"></select></div>
+                    <div><label for="assessment-filter" data-text="assessment">Assessment</label><select id="assessment-filter"></select></div>
+                </div>
+                <p class="reading-note" data-text="npNote">NP = not presented, not zero. Numeric averages include actual zero scores and exclude NP, letter marks, and unrecorded results. No weighted totals are inferred.</p>
+                <div id="metrics" class="metric-grid"></div>
+                <div class="chart-grid">
+                    <figure class="panel">
+                        <figcaption><h3 data-text="distribution">Score Distribution</h3><p class="muted" data-text="distributionNote">Selected assessment. Numeric scores only; NP is counted separately above.</p></figcaption>
+                        <div id="distribution-chart" class="chart"></div>
+                    </figure>
+                    <figure class="panel">
+                        <figcaption><h3 data-text="quizMeans">Quiz Averages</h3><p class="muted" data-text="quizMeansNote">Raw scores as recorded, with the numeric sample size beside each mean. Scales may differ between quizzes.</p></figcaption>
+                        <div id="quiz-chart" class="chart"></div>
+                    </figure>
+                    <figure class="panel homework-chart">
+                        <figcaption><h3 data-text="homework">Homework Participation</h3><p class="muted" data-text="homeworkNote">Recorded marks, NP, and unrecorded results remain distinct.</p></figcaption>
+                        <div id="homework-chart" class="chart"></div>
+                    </figure>
+                </div>
+
+                <section class="panel roster-panel" aria-labelledby="roster-heading">
+                    <h2 id="roster-heading" data-text="roster">Student Gradebook</h2>
+                    <div class="roster-controls">
+                        <div><label for="student-search" data-text="search">Find by name or student ID</label><input id="student-search" type="search" autocomplete="off" spellcheck="false"></div>
+                        <label class="check-label"><input id="np-only" type="checkbox"><span data-text="npOnly">Only NP in the selected assessment</span></label>
+                    </div>
+                    <p id="row-count" class="muted" aria-live="polite"></p>
+                    <p class="muted" data-text="tableNote">Charts follow the group filter. Search and the NP checkbox filter the table only. Entirely unrecorded assessments are omitted.</p>
+                    <div id="grade-table" class="table-scroll" tabindex="0" role="region" aria-label="Student gradebook"></div>
+                </section>
+            </section>
+            <aside class="privacy-note">
+                <h2 data-text="privacyHeading">Protect the whole class</h2>
+                <p data-text="privacy">The master code is used only in this browser and is not saved by this page. The dashboard locks when you switch tabs or after five minutes of inactivity. Anyone holding the code can view the full class record.</p>
+            </aside>
+        </main>
+        <footer>GBU Calculus Hub · <span data-text="footer">Confidential teaching records</span></footer>
+    </div>
+</body>
+</html>

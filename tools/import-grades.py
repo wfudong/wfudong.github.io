@@ -81,7 +81,7 @@ def parse_workbook(source, quiz_max=None):
     students = []
     roster = []
     seen = set()
-    report = {"groups": [], "blank_cells": [], "numeric_results": 0, "letter_results": 0}
+    report = {"groups": [], "blank_cells": [], "numeric_results": 0, "letter_results": 0, "np_results": 0}
     try:
         for sheet in workbook:
             headers = {str(cell.value).strip(): cell.column for cell in sheet[1] if cell.value is not None}
@@ -123,13 +123,18 @@ def parse_workbook(source, quiz_max=None):
                 for column, category, label in assessments:
                     cell = sheet.cell(row, column)
                     score = score_value(cell)
+                    # Only the completed first three assignments/quizzes use NP for blanks.
+                    if score is None and label in {f"{prefix} {n}" for prefix in ("Quiz", "Homework") for n in (1, 2, 3)}:
+                        score = "NP"
                     maximum = quiz_max if category == "quiz" and not isinstance(score, str) else None
                     grades[category].append({"label": label, "score": score, "max_score": maximum})
-                    if score is None:
+                    if cell.value is None or isinstance(cell.value, str) and not cell.value.strip():
                         report["blank_cells"].append({"group": sheet.title, "cell": cell.coordinate, "assessment": label})
+                    if score == "NP":
+                        report["np_results"] += 1
                     elif isinstance(score, str):
                         report["letter_results"] += 1
-                    else:
+                    elif score is not None:
                         report["numeric_results"] += 1
                 students.append({"student_id": student_id, "name": name, "grades": grades})
                 roster.append({"student_id": student_id, "name": name, "group": sheet.title, "row": row})
@@ -245,7 +250,7 @@ def main():
         if args.command == "import":
             report = import_workbook(args.workbook, quiz_max=args.quiz_max)
             print(f"Imported {report['student_count']} students from {len(report['groups'])} groups locally.")
-            print("Blank results and letter marks were preserved. No files were uploaded.")
+            print("Empty HW1-3 and Quiz1-3 results are NP; numeric zero is preserved. No files were uploaded.")
         else:
             count = export_codes()
             print(f"Prepared the confidential code workbook for {count} students in ../private-grades/calculus-1/.")

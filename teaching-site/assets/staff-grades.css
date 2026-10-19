@@ -1,0 +1,64 @@
+.site-shell { max-width: 1320px; }
+.staff-hero { display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+.staff-seal { border: 1px solid #a6c3d0; border-radius: 999px; padding: .6rem 1rem; font-size: .7rem; letter-spacing: .1em; white-space: nowrap; color: #285368; }
+.filters { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; padding: 1rem 1.5rem; }
+.filters label, .roster-controls label { margin: 0 0 .5rem; font-size: .85rem; }
+select { width: 100%; background: white; border: 1px solid #94a3b8; border-radius: 12px; padding: .7rem; font: inherit; color: var(--text); }
+.reading-note { color: var(--muted); font-size: .85rem; padding: .3rem .3rem .7rem; max-width: 100ch; }
+.metric-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin: 1rem 0 1.5rem; }
+.metric { padding: 1.2rem 1.4rem; border: 1px solid var(--border); border-radius: 20px; background: #fff; }
+.metric p { margin: 0; font-size: .8rem; color: var(--muted); }
+.metric strong { display: block; font: 500 2.3rem/1.5 Georgia, serif; font-variant-numeric: tabular-nums; }
+.metric-np { border-color: #e8b297; background: #fff8f1; }
+.chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem; }
+figure.panel { margin: 0; padding: 1.4rem; min-width: 0; }
+figcaption h3 { font-size: 1.05rem; }
+figcaption p { min-height: 2.8em; }
+.homework-chart { grid-column: 1 / -1; }
+.homework-chart svg { min-width: 760px; }
+.chart { width: 100%; min-height: 120px; overflow-x: auto; }
+.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.chart text { fill: #475569; font-family: 'Avenir Next', 'Trebuchet MS', sans-serif; font-size: 12px; }
+.chart .bar-label { fill: #18384a; font-weight: bold; }
+.chart .bar { fill: #27658a; }
+.chart .quiz-bar { fill: #087f80; }
+.chart .recorded-bar { fill: #087f80; }
+.chart .np-bar { fill: #cb673e; }
+.chart .unrecorded-bar { fill: #cbd5e1; }
+.chart .grid-line { stroke: #dbe4ee; stroke-width: 1; }
+.chart-legend { display: flex; flex-wrap: wrap; gap: 1.1rem; color: var(--muted); font-size: .8rem; margin-top: .8rem; }
+.legend-item::before { content: ''; display: inline-block; height: .7rem; width: .7rem; border-radius: 3px; background: #087f80; margin-right: .4rem; }
+.legend-np::before { background: #cb673e; }
+.legend-unrecorded::before { background: #cbd5e1; }
+.roster-panel { margin-top: 1.5rem; }
+.roster-controls { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.roster-controls > div { flex: 1; max-width: 32rem; min-width: 12rem; }
+.check-label { display: flex; align-items: center; gap: .5rem; }
+.check-label input { width: auto; max-width: none; accent-color: var(--accent); }
+.table-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 14px; }
+.table-scroll table { min-width: 800px; }
+.table-scroll th, .table-scroll td { padding: .8rem; white-space: nowrap; width: auto; text-align: left; }
+.table-scroll th { background: #f0f5f9; }
+.table-scroll tbody tr:nth-child(even) { background: #f8fafc; }
+.table-scroll tbody tr:hover { background: #eef5fa; }
+.np-mark { color: #9a3412; font-weight: bold; }
+.empty-result { color: #64748b; }
+#dashboard { animation: staff-reveal .35s ease both; }
+@keyframes staff-reveal { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (max-width: 900px) {
+    .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .staff-hero { display: block; }
+    .staff-seal { display: inline-block; }
+}
+@media (max-width: 1000px) { .chart-grid { grid-template-columns: 1fr; } }
+@media (max-width: 720px) {
+    .filters, .chart-grid { grid-template-columns: 1fr; }
+    .metric-grid { gap: .6rem; }
+    .metric { padding: 1rem; }
+    .homework-chart { grid-column: auto; }
+    .roster-panel { padding: 1rem; }
+    .chart svg { min-width: 480px; }
+    .homework-chart svg { min-width: 760px; }
+}
+@media (prefers-reduced-motion: reduce) { #dashboard { animation: none; } }
+@media print { #dashboard { display: none !important; } }

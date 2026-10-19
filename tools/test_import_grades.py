@@ -27,25 +27,28 @@ class GradeImportTests(unittest.TestCase):
         workbook = openpyxl.Workbook()
         first = workbook.active
         first.title = "Group 1"
-        first.append(["学号", "姓名", "HW1", "Quiz1", "HW2", "Quiz2"])
+        first.append(["学号", "姓名", "HW1", "Quiz1", "HW2", "Quiz2", "HW4", "Quiz4"])
         first.append(["00100001", "Fictional One", "P", "=1+1" if formula else 0, None, None])
         second = workbook.create_sheet("Group 2")
-        second.append(["学号", "姓名", "HW1", "Quiz1", "HW2", "Quiz2"])
+        second.append(["学号", "姓名", "HW1", "Quiz1", "HW2", "Quiz2", "HW4", "Quiz4"])
         second.append(["00100001" if duplicate else "00100002", "Fictional Two", "P", 9, "P", 10])
         workbook.save(self.source)
         workbook.close()
 
-    def test_preserves_zero_blanks_letter_marks_and_ids_without_assumed_maxima(self):
+    def test_zero_is_preserved_completed_blanks_become_np_and_future_blanks_stay_unrecorded(self):
         self.workbook()
         before = hashlib.sha256(self.source.read_bytes()).digest()
         students, roster, report = module.parse_workbook(self.source)
         self.assertEqual([s["student_id"] for s in students], ["00100001", "00100002"])
         self.assertEqual(students[0]["grades"]["quiz"][0], {"label": "Quiz 1", "score": 0, "max_score": None})
-        self.assertIsNone(students[0]["grades"]["quiz"][1]["score"])
+        self.assertEqual(students[0]["grades"]["quiz"][1]["score"], "NP")
         self.assertEqual(students[0]["grades"]["homework"][0]["score"], "P")
-        self.assertIsNone(students[0]["grades"]["homework"][1]["score"])
+        self.assertEqual(students[0]["grades"]["homework"][1]["score"], "NP")
+        self.assertIsNone(students[0]["grades"]["quiz"][2]["score"])
+        self.assertIsNone(students[0]["grades"]["homework"][2]["score"])
         self.assertEqual(report["student_count"], 2)
-        self.assertEqual(len(report["blank_cells"]), 2)
+        self.assertEqual(len(report["blank_cells"]), 6)
+        self.assertEqual(report["np_results"], 2)
         self.assertEqual(roster[1]["group"], "Group 2")
         self.assertEqual(hashlib.sha256(self.source.read_bytes()).digest(), before)
 

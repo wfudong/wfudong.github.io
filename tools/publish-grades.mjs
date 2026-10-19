@@ -1,7 +1,7 @@
 import {chmod, lstat, mkdir, readFile, readdir, realpath, rename, unlink, writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {createCode, encryptRecord, parseCode, validateGradebook} from '../teaching-site/assets/grades-crypto.mjs';
+import {createCode, createStaffCode, encryptRecord, encryptStaffRecord, parseCode, parseStaffCode, validateGradebook} from '../teaching-site/assets/grades-crypto.mjs';
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const DEFAULT_PRIVATE = path.resolve(repo, '..', 'private-grades', 'calculus-1');
@@ -51,7 +51,7 @@ export async function initialize(directory = DEFAULT_PRIVATE) {
     await atomicWrite(file, `${JSON.stringify({students: []}, null, 2)}\n`, 0o600);
 }
 
-export async function publish({privateDir = DEFAULT_PRIVATE, outputDir = DEFAULT_OUTPUT, rotate} = {}) {
+export async function publish({privateDir = DEFAULT_PRIVATE, outputDir = DEFAULT_OUTPUT, rotate, rotateStaff = false} = {}) {
     await privateDirectory(privateDir);
     const book = await readPrivate(path.join(privateDir, 'gradebook.json'));
     validateGradebook(book);
@@ -84,13 +84,39 @@ export async function publish({privateDir = DEFAULT_PRIVATE, outputDir = DEFAULT
         records.push(await encryptRecord(student, access_code, updatedAt));
         distribution.push({student_id: student.student_id, access_code});
     }
+    const staffOutput = `${outputDir}-staff`;
+    const oldStaffFiles = await exists(staffOutput) ? (await readdir(staffOutput)).filter(f => /^[a-f0-9]{64}\.json$/.test(f)) : [];
+    const staffFile = path.join(privateDir, 'staff-access.json');
+    if (!(await exists(staffFile)) && oldStaffFiles.length) {
+        throw new Error('Staff code file missing. Restore its private backup before publishing.');
+    }
+    const staffAccess = await exists(staffFile) ? await readPrivate(staffFile) : {version: 1, master_code: createStaffCode()};
+    if (staffAccess.version !== 1) throw new Error('Invalid staff access file.');
+    parseStaffCode(staffAccess.master_code);
+    if (rotateStaff) staffAccess.master_code = createStaffCode();
+    const importedRoster = await exists(path.join(privateDir, 'import-roster.json')) ? await readPrivate(path.join(privateDir, 'import-roster.json')) : [];
+    if (!Array.isArray(importedRoster)) throw new Error('Invalid private group roster.');
+    const groupMap = new Map(importedRoster.map(entry => [entry.student_id, entry.group]));
+    const classStudents = book.students.filter(student => student.student_id !== 'DEMO_TEST_001');
+    const staffRecord = await encryptStaffRecord({
+        students: classStudents,
+        roster: classStudents.map(student => ({student_id: student.student_id, group: groupMap.get(student.student_id) ?? ''}))
+    }, staffAccess.master_code, updatedAt);
     // Validate and encrypt the complete gradebook before changing published output.
     await mkdir(outputDir, {recursive: true});
+    await mkdir(staffOutput, {recursive: true});
+    await atomicWrite(staffFile, `${JSON.stringify(staffAccess, null, 2)}\n`, 0o600);
+    await atomicWrite(path.join(privateDir, 'teacher-master-code.txt'),
+        `CONFIDENTIAL - Calculus I teacher/TA master code\n\n${staffAccess.master_code}\n\nhttps://wfudong.github.io/teaching-site/calculus-1-staff.html\n\nGrants access to ALL student grades. Share only with authorized teaching staff.\n`, 0o600);
     await atomicWrite(codesFile, `${JSON.stringify({version: 1, students: distribution}, null, 2)}\n`, 0o600);
     await atomicWrite(path.join(privateDir, 'access-codes.csv'),
         `student_id,access_code\n${distribution.map(s => `${s.student_id},${s.access_code}\n`).join('')}`, 0o600);
     for (const {id, envelope} of records) {
         await atomicWrite(path.join(outputDir, `${id}.json`), `${JSON.stringify(envelope)}\n`, 0o644);
+    }
+    await atomicWrite(path.join(staffOutput, `${staffRecord.id}.json`), `${JSON.stringify(staffRecord.envelope)}\n`, 0o644);
+    for (const file of oldStaffFiles) {
+        if (file !== `${staffRecord.id}.json`) await unlink(path.join(staffOutput, file));
     }
     const current = new Set(records.map(record => `${record.id}.json`));
     for (const file of oldFiles) {
@@ -105,12 +131,13 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
         if (command === 'init' && !flag) {
             await initialize();
             console.log('Created the private gradebook outside the website repository. See tools/GRADES.md for the format.');
-        } else if (command === 'publish' && (!flag || (flag === '--rotate' && student))) {
-            const count = await publish({rotate: student});
+        } else if (command === 'publish' && (!flag || (flag === '--rotate' && student) || (flag === '--rotate-staff' && !student))) {
+            const count = await publish({rotate: flag === '--rotate' ? student : undefined, rotateStaff: flag === '--rotate-staff'});
             console.log(`Prepared ${count} encrypted records. Private access codes are in ../private-grades/calculus-1/access-codes.csv.`);
             console.log('Review the website changes, then commit and push to publish updates.');
+            console.log('Teacher/TA master code is saved privately in ../private-grades/calculus-1/teacher-master-code.txt.');
         } else {
-            throw new Error('Usage: node tools/publish-grades.mjs init | publish [--rotate STUDENT_ID]');
+            throw new Error('Usage: node tools/publish-grades.mjs init | publish [--rotate STUDENT_ID | --rotate-staff]');
         }
     } catch (error) {
         // Do not print student input, grades, codes, or JSON parser excerpts.
