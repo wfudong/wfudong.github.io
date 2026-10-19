@@ -1,8 +1,8 @@
 # Calculus I Grade Publishing
 
 The student page is `teaching-site/calculus-1-grades.html` (add `?lang=zh` for Chinese).
-It shows quizzes, midterm, homework, and final exam scores. No real student data
-or access codes are included in this repository.
+It shows quizzes, midterm, homework, and final exam scores. Readable student data
+and access codes must stay outside this repository; only encrypted records are published.
 
 ## First Setup
 
@@ -43,12 +43,45 @@ official score or grading scheme:
 }
 ```
 
-All four category arrays are required. Use `null` for an unpublished score and
+All four category arrays are required. Use `null` for an unrecorded score and
 `[]` if no assessment has been added. `name` may be an empty string. IDs must be
 unique and contain only letters, digits, underscores, and hyphens, starting with
-a letter or digit. Scores must be nonnegative numbers; maximum scores must be
-positive numbers. Comments are **visible to the student**. No weighted total
+a letter or digit. Scores may be nonnegative numbers or short letter/status
+marks such as `P`, preserved without interpreting their meaning. Maximum scores
+must be positive numbers or `null` if unspecified; letter marks require `null`.
+Never assume that the highest observed score is the official maximum.
+Comments are **visible to the student**. No weighted total
 is inferred. Each student's record has a 16 KiB size limit.
+
+## Import an Excel Gradebook
+
+The local importer requires Python 3.9+ and `openpyxl`. It reads sheets with
+`学号` and `姓名` headers in row 1, plus `Quiz1`, `Quiz2`, `HW1`, `HW2`, etc.
+Every student ID must be stored as Excel text, preserving leading zeros.
+
+```sh
+python3 tools/import-grades.py import /path/to/grades.xlsx
+node tools/publish-grades.mjs publish
+python3 tools/import-grades.py codes
+```
+
+This prepares encrypted output locally; these commands do not upload it. The
+original workbook is not changed. `P` remains `P`, blanks remain unrecorded,
+and maximum scores are unspecified by default. Only if officially confirmed,
+pass `--quiz-max 10` (or the correct maximum) to the import command. Entirely
+blank assessment columns are retained as unrecorded results, not zero scores.
+
+Imports merge by student ID and assessment label. Existing midterm/final results,
+feedback, confirmed numeric maxima, and students not present in the workbook
+are preserved. Remove an old student explicitly from the private gradebook if
+needed. Private gradebook backups are created before each update.
+
+After encryption, `codes` produces the confidential
+`../private-grades/calculus-1/student-access-codes.xlsx`, with group, student ID,
+name, individual code, and the grade-page URL. It excludes the demo account.
+**Do not send the whole workbook to students.** Share only each student's own
+code. Private `import-roster.json` and `import-report.json` contain group mapping
+and coordinates of blank cells for local review; none belong in Git.
 
 ## Publish and Update
 
@@ -129,6 +162,7 @@ The design uses the browser's standard Web Crypto implementation. References:
 
 ```sh
 node --test tools/grades.test.mjs
+python3 -m unittest discover -s tools -p 'test_import_grades.py'
 python3 -m http.server 8765 --bind 127.0.0.1
 ```
 

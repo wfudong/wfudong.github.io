@@ -63,8 +63,12 @@ function validateStudent(student) {
         for (const grade of grades) {
             if (!grade || typeof grade !== 'object' ||
                 typeof grade.label !== 'string' || !grade.label.trim() || grade.label.length > 120 ||
-                !(grade.score === null || (typeof grade.score === 'number' && Number.isFinite(grade.score) && grade.score >= 0)) ||
-                typeof grade.max_score !== 'number' || !Number.isFinite(grade.max_score) || grade.max_score <= 0 ||
+                !(grade.score === null ||
+                    (typeof grade.score === 'number' && Number.isFinite(grade.score) && grade.score >= 0) ||
+                    (typeof grade.score === 'string' && grade.score.trim().length > 0 && grade.score.length <= 32)) ||
+                !(grade.max_score === null ||
+                    (typeof grade.max_score === 'number' && Number.isFinite(grade.max_score) && grade.max_score > 0)) ||
+                (typeof grade.score === 'string' && grade.max_score !== null) ||
                 (grade.comment !== undefined && (typeof grade.comment !== 'string' || grade.comment.length > 500)) ||
                 Object.keys(grade).some(k => !['label', 'score', 'max_score', 'comment'].includes(k))) {
                 throw new Error('Invalid grade entry.');

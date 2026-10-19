@@ -68,11 +68,24 @@ test('short passwords, invalid scores, duplicate IDs, and oversized records are 
     }
     assert.throws(() => validateGradebook({students: [student(), student()]}));
     const invalid = student();
-    invalid.grades.quiz[0].score = '8';
+    invalid.grades.quiz[0].score = -1;
     assert.throws(() => validateGradebook({students: [invalid]}));
     const huge = student();
     huge.grades.homework = Array.from({length: 100}, () => ({label: 'Long comment', score: 1, max_score: 1, comment: 'a'.repeat(500)}));
     await assert.rejects(encryptRecord(huge, createCode(), updated));
+});
+
+test('raw scores, letter marks, and missing results survive encryption without assumed maxima', async () => {
+    const source = student();
+    source.grades.quiz = [{label: 'Quiz 1', score: 9, max_score: null}, {label: 'Quiz 2', score: null, max_score: null}];
+    source.grades.homework = [{label: 'Homework 1', score: 'P', max_score: null}];
+    const code = createCode();
+    const {envelope} = await encryptRecord(source, code, updated);
+    assert.deepEqual((await decryptRecord(envelope, code)).student, source);
+    source.grades.homework[0].max_score = 100;
+    assert.throws(() => validateGradebook({students: [source]}));
+    source.grades.homework[0] = {label: 'Homework 1', score: ' ', max_score: null};
+    assert.throws(() => validateGradebook({students: [source]}));
 });
 
 test('publishing supports updates, per-student isolation, rotation, and removal', async () => {

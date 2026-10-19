@@ -3,4 +3,9 @@ private-grades/
 **/gradebook.json
 **/access-codes.json
 **/access-codes.csv
+**/student-access-codes.xlsx
+**/import-roster.json
+**/import-report.json
+**/gradebook-backup-*.json
+__pycache__/
 .DS_Store

@@ -1,4 +1,4 @@
-import {CATEGORIES, decryptRecord, parseCode, recordId} from './grades-crypto.mjs';
+import {CATEGORIES, decryptRecord, parseCode, recordId} from './grades-crypto.mjs?v=2';
 
 const messages = {
     en: {
@@ -6,7 +6,7 @@ const messages = {
         intro: 'View your quiz, midterm, homework, and final exam scores using the private access code from your instructor.',
         unlockHeading: 'Open your grade record', codeHelp: 'Paste the complete code beginning with C1-. Keep it private: anyone with your code can open your record.',
         codeLabel: 'Your private access code', unlock: 'View my grades', privateRecord: 'YOUR PRIVATE RECORD', lock: 'Lock and clear',
-        scoreNote: 'A dash means the score has not been published. Scores are shown as earned / possible; no weighted course total is calculated here.',
+        scoreNote: 'A dash means no result is recorded. Letter marks are shown as recorded. Maximum scores appear only when supplied; no weighted course total is calculated here.',
         privacyHeading: 'Keep your record private',
         privacy: 'Your code is used in this browser and is not submitted to a login server or saved by this page. The page clears your record when you switch tabs or after five minutes without activity. Use “Lock and clear” before leaving a shared computer.',
         help: 'Lost code or an incorrect score? Contact your instructor privately. Never post your code in a group chat.',
@@ -22,7 +22,7 @@ const messages = {
         intro: '使用教师单独发放的查询码，查看自己的测验、期中、作业与期末成绩。',
         unlockHeading: '打开个人成绩单', codeHelp: '请粘贴以 C1- 开头的完整查询码。请妥善保管：持有此码的人可以查看你的成绩。',
         codeLabel: '个人成绩查询码', unlock: '查看我的成绩', privateRecord: '个人成绩单', lock: '锁定并清除',
-        scoreNote: '横线表示成绩尚未发布。成绩以“得分 / 满分”显示，本页不计算加权总评。',
+        scoreNote: '横线表示暂无记录，字母成绩按原始记录显示。仅在已提供满分时显示分母，本页不计算加权总评。',
         privacyHeading: '保护你的个人成绩',
         privacy: '查询码仅在当前浏览器中使用，不会提交给登录服务器或由本页保存。切换标签页或五分钟无操作后，成绩会自动清除。离开公用电脑前，请点击“锁定并清除”。',
         help: '查询码遗失或成绩有疑问？请私下联系教师。请勿在群聊中发送查询码。',
@@ -90,7 +90,9 @@ function renderRecord() {
                 const row = element('tr');
                 const label = element('td', grade.label);
                 if (grade.comment) label.append(element('span', grade.comment, 'grade-comment'));
-                row.append(label, element('td', `${grade.score === null ? '\u2014' : grade.score} / ${grade.max_score}`));
+                const result = grade.score === null ? '\u2014' : String(grade.score);
+                const displayed = grade.max_score === null ? result : `${result} / ${grade.max_score}`;
+                row.append(label, element('td', displayed));
                 body.append(row);
             }
             table.append(head, body);
