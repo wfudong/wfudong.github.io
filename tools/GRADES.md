@@ -68,7 +68,9 @@ python3 tools/import-grades.py codes
 This prepares encrypted output locally; these commands do not upload it. The
 original workbook is not changed. `P` remains `P`. Empty HW1-3 and Quiz1-3 cells
 become `NP` (not presented), never numeric zero. Actual zero scores remain zero.
-Empty HW4/Quiz4 and other future assessments remain unrecorded,
+For HW4/Quiz4 and later assessments, a recorded result in any group marks that
+assessment as started: other blank cells for that assessment become `NP`.
+An entirely blank later assessment remains unrecorded,
 and maximum scores are unspecified by default. Only if officially confirmed,
 pass `--quiz-max 10` (or the correct maximum) to the import command. Entirely
 blank future assessment columns are retained as unrecorded results, not zero scores.

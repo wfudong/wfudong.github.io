@@ -60,6 +60,28 @@ class GradeImportTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             module.parse_workbook(self.source, quiz_max=-1)
 
+    def test_later_quiz_zero_marks_assessment_started_across_groups(self):
+        self.workbook()
+        workbook = openpyxl.load_workbook(self.source)
+        workbook["Group 2"]["H2"] = 0
+        workbook.save(self.source)
+        workbook.close()
+        students, _, _ = module.parse_workbook(self.source)
+        self.assertEqual(students[0]["grades"]["quiz"][2]["score"], "NP")
+        self.assertEqual(students[1]["grades"]["quiz"][2]["score"], 0)
+        self.assertIsNone(students[0]["grades"]["homework"][2]["score"])
+
+    def test_later_homework_mark_makes_other_group_blank_np(self):
+        self.workbook()
+        workbook = openpyxl.load_workbook(self.source)
+        workbook["Group 1"]["G2"] = "P"
+        workbook.save(self.source)
+        workbook.close()
+        students, _, _ = module.parse_workbook(self.source)
+        self.assertEqual(students[0]["grades"]["homework"][2]["score"], "P")
+        self.assertEqual(students[1]["grades"]["homework"][2]["score"], "NP")
+        self.assertIsNone(students[1]["grades"]["quiz"][2]["score"])
+
     def test_duplicate_ids_and_formulas_are_refused_before_writing(self):
         for invalid in ("duplicate", "formula"):
             self.workbook(duplicate=invalid == "duplicate", formula=invalid == "formula")
